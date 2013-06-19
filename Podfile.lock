@@ -1,0 +1,31 @@
+PODS:
+  - AFNetworking (1.3.0)
+  - DTCoreText (1.5.3):
+    - DTFoundation/Core (~> 1.4.3)
+    - DTFoundation/DTHMLParser (~> 1.4.3)
+    - DTFoundation/UIKit (~> 1.4.3)
+  - DTFoundation/Core (1.4.3)
+  - DTFoundation/DTHMLParser (1.4.3):
+    - DTFoundation/Core
+  - DTFoundation/UIKit (1.4.3):
+    - DTFoundation/Core
+  - ECSlidingViewController (0.10.0)
+  - MDCParallaxView (0.1.4)
+  - sundown (0.1.0)
+
+DEPENDENCIES:
+  - AFNetworking (~> 1.3.0)
+  - DTCoreText (~> 1.5.2)
+  - ECSlidingViewController (~> 0.10.0)
+  - MDCParallaxView (~> 0.1.4)
+  - sundown (~> 0.1.0)
+
+SPEC CHECKSUMS:
+  AFNetworking: e528f20d06b1b818c3571266fb5efa20031a8ace
+  DTCoreText: 5fd652092630ef9254c538d870c115ee548bfe18
+  DTFoundation: d7ca9c9092c5db130c5aeb8977e72dc5db8870fa
+  ECSlidingViewController: fc9a9a6564d4a64c0d8c7cf5583d2b9a469ecd04
+  MDCParallaxView: a1aea11598439a6c20864e7bec23aa595464475b
+  sundown: f0b86bd08ee36f84e9e6a6332d3cbd0309889dfa
+
+COCOAPODS: 0.20.2
