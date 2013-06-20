@@ -2,7 +2,7 @@
 //  Lesson.m
 //  EPNet
 //
-//  Created by Benjamin SENECHAL on 18/06/13.
+//  Created by Benjamin SENECHAL on 20/06/13.
 //  Copyright (c) 2013 Benjamin SENECHAL. All rights reserved.
 //
 

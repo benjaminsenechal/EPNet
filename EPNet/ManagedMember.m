@@ -17,11 +17,11 @@
     NSNumber *v = [dicoNew valueForKey:@"id"];
     newMember.idMember = v;
     
-    UIImage *avatar = [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@",[[dicoNew valueForKey:@"avatar"] valueForKey:@"url"] ]]]];
+    UIImage *avatar = [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://epnet.fr/%@",[[dicoNew valueForKey:@"avatar"] valueForKey:@"url"] ]]]];
     NSData *imageData = UIImagePNGRepresentation(avatar);
     [newMember.avatar setValue:imageData forKey:@"avatar"];
     
-    UIImage *avatarThumb = [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@",[[[dicoNew valueForKey:@"avatar"] valueForKey:@"thumb"] valueForKey:@"url"]]]]];
+    UIImage *avatarThumb = [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://epnet.fr/%@",[[[dicoNew valueForKey:@"avatar"] valueForKey:@"thumb"] valueForKey:@"url"]]]]];
     NSData *tmpAvatarThumb  = UIImageJPEGRepresentation(avatarThumb , 1.0);
     newMember.avatarThumb = tmpAvatarThumb;
     
@@ -81,7 +81,7 @@
         }
     }
     
-    return  myMember;
+    return myMember;
 
 }
 
@@ -93,7 +93,6 @@
 
     [self deleteAllMember:managedObjectContext andArray:members];
     [self addMember:managedObjectContext andArray:members];
-
 }
 
 +(void)deleteAllMember:(NSManagedObjectContext *)managedObjectContext andArray:(NSArray *)members
@@ -130,17 +129,12 @@
                                    inManagedObjectContext:managedObjectContext];
            NSNumber *v = [dicoNew objectForKey:@"id"];
             newMember.idMember = v;
-            
-          /*  UIImage *avatar = [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@",[[dicoNew valueForKey:@"avatar"] valueForKey:@"url"] ]]]];
-            NSData *tmpAvatar = UIImageJPEGRepresentation(avatar, 1.0);
-            newMember.avatar = tmpAvatar;          
-            NSLog(@"%@", [[dicoNew valueForKey:@"avatar"] valueForKey:@"url"]);
-            */
-            UIImage *avatar = [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@",[[dicoNew objectForKey:@"avatar"] objectForKey:@"url"] ]]]];
+
+            UIImage *avatar = [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://epnet.fr/%@",[[dicoNew objectForKey:@"avatar"] objectForKey:@"url"] ]]]];
             NSData *imageData = UIImagePNGRepresentation(avatar);
             [newMember.avatar setValue:imageData forKey:@"avatar"];
             
-            UIImage *avatarThumb = [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@",[[[dicoNew objectForKey:@"avatar"] objectForKey:@"thumb"] objectForKey:@"url"]]]]];
+            UIImage *avatarThumb = [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://epnet.fr/%@",[[[dicoNew objectForKey:@"avatar"] objectForKey:@"thumb"] objectForKey:@"url"]]]]];
             NSData *tmpAvatarThumb  = UIImageJPEGRepresentation(avatarThumb , 1.0);
             newMember.avatarThumb = tmpAvatarThumb;
             

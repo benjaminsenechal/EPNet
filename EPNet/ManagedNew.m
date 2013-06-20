@@ -15,8 +15,8 @@
     AppDelegate *appDelegate = (AppDelegate *)[[UIApplication sharedApplication]delegate];
     NSManagedObjectContext *managedObjectContext = [appDelegate managedObjectContext];
     NSArray *news;
-    [self deleteAllNews:managedObjectContext andArray:news];
-    [self addNew:managedObjectContext andArray:news];
+   [self deleteAllNews:managedObjectContext andArray:news];
+   [self addNew:managedObjectContext andArray:news];
     NSLog(@"ManagedNew");
 }
 
@@ -58,15 +58,15 @@
             newNew.title = [dicoNew valueForKey:@"title"];
             newNew.updated_at = [dicoNew valueForKey:@"updated_at"];
            
-            UIImage *image = [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@",[[dicoNew valueForKey:@"image"]valueForKey:@"url"]]]]];
+            UIImage *image = [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://epnet.fr/%@",[[dicoNew valueForKey:@"image"]valueForKey:@"url"]]]]];
             NSData *tmpImage  = UIImageJPEGRepresentation(image , 1.0);
             newNew.image = tmpImage;
-            
-            UIImage *imageThumb = [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@",[[[dicoNew valueForKey:@"image"]valueForKey:@"thumb"] valueForKey:@"url"]]]]];
+
+            UIImage *imageThumb = [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://epnet.fr/%@",[[[dicoNew valueForKey:@"image"]valueForKey:@"thumb"] valueForKey:@"url"]]]]];
             NSData *tmpImageThumb  = UIImageJPEGRepresentation(imageThumb , 1.0);
             newNew.imageThumb = tmpImageThumb;
             
-            UIImage *imageThumbRect = [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@",[[[dicoNew valueForKey:@"image"]valueForKey:@"thumb_rect"] valueForKey:@"url"]]]]];
+            UIImage *imageThumbRect = [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://epnet.fr/%@",[[[dicoNew valueForKey:@"image"]valueForKey:@"thumb_rect"] valueForKey:@"url"]]]]];
             NSData *tmpImageThumbRect = UIImageJPEGRepresentation(imageThumbRect , 1.0);
             newNew.imageThumbRect = tmpImageThumbRect;
             

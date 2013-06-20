@@ -8,6 +8,10 @@
 
 #import "AppDelegate.h"
 #import "ManagedMember.h"
+#import "ManagedLesson.h"
+#import "ManagedNew.h"
+#import "ManagedProject.h"
+
 @implementation AppDelegate
 
 @synthesize managedObjectContext = _managedObjectContext;
@@ -16,6 +20,13 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
+    [[UINavigationBar appearance] setTintColor:[UIColor colorWithRed:241.0/255.0 green:241.0/255.0 blue:241.0/255.0 alpha:1.00]];
+  /*[ManagedMember loadDataFromWebService];
+    [ManagedThematic loadDataFromWebService];
+    [ManagedLesson loadDataFromWebService];
+    [ManagedNew loadDataFromWebService];
+    ManagedProject loadDataFromWebService];*/
+
     // Override point for customization after application launch.
    // UINavigationController *navigationController = (UINavigationController *)self.window.rootViewController;
 

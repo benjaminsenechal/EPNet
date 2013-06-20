@@ -24,7 +24,7 @@
     
     NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
     NSEntityDescription *entity = [NSEntityDescription
-                                   entityForName:@"Project" inManagedObjectContext:managedObjectContext];
+                                   entityForName:@"Thematic" inManagedObjectContext:managedObjectContext];
     [fetchRequest setEntity:entity];
     
     NSError *error;
@@ -41,27 +41,27 @@
     
     NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
     NSEntityDescription *entity = [NSEntityDescription
-                                   entityForName:@"Project" inManagedObjectContext:managedObjectContext];
+                                   entityForName:@"Thematic" inManagedObjectContext:managedObjectContext];
     [fetchRequest setEntity:entity];
     
     NSError *error;
     
     less = [managedObjectContext executeFetchRequest:fetchRequest error:&error];
     for (int i = 0; i < [less count]; i++) {
-        Project *n =  [less objectAtIndex:i];
-        NSSet *nn = n.member;
+        Thematic *n =  [less objectAtIndex:i];
+        NSSet *nn = n.lesson;
         NSArray *test  = [nn allObjects];
         for (int i =0; i< [test count]; i++){
-            NSLog(@"proj:%@ - member:%@", n.title ,[[test valueForKey:@"lastname"]objectAtIndex:i] );
+            NSLog(@"them:%@ - lessons:%@", n.title ,[[test valueForKey:@"title"]objectAtIndex:i] );
         }
     }
 
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(requestWSFinishedReloadTB) name:@"finishLoadFromWS" object:nil];
-  //  [ManagedMember loadDataFromWebService];
-  //  [ManagedLesson loadDataFromWebService];
-  //  [ManagedThematic loadDataFromWebService];
+    [ManagedMember loadDataFromWebService];
+   // [ManagedLesson loadDataFromWebService];
+    [ManagedThematic loadDataFromWebService];
   //  [ManagedNew loadDataFromWebService];
-  [ManagedProject loadDataFromWebService];
+ // [ManagedProject loadDataFromWebService];
 
 }
 - (void)didReceiveMemoryWarning

@@ -2,7 +2,7 @@
 //  Lesson.h
 //  EPNet
 //
-//  Created by Benjamin SENECHAL on 18/06/13.
+//  Created by Benjamin SENECHAL on 20/06/13.
 //  Copyright (c) 2013 Benjamin SENECHAL. All rights reserved.
 //
 
@@ -13,7 +13,7 @@
 
 @interface Lesson : NSManagedObject
 
-@property (nonatomic, retain) NSString * content;
+@property (nonatomic, retain) NSData * content;
 @property (nonatomic, retain) NSString * created_at;
 @property (nonatomic, retain) NSNumber * idLesson;
 @property (nonatomic, retain) NSData * image;

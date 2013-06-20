@@ -55,11 +55,19 @@
             newThematic.title = [dicoThematic objectForKey:@"title"];
             newThematic.updated_at = [dicoThematic objectForKey:@"updated_at"];
             newThematic.created_at = [dicoThematic objectForKey:@"created_at"];
-
+            /*
             for (int y=0; y < [[dicoThematic objectForKey:@"lessons"]count ]; y++ ){
               Lesson *l = [ManagedLesson returnLessonModelFromDictionary:[[dicoThematic objectForKey:@"lessons"] objectAtIndex:y ]withContext:managedObjectContext];
               newThematic.lesson = l;
+            }*/
+            NSSet *m = newThematic.lesson;
+            NSMutableSet *lessonsArray = [[NSMutableSet alloc] initWithCapacity:m.count];
+            
+            for (int y=0; y < [[dicoThematic valueForKey:@"lessons"]count ]; y++ ){
+                Lesson *lessonByThem=[ManagedLesson returnLessonModelFromDictionary:[[dicoThematic objectForKey:@"lessons"] objectAtIndex:y ]withContext:managedObjectContext];
+                [lessonsArray addObject:lessonByThem];
             }
+            newThematic.lesson = lessonsArray;
         }
         
         NSError *error;
@@ -111,9 +119,11 @@
     newThematic.title = [dico valueForKey:@"title"];
     newThematic.updated_at = [dico valueForKey:@"updated_at"];
     newThematic.created_at = [dico valueForKey:@"created_at"];
+    NSSet *m = newThematic.lesson;
+    NSMutableSet *lessonsArray = [[NSMutableSet alloc] initWithCapacity:m.count];
     Lesson *l = [ManagedLesson returnLessonModelFromDictionary:[dico valueForKey:@"lessons"] withContext:managedObjectContext];
-    newThematic.lesson = l;
-    
+    [lessonsArray addObject:l];
+    newThematic.lesson = lessonsArray;
     return newThematic;
 }
 
