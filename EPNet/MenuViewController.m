@@ -19,7 +19,7 @@
 
 - (void)awakeFromNib
 {
-    self.menuItems = [NSArray arrayWithObjects:@"",@"Acceuil",@"Bibliothèque",@"Equipe",@"Contact", nil];
+    self.menuItems = [NSArray arrayWithObjects:@"",@"Acceuil",@"Bibliothèque",@"Equipe",@"Projets", nil];
 }
 
 - (void)viewDidLoad
@@ -28,7 +28,7 @@
 	// Do any additional setup after loading the view.
     [self.slidingViewController setAnchorRightRevealAmount:250.0f];
     self.slidingViewController.underLeftWidthLayout = ECFullWidth;
-    
+
 }
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)sectionIndex{
@@ -44,6 +44,10 @@
     cell.textLabel.text = [self.menuItems objectAtIndex:indexPath.row];
     cell.textLabel.font = [UIFont fontWithName:@"Helvetica" size:17.0];
     cell.textLabel.textColor = [UIColor whiteColor];
+    UIView *bgColorView = [[UIView alloc] init];
+    [bgColorView setBackgroundColor:[UIColor colorWithRed:0.0/255.0 green:174.0/255.0 blue:239.0/255.0 alpha:1]];
+    [cell setSelectedBackgroundView:bgColorView];
+    
     return cell;
 }
 

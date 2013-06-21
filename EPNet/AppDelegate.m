@@ -21,11 +21,13 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     [[UINavigationBar appearance] setTintColor:[UIColor colorWithRed:241.0/255.0 green:241.0/255.0 blue:241.0/255.0 alpha:1.00]];
-  /*[ManagedMember loadDataFromWebService];
+/*
+    [ManagedMember loadDataFromWebService];
     [ManagedThematic loadDataFromWebService];
     [ManagedLesson loadDataFromWebService];
-    [ManagedNew loadDataFromWebService];
-    ManagedProject loadDataFromWebService];*/
+    [ManagedProject loadDataFromWebService];
+    [ManagedNew loadDataFromWebService];*/
+
 
     // Override point for customization after application launch.
    // UINavigationController *navigationController = (UINavigationController *)self.window.rootViewController;
@@ -41,7 +43,8 @@
 
 - (void)applicationDidEnterBackground:(UIApplication *)application
 {
-    // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later. 
+
+    // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later.
     // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
 }
 

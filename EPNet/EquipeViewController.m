@@ -1,26 +1,27 @@
 //
-//  AcceuilViewController.m
+//  EquipeViewController.m
 //  EPNet
 //
 //  Created by Benjamin SENECHAL on 20/06/13.
 //  Copyright (c) 2013 Benjamin SENECHAL. All rights reserved.
 //
 
-#import "AcceuilViewController.h"
+#import "EquipeViewController.h"
 
-@interface AcceuilViewController ()
+@interface EquipeViewController ()
 
 @end
 
-@implementation AcceuilViewController
-@synthesize aProposButton;
+@implementation EquipeViewController
 @synthesize menuButton;
-@synthesize dicoNews;
-@synthesize tableViewNews;
-@synthesize newsSelected;
+@synthesize aProposButton;
+@synthesize dicoMember;
+@synthesize tableViewMember;
+
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
+    
     [[UINavigationBar appearance] setTitleTextAttributes: @{
                                 UITextAttributeTextColor: [UIColor darkGrayColor],
                           UITextAttributeTextShadowColor: [UIColor whiteColor],
@@ -60,7 +61,6 @@
     self.navigationItem.rightBarButtonItem = [aProposButton initWithCustomView:myBtnRight];
     self.navigationController.navigationBar.shadowImage = [[UIImage alloc]init];
     
-    
 }
 -(void)requestWSFinishedReloadTB
 {
@@ -73,18 +73,18 @@
     
     NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
     NSEntityDescription *entity = [NSEntityDescription
-                                   entityForName:@"New" inManagedObjectContext:managedObjectContext];
+                                   entityForName:@"Member" inManagedObjectContext:managedObjectContext];
     [fetchRequest setEntity:entity];
-    
+
     NSError *error;
-    dicoNews = [managedObjectContext executeFetchRequest:fetchRequest error:&error];
-    [tableViewNews reloadData];
+    dicoMember = [managedObjectContext executeFetchRequest:fetchRequest error:&error];
+
+   [tableViewMember reloadData];
     
 }
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-
 
     // Data manage
     AppDelegate *appDelegate = (AppDelegate *)[[UIApplication sharedApplication]delegate];
@@ -92,35 +92,20 @@
     
     NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
     NSEntityDescription *entity = [NSEntityDescription
-                                   entityForName:@"New" inManagedObjectContext:managedObjectContext];
+                                   entityForName:@"Member" inManagedObjectContext:managedObjectContext];
     [fetchRequest setEntity:entity];
     
     NSError *error;
     
-    dicoNews = [managedObjectContext executeFetchRequest:fetchRequest error:&error];
-    for (int i = 0; i < [dicoNews count]; i++) {
-       // New *ne =  [dicoNews objectAtIndex:i];
-       // NSLog(@"member : %@", ne.member.avatarThumb);
+    dicoMember = [managedObjectContext executeFetchRequest:fetchRequest error:&error];
+    for (int i = 0; i < [dicoMember count]; i++) {
+         Member *ne =  [dicoMember objectAtIndex:i];
+        NSLog(@"member : %@", ne.idMember);
     }
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(requestWSFinishedReloadTB) name:@"finishLoadFromWS" object:nil];
 
-}
-
--(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    newsSelected = [dicoNews objectAtIndex:indexPath.row];
-    [self performSegueWithIdentifier:@"newsSegue" sender:self];
     
 }
-
--(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
-{
-    if([segue.identifier isEqualToString:@"newsSegue"]){
-        NewViewController *nextVC = segue.destinationViewController;
-        nextVC.currentDicoNew = newsSelected;
-    }
-}
-
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
     return 1;
@@ -128,23 +113,44 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return [dicoNews count];
+    return [dicoMember count];
 }
 
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    CustomNewsViewCell *tmpCell = [[CustomNewsViewCell alloc] init];
-    tmpCell = [tableView dequeueReusableCellWithIdentifier:@"myCell"];
-    New *n = [dicoNews objectAtIndex:indexPath.row];
-    NSString *tmpString = n.title;
-    [tmpCell.titleNews setText:[NSString stringWithFormat:@"%@",tmpString]];
-    tmpCell.titleNews.backgroundColor = [UIColor colorWithRed:251.0/255.0 green:251.0/255.0 blue:251.0/255.0 alpha:0.9];
-  //  [tmpCell.titleNews setText:n.title];
-  //  [tmpCell.dateNews setText:n.created_at];
-    [tmpCell.newsImage setImage:[UIImage imageWithData:n.imageThumbRect]];
-
-    return tmpCell;
+    CustomEquipeCell *Cell = [[CustomEquipeCell alloc] init];
+    Cell = [tableView dequeueReusableCellWithIdentifier:@"myCell"];
+    Member *n = [dicoMember objectAtIndex:indexPath.row];
+    [Cell.imageMember setImage:[UIImage imageWithData:n.avatarThumb]];
+    Cell.imageMember.layer.cornerRadius = 35;
+    Cell.imageMember.layer.masksToBounds = YES;
+    NSString *string = [NSString stringWithFormat:@"%@ %@", n.firstname, n.lastname];
+    [Cell.labelFirst setText:string];
+    
+    [Cell.labelRole setText:n.role];
+    Cell.label.font = [UIFont systemFontOfSize:14];
+    Cell.label.numberOfLines = 0;
+    if ([[[dicoMember valueForKey:@"desc"]objectAtIndex:indexPath.row]isEqual:@"null"]){
+        Cell.label.text = @"";
+    }else{
+        Cell.label.text = [[dicoMember valueForKey:@"desc"]objectAtIndex:indexPath.row];
+    }
+    [Cell.label setFont:[UIFont fontWithName:@"HelveticaNeue-Light" size:14.0f]];
+    CGSize size = [n.desc
+                   sizeWithFont:[UIFont systemFontOfSize:14]
+                   constrainedToSize:CGSizeMake(300, CGFLOAT_MAX)];
+    CGRect newFrame = Cell.label.frame;
+    newFrame.size.height = size.height;
+    Cell.label.frame = newFrame;
+    
+    return Cell;
+}
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    CGSize size = [[[dicoMember valueForKey:@"desc" ] objectAtIndex:indexPath.row]
+                   sizeWithFont:[UIFont systemFontOfSize:14]
+                   constrainedToSize:CGSizeMake(300, CGFLOAT_MAX)];
+    return size.height + 150;
 }
 
 - (void)didReceiveMemoryWarning
@@ -159,4 +165,5 @@
 - (IBAction)aProposAction:(id)sender {
     [self.slidingViewController anchorTopViewTo:ECLeft];
 }
+
 @end

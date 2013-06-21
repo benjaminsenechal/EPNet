@@ -29,5 +29,7 @@
 @property(strong, nonatomic)Lesson *currentDicoLesson;
 @property(strong, nonatomic) IBOutlet  DTAttributedTextView *textView;
 @property (strong, nonatomic) IBOutlet UIButton *backButton;
+- (IBAction)backAction:(id)sender;
+@property (strong, nonatomic) UIWindow *window;
 
 @end

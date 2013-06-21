@@ -51,7 +51,7 @@
     
     textViewTitle = [[UITextView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 80)];
     textViewTitle.text = currentDicoNew.title;
-    [textViewTitle setFont:[UIFont fontWithName:@"Helvetica" size:24]];
+    [textViewTitle setFont:[UIFont fontWithName:@"HelveticaNeue-Light" size:24]];
     [textViewTitle setTextColor:[UIColor colorWithRed:192.0/255.0 green:192.0/255.0 blue:192.0/255.0 alpha:1]];
     textViewTitle.editable = NO;
     CGSize maxImageSize = CGSizeMake(self.view.bounds.size.width - 20.0, self.view.bounds.size.height);

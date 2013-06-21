@@ -61,10 +61,10 @@
                 newLesson.updated_at = [dico valueForKey:@"updated_at"];
                 newLesson.created_at = [dico valueForKey:@"created_at"];
                 
-                UIImage *image = [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://epnet.fr/%@",[[dico valueForKey:@"image"]valueForKey:@"url"]]]]];
+              /*  UIImage *image = [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://epnet.fr/%@",[[dico valueForKey:@"image"]valueForKey:@"url"]]]]];
                 NSData *tmpImage  = UIImageJPEGRepresentation(image , 1.0);
                 newLesson.image = tmpImage;
-                
+                */
                 UIImage *imageThumb = [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://epnet.fr/%@",[[[dico valueForKey:@"image"]valueForKey:@"thumb"] valueForKey:@"url"]]]]];
                 NSData *tmpImageThumb  = UIImageJPEGRepresentation(imageThumb , 1.0);
                 newLesson.imageThumb = tmpImageThumb;

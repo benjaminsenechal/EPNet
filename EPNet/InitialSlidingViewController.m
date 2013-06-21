@@ -13,14 +13,18 @@
 @end
 
 @implementation InitialSlidingViewController
-
+@synthesize vc;
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+
     UIStoryboard *storyboard;
     storyboard = [UIStoryboard storyboardWithName:@"MainStoryboard" bundle:nil];
-    
-    self.topViewController = [storyboard instantiateViewControllerWithIdentifier:@"Acceuil"];}
+    if (vc == NULL){
+        vc = @"Acceuil";
+    }
+    self.topViewController = [storyboard instantiateViewControllerWithIdentifier:vc];
+}
 
 - (void)didReceiveMemoryWarning
 {

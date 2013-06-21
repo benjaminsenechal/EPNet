@@ -10,4 +10,6 @@
 
 @interface InitialSlidingViewController : ECSlidingViewController
 @property (strong, nonatomic) UIWindow *window;
+@property (strong, nonatomic) NSString *vc;
+
 @end

@@ -58,9 +58,9 @@
             newNew.title = [dicoNew valueForKey:@"title"];
             newNew.updated_at = [dicoNew valueForKey:@"updated_at"];
            
-            UIImage *image = [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://epnet.fr/%@",[[dicoNew valueForKey:@"image"]valueForKey:@"url"]]]]];
-            NSData *tmpImage  = UIImageJPEGRepresentation(image , 1.0);
-            newNew.image = tmpImage;
+         //   UIImage *image = [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://epnet.fr/%@",[[dicoNew valueForKey:@"image"]valueForKey:@"url"]]]]];
+         //   NSData *tmpImage  = UIImageJPEGRepresentation(image , 1.0);
+         //   newNew.image = tmpImage;
 
             UIImage *imageThumb = [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://epnet.fr/%@",[[[dicoNew valueForKey:@"image"]valueForKey:@"thumb"] valueForKey:@"url"]]]]];
             NSData *tmpImageThumb  = UIImageJPEGRepresentation(imageThumb , 1.0);
@@ -70,7 +70,7 @@
             NSData *tmpImageThumbRect = UIImageJPEGRepresentation(imageThumbRect , 1.0);
             newNew.imageThumbRect = tmpImageThumbRect;
             
-           Member *memberByNew = [ManagedMember returnMemberModelFromDictionary:[dicoNew valueForKey:@"member"] withContext:managedObjectContext];
+           Member *memberByNew = [ManagedMember returnMemberModelWithId:[dicoNew valueForKey:@"member_id"] withContext:managedObjectContext];
            newNew.member = memberByNew;
 
         }

@@ -51,7 +51,7 @@
                                DTMaxImageSize : [NSValue valueWithCGSize:maxImageSize],
                                };
     NSAttributedString *attrString = [[NSAttributedString alloc] initWithHTMLData:currentDicoLesson.content options:options documentAttributes:nil];
-    NSLog(@"%@",attrString);
+   // NSLog(@"%@",attrString);
     textView.attributedString = attrString;
 	textView.shouldDrawImages = YES;
 	textView.shouldDrawLinks = YES;
@@ -141,10 +141,21 @@
 	}
 }
 
+-(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+{
+    if([segue.identifier isEqualToString:@"biblio"]){
+        InitialSlidingViewController *nextVC = segue.destinationViewController;
+        nextVC.vc = @"Bibliothèque";
+    }
+}
+
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
 
+- (IBAction)backAction:(id)sender {
+    [self performSegueWithIdentifier:@"biblio" sender:self];
+}
 @end

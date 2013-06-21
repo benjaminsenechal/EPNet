@@ -25,6 +25,11 @@ Thematic *n;
     [super viewDidLoad];
     self.view.layer.shadowOpacity = 0.75f;
     self.view.layer.shadowRadius = 10.0f;
+    [[UINavigationBar appearance] setTitleTextAttributes: @{
+                                UITextAttributeTextColor: [UIColor darkGrayColor],
+                          UITextAttributeTextShadowColor: [UIColor whiteColor],
+                                     UITextAttributeFont: [UIFont fontWithName:@"HelveticaNeue-Light" size:20.0f]
+     }];
     
     if (![self.slidingViewController.underLeftViewController isKindOfClass:[MenuViewController class]]) {
         self.slidingViewController.underLeftViewController  = [self.storyboard instantiateViewControllerWithIdentifier:@"Menu"];
@@ -79,9 +84,7 @@ Thematic *n;
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    
-    NSDictionary *textTitleOptions = [NSDictionary dictionaryWithObjectsAndKeys:[UIColor darkGrayColor], UITextAttributeTextColor, [UIColor whiteColor], UITextAttributeTextShadowColor, nil];
-    [[UINavigationBar appearance] setTitleTextAttributes:textTitleOptions];
+
     // Data manage
     AppDelegate *appDelegate = (AppDelegate *)[[UIApplication sharedApplication]delegate];
     NSManagedObjectContext *managedObjectContext = [appDelegate managedObjectContext];
@@ -157,7 +160,7 @@ Thematic *n;
         NSArray *test  = [nn allObjects];
         tmpString = [[test valueForKey:@"title"]objectAtIndex:indexPath.row];
         [Cell.labelName setText:[NSString stringWithFormat:@"%@",tmpString]];
-        [Cell.imageLessons setImage:[UIImage imageWithData:[[test valueForKey:@"imageThumb"]objectAtIndex:indexPath.row]]];
+        [Cell.imageLessons setImage:[UIImage imageWithData:[[test valueForKey:@"imageThumbRect"]objectAtIndex:indexPath.row]]];
     }
     Cell.labelName.backgroundColor = [UIColor colorWithRed:251.0/255.0 green:251.0/255.0 blue:251.0/255.0 alpha:0.9];
     
@@ -171,6 +174,7 @@ Thematic *n;
     UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 320, 30)];
     
     UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 320, 30)];
+    [label setFont:[UIFont fontWithName:@"HelveticaNeue-Light" size:17.0f]];
     label.backgroundColor = [UIColor colorWithRed:251.0/255.0 green:251.0/255.0 blue:251.0/255.0 alpha:1];
     label.text = sectionTitle;
     [view addSubview:label];

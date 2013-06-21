@@ -1,26 +1,25 @@
 //
-//  AcceuilViewController.m
+//  ProjectViewController.m
 //  EPNet
 //
-//  Created by Benjamin SENECHAL on 20/06/13.
+//  Created by Benjamin SENECHAL on 21/06/13.
 //  Copyright (c) 2013 Benjamin SENECHAL. All rights reserved.
 //
 
-#import "AcceuilViewController.h"
+#import "ProjectViewController.h"
 
-@interface AcceuilViewController ()
+@interface ProjectViewController ()
 
 @end
-
-@implementation AcceuilViewController
-@synthesize aProposButton;
+@implementation ProjectViewController
 @synthesize menuButton;
-@synthesize dicoNews;
-@synthesize tableViewNews;
-@synthesize newsSelected;
+@synthesize aProposButton;
+@synthesize tableViewProjets;
+@synthesize dicoProjets;
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
+    
     [[UINavigationBar appearance] setTitleTextAttributes: @{
                                 UITextAttributeTextColor: [UIColor darkGrayColor],
                           UITextAttributeTextShadowColor: [UIColor whiteColor],
@@ -59,9 +58,9 @@
          forControlEvents:UIControlEventTouchUpInside];
     self.navigationItem.rightBarButtonItem = [aProposButton initWithCustomView:myBtnRight];
     self.navigationController.navigationBar.shadowImage = [[UIImage alloc]init];
-    
-    
+
 }
+
 -(void)requestWSFinishedReloadTB
 {
     NSLog(@"Reload");
@@ -73,54 +72,34 @@
     
     NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
     NSEntityDescription *entity = [NSEntityDescription
-                                   entityForName:@"New" inManagedObjectContext:managedObjectContext];
+                                   entityForName:@"Project" inManagedObjectContext:managedObjectContext];
     [fetchRequest setEntity:entity];
     
     NSError *error;
-    dicoNews = [managedObjectContext executeFetchRequest:fetchRequest error:&error];
-    [tableViewNews reloadData];
+    dicoProjets = [managedObjectContext executeFetchRequest:fetchRequest error:&error];
+    
+    [tableViewProjets reloadData];
     
 }
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-
-
     // Data manage
     AppDelegate *appDelegate = (AppDelegate *)[[UIApplication sharedApplication]delegate];
     NSManagedObjectContext *managedObjectContext = [appDelegate managedObjectContext];
     
     NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
     NSEntityDescription *entity = [NSEntityDescription
-                                   entityForName:@"New" inManagedObjectContext:managedObjectContext];
+                                   entityForName:@"Project" inManagedObjectContext:managedObjectContext];
     [fetchRequest setEntity:entity];
     
     NSError *error;
     
-    dicoNews = [managedObjectContext executeFetchRequest:fetchRequest error:&error];
-    for (int i = 0; i < [dicoNews count]; i++) {
-       // New *ne =  [dicoNews objectAtIndex:i];
-       // NSLog(@"member : %@", ne.member.avatarThumb);
-    }
+    dicoProjets = [managedObjectContext executeFetchRequest:fetchRequest error:&error];
+
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(requestWSFinishedReloadTB) name:@"finishLoadFromWS" object:nil];
 
 }
-
--(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    newsSelected = [dicoNews objectAtIndex:indexPath.row];
-    [self performSegueWithIdentifier:@"newsSegue" sender:self];
-    
-}
-
--(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
-{
-    if([segue.identifier isEqualToString:@"newsSegue"]){
-        NewViewController *nextVC = segue.destinationViewController;
-        nextVC.currentDicoNew = newsSelected;
-    }
-}
-
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
     return 1;
@@ -128,23 +107,38 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return [dicoNews count];
+    return [dicoProjets count];
 }
 
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    CustomNewsViewCell *tmpCell = [[CustomNewsViewCell alloc] init];
-    tmpCell = [tableView dequeueReusableCellWithIdentifier:@"myCell"];
-    New *n = [dicoNews objectAtIndex:indexPath.row];
-    NSString *tmpString = n.title;
-    [tmpCell.titleNews setText:[NSString stringWithFormat:@"%@",tmpString]];
-    tmpCell.titleNews.backgroundColor = [UIColor colorWithRed:251.0/255.0 green:251.0/255.0 blue:251.0/255.0 alpha:0.9];
-  //  [tmpCell.titleNews setText:n.title];
-  //  [tmpCell.dateNews setText:n.created_at];
-    [tmpCell.newsImage setImage:[UIImage imageWithData:n.imageThumbRect]];
+    CustomProjetCell *Cell = [[CustomProjetCell alloc] init];
+    Cell = [tableView dequeueReusableCellWithIdentifier:@"myCell"];
+    Project *n = [dicoProjets objectAtIndex:indexPath.row];
+    [Cell.imageProjet setImage:[UIImage imageWithData:n.imageThumbRect]];
 
-    return tmpCell;
+    [Cell.labelTitle setText:n.title];
+    
+    Cell.labelDesc.font = [UIFont systemFontOfSize:14];
+    Cell.labelDesc.text = n.desc;
+    Cell.labelDesc.numberOfLines = 0;
+    [Cell.labelDesc setFont:[UIFont fontWithName:@"HelveticaNeue-Light" size:14.0f]];
+
+    CGSize size = [n.desc
+                   sizeWithFont:[UIFont systemFontOfSize:14]
+                   constrainedToSize:CGSizeMake(300, CGFLOAT_MAX)];
+    CGRect newFrame = Cell.labelDesc.frame;
+    newFrame.size.height = size.height;
+    Cell.labelDesc.frame = newFrame;
+
+    return Cell;
+}
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    CGSize size = [[[dicoProjets valueForKey:@"desc" ] objectAtIndex:indexPath.row]
+                   sizeWithFont:[UIFont systemFontOfSize:14]
+                   constrainedToSize:CGSizeMake(300, CGFLOAT_MAX)];
+    return size.height + 230;
 }
 
 - (void)didReceiveMemoryWarning
