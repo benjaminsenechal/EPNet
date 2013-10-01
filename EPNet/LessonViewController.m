@@ -29,7 +29,7 @@
 {
     [super viewDidLoad];
 
-    imageAuthor = [[UIImageView alloc] initWithFrame:CGRectMake((self.view.frame.size.width/2)-40, -55, 70, 70)];
+    imageAuthor = [[UIImageView alloc] initWithFrame:CGRectMake((self.view.frame.size.width/2)-40, -45, 70, 70)];
     [imageAuthor setImage:[UIImage imageWithData:currentDicoLesson.member.avatarThumb]];
     imageAuthor.layer.cornerRadius = 35;
     imageAuthor.layer.masksToBounds = YES;
@@ -40,13 +40,14 @@
     
   //  NSString *html = [SundownWrapper convertMarkdownString:currentDicoLesson.content];
    // NSData *HTMLData = [html dataUsingEncoding:NSUTF8StringEncoding];
-
+    
     contentView = [[UIView alloc] initWithFrame:CGRectMake(0, 20, self.view.frame.size.width, self.view.frame.size.height)];
+    
     textView = [[DTAttributedTextView alloc] initWithFrame:CGRectMake(0.0, 80.0, self.view.frame.size.width, self.view.frame.size.height)];
     CGSize maxImageSize = CGSizeMake(self.view.bounds.size.width - 20.0, self.view.bounds.size.height);
     
     NSDictionary *options = @{ DTDefaultFontFamily : @"Helvetica",
-                               DTDefaultFontSize : [NSNumber numberWithFloat:14.0],
+                               DTDefaultFontSize : [NSNumber numberWithFloat:10.0],
                                DTDefaultLinkColor:[UIColor colorWithRed:0.0/255.0 green:174.0/255.0 blue:239.0/255.0 alpha:1],
                                DTMaxImageSize : [NSValue valueWithCGSize:maxImageSize],
                                };
@@ -62,12 +63,13 @@
     [textView.attributedTextContentView setNeedsDisplay];
     [textView setScrollEnabled:NO];
     
-    textViewTitle = [[UITextView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 80)];
+    textViewTitle = [[UITextView alloc] initWithFrame:CGRectMake(0, 20, self.view.frame.size.width, 60)];
     textViewTitle.text = currentDicoLesson.title;
-    [textViewTitle setFont:[UIFont fontWithName:@"Helvetica" size:10]];
-    [textViewTitle setTextColor:[UIColor colorWithRed:192.0/255.0 green:192.0/255.0 blue:192.0/255.0 alpha:1]];
+    [textViewTitle setFont:[UIFont fontWithName:@"Helvetica" size:20]];
+    [textViewTitle setTextColor:[UIColor colorWithRed:82.0/255.0 green:88.0/255.0 blue:99.0/255.0 alpha:1]];
     textViewTitle.editable = NO;
-    
+    textViewTitle.textAlignment = NSTextAlignmentCenter;
+ 
     [contentView addSubview:textView];
     [contentView addSubview:textViewTitle];
     [contentView addSubview:imageAuthor];
@@ -94,10 +96,11 @@
 -(void)getHeight{
     CGRect frame2;
     frame2 = textView.frame;
-    frame2.size.height = [textView contentSize].height + 1000;
+    frame2.size.height = [textView contentSize].height + 150;
     NSLog(@"%f", frame2.size.height);
     textView.frame = frame2;
     contentView.frame = frame2;
+    [self.view setNeedsDisplay];
 }
 
 - (UIView *)attributedTextContentView:(DTAttributedTextContentView *)attributedTextContentView viewForAttachment:(DTTextAttachment *)attachment frame:(CGRect)frame
@@ -106,9 +109,12 @@
     DTLazyImageView *imageView = [[DTLazyImageView alloc] initWithFrame:frame];
     imageView.delegate = self;
     
+    CGSize sz = [attributedTextContentView suggestedFrameSizeToFitEntireStringConstraintedToWidth:320.0];
+    textView.frame = CGRectMake(0,100,sz.width,sz.height);
+    
     // sets the image if there is one
     imageView.image = [(DTImageTextAttachment *)attachment image];
-    
+
     // url for deferred loading
     imageView.url = attachment.contentURL;
     return imageView;

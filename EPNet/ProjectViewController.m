@@ -51,7 +51,7 @@
     self.navigationItem.rightBarButtonItem = [menuButton initWithCustomView:myBtn];
     
     UIImage *imgRight =  [UIImage imageNamed:@"logo.png"];
-    CGRect framImgRight = CGRectMake(0, 0, (imgRight.size.width)/2.3, (imgRight.size.height)/2.3);
+    CGRect framImgRight = CGRectMake(0, 0, (imgRight.size.width)/4, (imgRight.size.height)/4);
     UIButton *myBtnRight = [[UIButton alloc] initWithFrame:framImgRight];
     [myBtnRight setBackgroundImage:imgRight forState:UIControlStateNormal];
     [myBtnRight addTarget:self action:@selector(aProposAction:)
@@ -85,6 +85,7 @@
 {
     [super viewDidLoad];
     // Data manage
+   // [ManagedProject loadDataFromWebService];
     AppDelegate *appDelegate = (AppDelegate *)[[UIApplication sharedApplication]delegate];
     NSManagedObjectContext *managedObjectContext = [appDelegate managedObjectContext];
     

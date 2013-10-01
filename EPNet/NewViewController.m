@@ -25,9 +25,9 @@
 {
     [super viewDidLoad];
     NSLog(@"%@", currentDicoNew.title);
-    UIImage *redButtonImage = [UIImage imageNamed:@"test"];
+    UIImage *redButtonImage = [UIImage imageNamed:@"back"];
     btnBack = [UIButton buttonWithType:UIButtonTypeCustom];
-    btnBack.frame = CGRectMake(10.0, 30, 30.0, 30.0);
+    btnBack.frame = CGRectMake(20.0, 40.0, 15.0, 25.0);
     [btnBack setBackgroundImage:redButtonImage forState:UIControlStateNormal];
     [btnBack addTarget:self action:@selector(backAction:) forControlEvents:UIControlEventTouchUpInside];
     
@@ -58,7 +58,7 @@
     NSString *html = [SundownWrapper convertMarkdownString:currentDicoNew.content];
     NSData *HTMLData = [html dataUsingEncoding:NSUTF8StringEncoding];
     NSDictionary *options = @{ DTDefaultFontFamily : @"Helvetica",
-                               DTDefaultFontSize : [NSNumber numberWithFloat:14.0],
+                               DTDefaultFontSize : [NSNumber numberWithFloat:10.0],
                                DTDefaultLinkColor:[UIColor colorWithRed:0.0/255.0 green:174.0/255.0 blue:239.0/255.0 alpha:1],
                                DTMaxImageSize : [NSValue valueWithCGSize:maxImageSize],
                                };
@@ -108,6 +108,10 @@
     // if the attachment has a hyperlinkURL then this is currently ignored
     DTLazyImageView *imageView = [[DTLazyImageView alloc] initWithFrame:frame];
     imageView.delegate = self;
+    
+    
+    CGSize sz = [attributedTextContentView suggestedFrameSizeToFitEntireStringConstraintedToWidth:320.0];
+    textView.frame = CGRectMake(0,100,sz.width,sz.height);
     
     // sets the image if there is one
     imageView.image = [(DTImageTextAttachment *)attachment image];

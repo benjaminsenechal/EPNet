@@ -18,7 +18,8 @@
 #import "ManagedProject.h"
 #import "CustomNewsViewCell.h"
 #import "NewViewController.h"
-@interface AcceuilViewController : UIViewController<UITableViewDelegate, UITableViewDataSource>
+
+@interface AcceuilViewController : UIViewController<UITableViewDelegate, UITableViewDataSource,  UINavigationBarDelegate, UISearchBarDelegate, UIToolbarDelegate>
 @property (strong, nonatomic) IBOutlet UIBarButtonItem *menuButton;
 - (IBAction)menuAction:(id)sender;
 @property (strong, nonatomic) IBOutlet UIBarButtonItem *aProposButton;
@@ -26,5 +27,6 @@
 @property (strong, nonatomic) IBOutlet UITableView *tableViewNews;
 @property(strong, nonatomic)NSArray *dicoNews;
 @property(strong, nonatomic)New *newsSelected;
+@property (strong, nonatomic) IBOutlet UINavigationBar *navBar;
 
 @end

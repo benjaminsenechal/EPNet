@@ -13,6 +13,7 @@
 @implementation ViewController
 @synthesize less;
 @synthesize hey;
+
 -(void)requestWSFinishedReloadTB
 {
     NSLog(@"Reload");
@@ -35,6 +36,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+
     
     AppDelegate *appDelegate = (AppDelegate *)[[UIApplication sharedApplication]delegate];
     NSManagedObjectContext *managedObjectContext = [appDelegate managedObjectContext];
@@ -57,11 +59,12 @@
     }
 
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(requestWSFinishedReloadTB) name:@"finishLoadFromWS" object:nil];
+
     [ManagedMember loadDataFromWebService];
-   // [ManagedLesson loadDataFromWebService];
+    [ManagedLesson loadDataFromWebService];
     [ManagedThematic loadDataFromWebService];
-  //  [ManagedNew loadDataFromWebService];
- // [ManagedProject loadDataFromWebService];
+    [ManagedNew loadDataFromWebService];
+    [ManagedProject loadDataFromWebService];
 
 }
 - (void)didReceiveMemoryWarning

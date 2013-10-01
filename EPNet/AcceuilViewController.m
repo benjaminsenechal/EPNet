@@ -18,9 +18,12 @@
 @synthesize dicoNews;
 @synthesize tableViewNews;
 @synthesize newsSelected;
+@synthesize navBar;
 - (void)viewWillAppear:(BOOL)animated
 {
+    
     [super viewWillAppear:animated];
+    
     [[UINavigationBar appearance] setTitleTextAttributes: @{
                                 UITextAttributeTextColor: [UIColor darkGrayColor],
                           UITextAttributeTextShadowColor: [UIColor whiteColor],
@@ -52,7 +55,7 @@
     self.navigationItem.rightBarButtonItem = [menuButton initWithCustomView:myBtn];
     
     UIImage *imgRight =  [UIImage imageNamed:@"logo.png"];
-    CGRect framImgRight = CGRectMake(0, 0, (imgRight.size.width)/2.3, (imgRight.size.height)/2.3);
+    CGRect framImgRight = CGRectMake(0, 0, (imgRight.size.width)/4, (imgRight.size.height)/4);
     UIButton *myBtnRight = [[UIButton alloc] initWithFrame:framImgRight];
     [myBtnRight setBackgroundImage:imgRight forState:UIControlStateNormal];
     [myBtnRight addTarget:self action:@selector(aProposAction:)
@@ -60,8 +63,9 @@
     self.navigationItem.rightBarButtonItem = [aProposButton initWithCustomView:myBtnRight];
     self.navigationController.navigationBar.shadowImage = [[UIImage alloc]init];
     
-    
 }
+
+
 -(void)requestWSFinishedReloadTB
 {
     NSLog(@"Reload");
@@ -84,8 +88,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-
-
+    
     // Data manage
     AppDelegate *appDelegate = (AppDelegate *)[[UIApplication sharedApplication]delegate];
     NSManagedObjectContext *managedObjectContext = [appDelegate managedObjectContext];
@@ -103,7 +106,6 @@
        // NSLog(@"member : %@", ne.member.avatarThumb);
     }
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(requestWSFinishedReloadTB) name:@"finishLoadFromWS" object:nil];
-
 }
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
