@@ -19,7 +19,7 @@
 #import "CustomNewsViewCell.h"
 #import "NewViewController.h"
 
-@interface AcceuilViewController : UIViewController<UITableViewDelegate, UITableViewDataSource,  UINavigationBarDelegate, UISearchBarDelegate, UIToolbarDelegate>
+@interface AccueilViewController : UIViewController<UITableViewDelegate, UITableViewDataSource,  UINavigationBarDelegate, UISearchBarDelegate, UIToolbarDelegate>
 @property (strong, nonatomic) IBOutlet UIBarButtonItem *menuButton;
 - (IBAction)menuAction:(id)sender;
 @property (strong, nonatomic) IBOutlet UIBarButtonItem *aProposButton;
@@ -28,5 +28,6 @@
 @property(strong, nonatomic)NSArray *dicoNews;
 @property(strong, nonatomic)New *newsSelected;
 @property (strong, nonatomic) IBOutlet UINavigationBar *navBar;
-
+@property (strong, nonatomic) IBOutlet UIActivityIndicatorView *loader;
+@property (strong,nonatomic) IBOutlet NSArray *dates;
 @end

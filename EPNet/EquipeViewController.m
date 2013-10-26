@@ -64,7 +64,7 @@
 }
 -(void)requestWSFinishedReloadTB
 {
-    NSLog(@"Reload");
+    NSLog(@"Reload Equipe");
     
     [[NSNotificationCenter defaultCenter]removeObserver:self name:@"finishLoadFromWS" object:nil];
     

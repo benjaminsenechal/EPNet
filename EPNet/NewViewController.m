@@ -24,7 +24,10 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
     NSLog(@"%@", currentDicoNew.title);
+    NSLog(@"Member: %@", currentDicoNew);
+    
     UIImage *redButtonImage = [UIImage imageNamed:@"back"];
     btnBack = [UIButton buttonWithType:UIButtonTypeCustom];
     btnBack.frame = CGRectMake(20.0, 40.0, 15.0, 25.0);
@@ -36,14 +39,11 @@
     [titleNew setTitle:currentDicoNew.title];
     
     imageAuthor = [[UIImageView alloc] initWithFrame:CGRectMake((self.view.frame.size.width/2)-40, -55, 70, 70)];
-  //  NSData *imageData = [NSData dataWithContentsOfURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://www.epnet.fr%@",[[[[currentDicoNew valueForKey:@"member"] valueForKey:@"avatar"] valueForKey:@"thumb"]valueForKey:@"url"] ]]];
- //   imageAuthor.image = [UIImage imageWithData:imageData];
-    
+
     [imageAuthor setImage:[UIImage imageWithData:currentDicoNew.member.avatarThumb]];
     imageAuthor.layer.cornerRadius = 35;
     imageAuthor.layer.masksToBounds = YES;
     
-   // UIImage *backgroundImage = [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://www.epnet.fr%@",[[[currentDicoNew valueForKey:@"image"] valueForKey:@"thumb_rect"] valueForKey:@"url"]]]]];
     imageNew = [[UIImageView alloc] initWithFrame:CGRectMake(0, 40, 320, 178)];
     [imageNew  setImage:[UIImage imageWithData:currentDicoNew.imageThumb]];
     imageNew.contentMode = UIViewContentModeScaleAspectFill;

@@ -9,6 +9,16 @@
 #import "ManagedMember.h"
 #import "Member.h"
 @implementation ManagedMember
+
++(void)loadDataFromWebService{
+    AppDelegate *appDelegate = (AppDelegate *)[[UIApplication sharedApplication]delegate];
+    NSManagedObjectContext *managedObjectContext = [appDelegate managedObjectContext];
+    NSArray *members = [[NSArray alloc] init];
+    NSLog(@"ManagedMember");
+    [self deleteAllMember:managedObjectContext andArray:members];
+    [self addMember:managedObjectContext andArray:members];
+}
+
 +(Member *)returnMemberModelFromDictionary:(NSDictionary *)dicoNew withContext:(NSManagedObjectContext *)managedObjectContext
 {
     Member *newMember = [NSEntityDescription
@@ -85,16 +95,6 @@
 
 }
 
-+(void)loadDataFromWebService{
-    AppDelegate *appDelegate = (AppDelegate *)[[UIApplication sharedApplication]delegate];
-    NSManagedObjectContext *managedObjectContext = [appDelegate managedObjectContext];
-    NSArray *members = [[NSArray alloc] init];
-    NSLog(@"ManagedMember");
-
-    [self deleteAllMember:managedObjectContext andArray:members];
-    [self addMember:managedObjectContext andArray:members];
-}
-
 +(void)deleteAllMember:(NSManagedObjectContext *)managedObjectContext andArray:(NSArray *)members
 {
     NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
@@ -116,6 +116,7 @@
 
 +(void)addMember:(NSManagedObjectContext *)managedObjectContext andArray:(NSArray *)members
 {
+    
     NSURL *url = [NSURL URLWithString:@"http://www.epnet.fr/members.json"];
     NSURLRequest *request = [NSURLRequest requestWithURL:url];
     AFJSONRequestOperation *operation = [AFJSONRequestOperation JSONRequestOperationWithRequest:request success:^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {

@@ -13,8 +13,8 @@
     AppDelegate *appDelegate = (AppDelegate *)[[UIApplication sharedApplication]delegate];
     NSManagedObjectContext *managedObjectContext = [appDelegate managedObjectContext];
     NSArray *lessons;
-   [self deleteAllLesson:managedObjectContext andArray:lessons];
-   [self addLesson:managedObjectContext andArray:lessons];
+    [self deleteAllLesson:managedObjectContext andArray:lessons];
+    [self addLesson:managedObjectContext andArray:lessons];
     NSLog(@"ManagedLesson");
 }
 

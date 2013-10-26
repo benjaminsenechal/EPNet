@@ -18,6 +18,7 @@
 @synthesize dicoProjets;
 - (void)viewWillAppear:(BOOL)animated
 {
+
     [super viewWillAppear:animated];
     
     [[UINavigationBar appearance] setTitleTextAttributes: @{
@@ -59,11 +60,12 @@
     self.navigationItem.rightBarButtonItem = [aProposButton initWithCustomView:myBtnRight];
     self.navigationController.navigationBar.shadowImage = [[UIImage alloc]init];
 
+    [ManagedProject loadDataFromWebService];
 }
 
 -(void)requestWSFinishedReloadTB
 {
-    NSLog(@"Reload");
+    NSLog(@"Reload Projet");
     
     [[NSNotificationCenter defaultCenter]removeObserver:self name:@"finishLoadFromWS" object:nil];
     
@@ -125,23 +127,23 @@
     Cell.labelDesc.text = n.desc;
     Cell.labelDesc.numberOfLines = 0;
     [Cell.labelDesc setFont:[UIFont fontWithName:@"HelveticaNeue-Light" size:14.0f]];
-
     CGSize size = [n.desc
                    sizeWithFont:[UIFont systemFontOfSize:14]
-                   constrainedToSize:CGSizeMake(300, CGFLOAT_MAX)];
+                   constrainedToSize:CGSizeMake(320, CGFLOAT_MAX)];
     CGRect newFrame = Cell.labelDesc.frame;
     newFrame.size.height = size.height;
     Cell.labelDesc.frame = newFrame;
 
     return Cell;
 }
+/*
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     CGSize size = [[[dicoProjets valueForKey:@"desc" ] objectAtIndex:indexPath.row]
                    sizeWithFont:[UIFont systemFontOfSize:14]
-                   constrainedToSize:CGSizeMake(300, CGFLOAT_MAX)];
+                   constrainedToSize:CGSizeMake(320, CGFLOAT_MAX)];
     return size.height + 230;
 }
-
+*/
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];

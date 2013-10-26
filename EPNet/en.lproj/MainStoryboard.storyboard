@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="4510" systemVersion="12F37" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="2Ou-Sd-tKc">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="4510" systemVersion="12F45" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="2Ou-Sd-tKc">
     <dependencies>
         <deployment defaultVersion="1552" identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3742"/>
@@ -18,7 +18,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="FbN-Mf-v8h" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-999" y="470"/>
+            <point key="canvasLocation" x="-931" y="446"/>
         </scene>
         <!--Menu View Controller-->
         <scene sceneID="xF2-10-QmQ">
@@ -98,24 +98,6 @@
             </objects>
             <point key="canvasLocation" x="-92" y="-217"/>
         </scene>
-        <!--Present Modal View Controller-->
-        <scene sceneID="Xbb-IJ-aYo">
-            <objects>
-                <viewController id="8Qv-qU-BJU" customClass="presentModalViewController" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="b2D-Nr-pgO"/>
-                        <viewControllerLayoutGuide type="bottom" id="Ixh-Fq-can"/>
-                    </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="E5a-5F-qiW">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
-                    </view>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="nTq-Dc-NwT" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="294" y="-217"/>
-        </scene>
         <!--Initial Sliding View Controller-->
         <scene sceneID="saC-Nf-Dsa">
             <objects>
@@ -162,7 +144,7 @@
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
-                                    <segue destination="Gjn-TR-AAv" kind="custom" customClass="pushCustom" id="eMu-qC-7rq"/>
+                                    <segue destination="Gjn-TR-AAv" kind="custom" identifier="" customClass="pushCustom" id="eMu-qC-7rq"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -181,10 +163,10 @@
             </objects>
             <point key="canvasLocation" x="294" y="446"/>
         </scene>
-        <!--Acceuil View Controller-->
+        <!--Accueil View Controller-->
         <scene sceneID="j8o-nG-9jW">
             <objects>
-                <viewController storyboardIdentifier="Acceuil" id="2jx-YA-i7U" customClass="AcceuilViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="Accueil" id="2jx-YA-i7U" customClass="AccueilViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="77s-jm-bTv"/>
                         <viewControllerLayoutGuide type="bottom" id="FVQ-hB-uiD"/>
@@ -240,8 +222,8 @@
                                     <outlet property="delegate" destination="2jx-YA-i7U" id="Ko6-BB-WUi"/>
                                 </connections>
                             </tableView>
-                            <navigationBar contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="kkj-2E-bAC">
-                                <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                            <navigationBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="kkj-2E-bAC">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="64"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="64" id="llB-NB-FLp"/>
                                 </constraints>
@@ -263,6 +245,10 @@
                                     <outlet property="delegate" destination="dg4-C1-xkv" id="b74-FL-CIS"/>
                                 </connections>
                             </navigationBar>
+                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" hidesWhenStopped="YES" animating="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="43t-vn-BZ1">
+                                <rect key="frame" x="226" y="44" width="20" height="20"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </activityIndicatorView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
@@ -277,6 +263,7 @@
                     </view>
                     <connections>
                         <outlet property="aProposButton" destination="f9X-yC-Llb" id="f7v-bg-nqw"/>
+                        <outlet property="loader" destination="43t-vn-BZ1" id="aXA-Qk-8jz"/>
                         <outlet property="menuButton" destination="mGt-fI-BKg" id="8mP-18-zby"/>
                         <outlet property="tableViewNews" destination="QkU-hl-bOF" id="Gck-FK-mBs"/>
                         <segue destination="bQZ-oW-qe3" kind="push" identifier="newsSegue" id="KWX-Ou-W96"/>
@@ -343,8 +330,8 @@
                                     <outlet property="delegate" destination="XpQ-f0-k4E" id="nLV-jT-r0n"/>
                                 </connections>
                             </tableView>
-                            <navigationBar contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="kdi-pg-rV7">
-                                <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                            <navigationBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="kdi-pg-rV7">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="64"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="64" id="vuQ-XX-K9J"/>
                                 </constraints>
@@ -483,8 +470,8 @@
                                     <outlet property="delegate" destination="cpg-oE-Z9Z" id="5Mu-tm-det"/>
                                 </connections>
                             </tableView>
-                            <navigationBar contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="1y1-hi-sWc">
-                                <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                            <navigationBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="1y1-hi-sWc">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="64"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="64" id="MTC-7f-cRC"/>
                                 </constraints>
@@ -606,8 +593,8 @@
                                     <outlet property="delegate" destination="sr8-AZ-Oh6" id="Jeq-5j-KP3"/>
                                 </connections>
                             </tableView>
-                            <navigationBar contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="PY5-PY-Q7f">
-                                <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                            <navigationBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="PY5-PY-Q7f">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="64"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="64" id="mg0-t1-0tf"/>
                                 </constraints>

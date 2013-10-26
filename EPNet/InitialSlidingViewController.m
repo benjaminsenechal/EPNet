@@ -21,14 +21,9 @@
     UIStoryboard *storyboard;
     storyboard = [UIStoryboard storyboardWithName:@"MainStoryboard" bundle:nil];
     if (vc == NULL){
-        vc = @"Acceuil";
+        vc = @"Accueil";
     }
     self.topViewController = [storyboard instantiateViewControllerWithIdentifier:vc];
-    float currentVersion = 7.0;
-    if ([[[UIDevice currentDevice] systemVersion] floatValue] >= currentVersion) {
-        // iOS 7
-        self.navigationController.navigationBar.frame = CGRectMake(self.navigationController.navigationBar.frame.origin.x, self.navigationController.navigationBar.frame.origin.y, self.navigationController.navigationBar.frame.size.width, 64);
-    }
 }
 
 - (void)didReceiveMemoryWarning

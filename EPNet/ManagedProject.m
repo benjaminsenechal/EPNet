@@ -73,8 +73,6 @@
             NSMutableSet *tagNamesArray = [[NSMutableSet alloc] initWithCapacity:m.count];
             
             for (int y=0; y < [[dicoNew valueForKey:@"members"]count ]; y++ ){
-                //Member *memberByNew=[ManagedMember returnMemberModelFromDictionary:[[dicoNew valueForKey:@"members"]objectAtIndex:y] withContext:managedObjectContext];
-               // newProject.member = memberByNew;
                 Member *memberByNew=[ManagedMember returnMemberModelWithId:[[[dicoNew valueForKey:@"members"]valueForKey:@"id" ] objectAtIndex:y] withContext:managedObjectContext];
                [tagNamesArray addObject:memberByNew];
             }

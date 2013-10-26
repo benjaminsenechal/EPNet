@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		7B6CD2C58CB5451EB0C9AD10 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = EEB62175A2474C4D8D1C52B5 /* libPods.a */; };
+		91606A4817F9C33A00728C69 /* back.png in Resources */ = {isa = PBXBuildFile; fileRef = 91606A4717F9C33A00728C69 /* back.png */; };
 		9161B9CD1772EE24009B12C9 /* MenuViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9161B9CC1772EE24009B12C9 /* MenuViewController.m */; };
 		9161B9D01772EF55009B12C9 /* AProposViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9161B9CF1772EF55009B12C9 /* AProposViewController.m */; };
 		9161B9D51772F0BE009B12C9 /* cover.png in Resources */ = {isa = PBXBuildFile; fileRef = 9161B9D11772F0BE009B12C9 /* cover.png */; };
@@ -25,7 +26,7 @@
 		918E902C1771CE0700674C04 /* ManagedProject.m in Sources */ = {isa = PBXBuildFile; fileRef = 918E902B1771CE0600674C04 /* ManagedProject.m */; };
 		9198B79E1772E7F100F0AE8B /* Thematic.m in Sources */ = {isa = PBXBuildFile; fileRef = 9198B79D1772E7F100F0AE8B /* Thematic.m */; };
 		9198B7A41772EC7D00F0AE8B /* InitialSlidingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9198B7A31772EC7D00F0AE8B /* InitialSlidingViewController.m */; };
-		9198B7A71772ED0300F0AE8B /* AcceuilViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9198B7A61772ED0300F0AE8B /* AcceuilViewController.m */; };
+		9198B7A71772ED0300F0AE8B /* AccueilViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9198B7A61772ED0300F0AE8B /* AccueilViewController.m */; };
 		919DFB8D177216F100C77B15 /* Member.m in Sources */ = {isa = PBXBuildFile; fileRef = 919DFB8C177216F100C77B15 /* Member.m */; };
 		919DFB90177216FF00C77B15 /* Project.m in Sources */ = {isa = PBXBuildFile; fileRef = 919DFB8F177216FF00C77B15 /* Project.m */; };
 		91A2713D176F56F500A23429 /* New.m in Sources */ = {isa = PBXBuildFile; fileRef = 91A2713C176F56F500A23429 /* New.m */; };
@@ -53,6 +54,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		91606A4717F9C33A00728C69 /* back.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = back.png; sourceTree = "<group>"; };
 		9161B9CB1772EE24009B12C9 /* MenuViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MenuViewController.h; sourceTree = "<group>"; };
 		9161B9CC1772EE24009B12C9 /* MenuViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MenuViewController.m; sourceTree = "<group>"; };
 		9161B9CE1772EF55009B12C9 /* AProposViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AProposViewController.h; sourceTree = "<group>"; };
@@ -82,8 +84,8 @@
 		9198B79D1772E7F100F0AE8B /* Thematic.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Thematic.m; sourceTree = "<group>"; };
 		9198B7A21772EC7D00F0AE8B /* InitialSlidingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InitialSlidingViewController.h; sourceTree = "<group>"; };
 		9198B7A31772EC7D00F0AE8B /* InitialSlidingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InitialSlidingViewController.m; sourceTree = "<group>"; };
-		9198B7A51772ED0300F0AE8B /* AcceuilViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AcceuilViewController.h; sourceTree = "<group>"; };
-		9198B7A61772ED0300F0AE8B /* AcceuilViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AcceuilViewController.m; sourceTree = "<group>"; };
+		9198B7A51772ED0300F0AE8B /* AccueilViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AccueilViewController.h; sourceTree = "<group>"; };
+		9198B7A61772ED0300F0AE8B /* AccueilViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AccueilViewController.m; sourceTree = "<group>"; };
 		919DFB8B177216F100C77B15 /* Member.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Member.h; sourceTree = "<group>"; };
 		919DFB8C177216F100C77B15 /* Member.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Member.m; sourceTree = "<group>"; };
 		919DFB8E177216FF00C77B15 /* Project.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Project.h; sourceTree = "<group>"; };
@@ -190,6 +192,7 @@
 		91D092E1176C68AE0095D10D /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				91606A4717F9C33A00728C69 /* back.png */,
 				9161B9DF177316D1009B12C9 /* test.png */,
 				9161B9D11772F0BE009B12C9 /* cover.png */,
 				9161B9D21772F0BE009B12C9 /* gmap.png */,
@@ -209,9 +212,9 @@
 		91E8E6AB176EF16D00F961A4 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				91D092F5176C68AE0095D10D /* EPNet.xcdatamodeld */,
 				9161B9ED17733DF8009B12C9 /* Lesson.h */,
 				9161B9EE17733DF8009B12C9 /* Lesson.m */,
-				91D092F5176C68AE0095D10D /* EPNet.xcdatamodeld */,
 				9198B79C1772E7F100F0AE8B /* Thematic.h */,
 				9198B79D1772E7F100F0AE8B /* Thematic.m */,
 				919DFB8E177216FF00C77B15 /* Project.h */,
@@ -241,8 +244,8 @@
 				91E8E6B0176EF1BF00F961A4 /* ViewController.m */,
 				9198B7A21772EC7D00F0AE8B /* InitialSlidingViewController.h */,
 				9198B7A31772EC7D00F0AE8B /* InitialSlidingViewController.m */,
-				9198B7A51772ED0300F0AE8B /* AcceuilViewController.h */,
-				9198B7A61772ED0300F0AE8B /* AcceuilViewController.m */,
+				9198B7A51772ED0300F0AE8B /* AccueilViewController.h */,
+				9198B7A61772ED0300F0AE8B /* AccueilViewController.m */,
 				9161B9CB1772EE24009B12C9 /* MenuViewController.h */,
 				9161B9CC1772EE24009B12C9 /* MenuViewController.m */,
 				9161B9CE1772EF55009B12C9 /* AProposViewController.h */,
@@ -342,6 +345,7 @@
 				9161B9D71772F0BE009B12C9 /* btnTop.png in Resources */,
 				9161B9D81772F0BE009B12C9 /* logo.png in Resources */,
 				9161B9E0177316D1009B12C9 /* test.png in Resources */,
+				91606A4817F9C33A00728C69 /* back.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -397,7 +401,7 @@
 				919DFB90177216FF00C77B15 /* Project.m in Sources */,
 				9198B79E1772E7F100F0AE8B /* Thematic.m in Sources */,
 				9198B7A41772EC7D00F0AE8B /* InitialSlidingViewController.m in Sources */,
-				9198B7A71772ED0300F0AE8B /* AcceuilViewController.m in Sources */,
+				9198B7A71772ED0300F0AE8B /* AccueilViewController.m in Sources */,
 				9161B9CD1772EE24009B12C9 /* MenuViewController.m in Sources */,
 				9161B9D01772EF55009B12C9 /* AProposViewController.m in Sources */,
 				9161B9DB1772F3E8009B12C9 /* CustomNewsViewCell.m in Sources */,

@@ -59,12 +59,16 @@ Thematic *n;
          forControlEvents:UIControlEventTouchUpInside];
     self.navigationItem.rightBarButtonItem = [aProposButton initWithCustomView:myBtnRight];
     self.navigationController.navigationBar.shadowImage = [[UIImage alloc]init];
+    
+    [ManagedThematic loadDataFromWebService];
+    [ManagedLesson loadDataFromWebService];
+    
 }
 
 
 -(void)requestWSFinishedReloadTB
 {
-    NSLog(@"Reload");
+    NSLog(@"Reload BilBlio");
     
     [[NSNotificationCenter defaultCenter]removeObserver:self name:@"finishLoadFromWS" object:nil];
     

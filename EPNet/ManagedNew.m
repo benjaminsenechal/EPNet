@@ -14,9 +14,9 @@
 +(void)loadDataFromWebService{
     AppDelegate *appDelegate = (AppDelegate *)[[UIApplication sharedApplication]delegate];
     NSManagedObjectContext *managedObjectContext = [appDelegate managedObjectContext];
-    NSArray *news;
-   [self deleteAllNews:managedObjectContext andArray:news];
-   [self addNew:managedObjectContext andArray:news];
+    NSArray *news  = [[NSArray alloc] init];
+    [self deleteAllNews:managedObjectContext andArray:news];
+    [self addNew:managedObjectContext andArray:news];
     NSLog(@"ManagedNew");
 }
 
@@ -46,6 +46,7 @@
     AFJSONRequestOperation *operation = [AFJSONRequestOperation JSONRequestOperationWithRequest:request success:^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
         NSMutableArray *responseNews;
         responseNews = JSON;
+        NSLog(@" table %@ ", responseNews);
         for (int i = 0; i < [responseNews count]; i++) {
             NSMutableArray *dicoNew = [responseNews objectAtIndex:i];
             New *newNew = [NSEntityDescription

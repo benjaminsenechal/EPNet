@@ -6,19 +6,22 @@
 //  Copyright (c) 2013 Benjamin SENECHAL. All rights reserved.
 //
 
-#import "AcceuilViewController.h"
+#import "AccueilViewController.h"
 
-@interface AcceuilViewController ()
+@interface AccueilViewController ()
 
 @end
 
-@implementation AcceuilViewController
+@implementation AccueilViewController
 @synthesize aProposButton;
 @synthesize menuButton;
 @synthesize dicoNews;
 @synthesize tableViewNews;
 @synthesize newsSelected;
 @synthesize navBar;
+@synthesize loader;
+@synthesize dates;
+int f=0;
 - (void)viewWillAppear:(BOOL)animated
 {
     
@@ -63,12 +66,24 @@
     self.navigationItem.rightBarButtonItem = [aProposButton initWithCustomView:myBtnRight];
     self.navigationController.navigationBar.shadowImage = [[UIImage alloc]init];
     
+    if (f == 0) {
+        [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(requestWSFinishedReloadTB) name:@"finishLoadFromWS" object:nil];
+        [ManagedNew loadDataFromWebService];
+        [ManagedMember loadDataFromWebService];
+
+        f = 1;
+        NSLog(@"RELOADDDD");
+    }else{
+        NSLog(@"NO RELOADDDD");
+        [loader stopAnimating];
+    }
+    
 }
 
 
 -(void)requestWSFinishedReloadTB
 {
-    NSLog(@"Reload");
+    NSLog(@"Reload news");
     
     [[NSNotificationCenter defaultCenter]removeObserver:self name:@"finishLoadFromWS" object:nil];
     
@@ -82,13 +97,16 @@
     
     NSError *error;
     dicoNews = [managedObjectContext executeFetchRequest:fetchRequest error:&error];
+
     [tableViewNews reloadData];
+
+    [loader stopAnimating];
     
 }
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    
+
     // Data manage
     AppDelegate *appDelegate = (AppDelegate *)[[UIApplication sharedApplication]delegate];
     NSManagedObjectContext *managedObjectContext = [appDelegate managedObjectContext];
@@ -98,14 +116,25 @@
                                    entityForName:@"New" inManagedObjectContext:managedObjectContext];
     [fetchRequest setEntity:entity];
     
-    NSError *error;
+     NSError *error;
     
     dicoNews = [managedObjectContext executeFetchRequest:fetchRequest error:&error];
-    for (int i = 0; i < [dicoNews count]; i++) {
+
+  /*   for (int i = 0; i < [dicoNews count]; i++) {
        // New *ne =  [dicoNews objectAtIndex:i];
        // NSLog(@"member : %@", ne.member.avatarThumb);
     }
-    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(requestWSFinishedReloadTB) name:@"finishLoadFromWS" object:nil];
+  //  [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(requestWSFinishedReloadTB) name:@"finishLoadFromWS" object:nil];
+    if (f == 0) {
+        f = 1;
+        [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(requestWSFinishedReloadTB) name:@"finishLoadFromWS" object:nil];
+        [ManagedNew loadDataFromWebService];
+    }else{
+    //    [loader stopAnimating];
+    }
+    */
+
+
 }
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath

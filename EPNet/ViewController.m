@@ -60,11 +60,7 @@
 
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(requestWSFinishedReloadTB) name:@"finishLoadFromWS" object:nil];
 
-    [ManagedMember loadDataFromWebService];
-    [ManagedLesson loadDataFromWebService];
-    [ManagedThematic loadDataFromWebService];
-    [ManagedNew loadDataFromWebService];
-    [ManagedProject loadDataFromWebService];
+
 
 }
 - (void)didReceiveMemoryWarning

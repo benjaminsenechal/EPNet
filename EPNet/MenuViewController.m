@@ -19,7 +19,7 @@
 
 - (void)awakeFromNib
 {
-    self.menuItems = [NSArray arrayWithObjects:@"Acceuil",@"Bibliothèque",@"Equipe",@"Projets", nil];
+    self.menuItems = [NSArray arrayWithObjects:@"Accueil",@"Bibliothèque",@"Equipe",@"Projets", nil];
 }
 
 - (void)viewDidLoad
