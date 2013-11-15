@@ -2,13 +2,14 @@
 //  Member.h
 //  EPNet
 //
-//  Created by Benjamin SENECHAL on 19/06/13.
+//  Created by Benjamin SENECHAL on 26/10/2013.
 //  Copyright (c) 2013 Benjamin SENECHAL. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>
 #import <CoreData/CoreData.h>
 
+@class New;
 
 @interface Member : NSManagedObject
 
@@ -29,5 +30,17 @@
 @property (nonatomic, retain) NSString * twitter;
 @property (nonatomic, retain) NSString * updated_at;
 @property (nonatomic, retain) NSString * viadeo;
+@property (nonatomic, retain) New *news;
+@end
 
+@interface Member (CoreDataGeneratedAccessors)
+
+- (void)insertObject:(New *)value inNewsAtIndex:(NSUInteger)idx;
+- (void)removeObjectFromNewsAtIndex:(NSUInteger)idx;
+- (void)insertNews:(NSArray *)value atIndexes:(NSIndexSet *)indexes;
+- (void)removeNewsAtIndexes:(NSIndexSet *)indexes;
+- (void)replaceObjectInNewsAtIndex:(NSUInteger)idx withObject:(New *)value;
+- (void)replaceNewsAtIndexes:(NSIndexSet *)indexes withNews:(NSArray *)values;
+- (void)addNewsObject:(New *)value;
+- (void)removeNewsObject:(New *)value;
 @end

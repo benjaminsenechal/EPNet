@@ -14,9 +14,10 @@
     AppDelegate *appDelegate = (AppDelegate *)[[UIApplication sharedApplication]delegate];
     NSManagedObjectContext *managedObjectContext = [appDelegate managedObjectContext];
     NSArray *members = [[NSArray alloc] init];
-    NSLog(@"ManagedMember");
     [self deleteAllMember:managedObjectContext andArray:members];
     [self addMember:managedObjectContext andArray:members];
+    NSLog(@"ManagedMember");
+
 }
 
 +(Member *)returnMemberModelFromDictionary:(NSDictionary *)dicoNew withContext:(NSManagedObjectContext *)managedObjectContext
@@ -26,11 +27,6 @@
                          inManagedObjectContext:managedObjectContext];
     NSNumber *v = [dicoNew valueForKey:@"id"];
     newMember.idMember = v;
-   /*
-    UIImage *avatar = [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://epnet.fr/%@",[[dicoNew valueForKey:@"avatar"] valueForKey:@"url"] ]]]];
-    NSData *imageData = UIImagePNGRepresentation(avatar);
-    [newMember.avatar setValue:imageData forKey:@"avatar"];
-    */
     UIImage *avatarThumb = [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://epnet.fr/%@",[[[dicoNew valueForKey:@"avatar"] valueForKey:@"thumb"] valueForKey:@"url"]]]]];
     NSData *tmpAvatarThumb  = UIImageJPEGRepresentation(avatarThumb , 1.0);
     newMember.avatarThumb = tmpAvatarThumb;
@@ -43,7 +39,7 @@
     newMember.lastname = [dicoNew valueForKey:@"lastname"];
     newMember.role = [dicoNew valueForKey:@"role"];
     newMember.login = [dicoNew valueForKey:@"login"];
-    
+
     if([dicoNew valueForKey:@"facebook"] == [NSNull null] ||
        [dicoNew valueForKey:@"description"] == [NSNull null] ||
        [dicoNew valueForKey:@"email"] == [NSNull null] ||
@@ -66,7 +62,6 @@
         newMember.linkedin = [dicoNew valueForKey:@"linkedin"];
         newMember.twitter = [dicoNew valueForKey:@"twitter"];
         newMember.viadeo = [dicoNew valueForKey:@"viadeo"];
-        
     }
     return newMember;
 }
@@ -92,7 +87,6 @@
     }
     
     return myMember;
-
 }
 
 +(void)deleteAllMember:(NSManagedObjectContext *)managedObjectContext andArray:(NSArray *)members
@@ -123,38 +117,38 @@
         NSMutableArray *responseMembers = [[NSMutableArray alloc]init];
         responseMembers = JSON;
         for (int i = 0; i < [responseMembers count]; i++) {
-            NSDictionary *dicoNew = [responseMembers objectAtIndex:i];
+            NSMutableArray *dicoNew = [responseMembers objectAtIndex:i];
             
             Member *newMember = [NSEntityDescription
                                    insertNewObjectForEntityForName:@"Member"
                                    inManagedObjectContext:managedObjectContext];
-           NSNumber *v = [dicoNew objectForKey:@"id"];
+           NSNumber *v = [dicoNew valueForKey:@"id"];
             newMember.idMember = v;
 
-            UIImage *avatar = [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://epnet.fr/%@",[[dicoNew objectForKey:@"avatar"] objectForKey:@"url"] ]]]];
+            UIImage *avatar = [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://epnet.fr/%@",[[dicoNew valueForKey:@"avatar"] objectForKey:@"url"] ]]]];
             NSData *imageData = UIImageJPEGRepresentation(avatar , 1.0);
             newMember.avatar = imageData;
             
-            UIImage *avatarThumb = [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://epnet.fr/%@",[[[dicoNew objectForKey:@"avatar"] objectForKey:@"thumb"] objectForKey:@"url"]]]]];
+            UIImage *avatarThumb = [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://epnet.fr/%@",[[[dicoNew valueForKey:@"avatar"] objectForKey:@"thumb"] objectForKey:@"url"]]]]];
             NSData *tmpAvatarThumb  = UIImageJPEGRepresentation(avatarThumb, 1.0);
             newMember.avatarThumb = tmpAvatarThumb;
             
-            NSNumber *va = [dicoNew objectForKey:@"client"];
+            NSNumber *va = [dicoNew valueForKey:@"client"];
             newMember.client = va;
-            newMember.updated_at = [dicoNew objectForKey:@"updated_at"];
-            newMember.created_at = [dicoNew objectForKey:@"created_at"];
-            newMember.firstname = [dicoNew objectForKey:@"firstname"];
-            newMember.lastname = [dicoNew objectForKey:@"lastname"];
-            newMember.role = [dicoNew objectForKey:@"role"];
-            newMember.login = [dicoNew objectForKey:@"login"];
+            newMember.updated_at = [dicoNew valueForKey:@"updated_at"];
+            newMember.created_at = [dicoNew valueForKey:@"created_at"];
+            newMember.firstname = [dicoNew valueForKey:@"firstname"];
+            newMember.lastname = [dicoNew valueForKey:@"lastname"];
+            newMember.role = [dicoNew valueForKey:@"role"];
+            newMember.login = [dicoNew valueForKey:@"login"];
          
-            if([dicoNew objectForKey:@"facebook"] == [NSNull null] ||
-               [dicoNew objectForKey:@"description"] == [NSNull null] ||
-               [dicoNew objectForKey:@"email"] == [NSNull null] ||
-               [dicoNew objectForKey:@"github"] == [NSNull null] ||
-               [dicoNew objectForKey:@"linkedin"] == [NSNull null] ||
-               [dicoNew objectForKey:@"twitter"] == [NSNull null] ||
-               [dicoNew objectForKey:@"viadeo"] == [NSNull null]){
+            if([dicoNew valueForKey:@"facebook"] == [NSNull null] ||
+               [dicoNew valueForKey:@"description"] == [NSNull null] ||
+               [dicoNew valueForKey:@"email"] == [NSNull null] ||
+               [dicoNew valueForKey:@"github"] == [NSNull null] ||
+               [dicoNew valueForKey:@"linkedin"] == [NSNull null] ||
+               [dicoNew valueForKey:@"twitter"] == [NSNull null] ||
+               [dicoNew valueForKey:@"viadeo"] == [NSNull null]){
                 newMember.facebook = @"null";
                 newMember.desc = @"null";
                 newMember.email = @"null";
@@ -163,17 +157,17 @@
                 newMember.twitter = @"null";
                 newMember.viadeo = @"null";
             }else{
-                newMember.facebook = [dicoNew objectForKey:@"facebook"];
-                newMember.desc = [dicoNew objectForKey:@"description"];
-                newMember.email = [dicoNew objectForKey:@"email"];
-                newMember.github = [dicoNew objectForKey:@"github"];
-                newMember.linkedin = [dicoNew objectForKey:@"linkedin"];
-                newMember.twitter = [dicoNew objectForKey:@"twitter"];
-                newMember.viadeo = [dicoNew objectForKey:@"viadeo"];
+                newMember.facebook = [dicoNew valueForKey:@"facebook"];
+                newMember.desc = [dicoNew valueForKey:@"description"];
+                newMember.email = [dicoNew valueForKey:@"email"];
+                newMember.github = [dicoNew valueForKey:@"github"];
+                newMember.linkedin = [dicoNew valueForKey:@"linkedin"];
+                newMember.twitter = [dicoNew valueForKey:@"twitter"];
+                newMember.viadeo = [dicoNew valueForKey:@"viadeo"];
 
             }
         }
-
+        
         NSError *error;
         
         if (![managedObjectContext save:&error]) {

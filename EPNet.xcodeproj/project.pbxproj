@@ -8,6 +8,9 @@
 
 /* Begin PBXBuildFile section */
 		7B6CD2C58CB5451EB0C9AD10 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = EEB62175A2474C4D8D1C52B5 /* libPods.a */; };
+		911469E7181C01620063DF0C /* Member.m in Sources */ = {isa = PBXBuildFile; fileRef = 911469E6181C01620063DF0C /* Member.m */; };
+		911469EA181C01A90063DF0C /* New.m in Sources */ = {isa = PBXBuildFile; fileRef = 911469E9181C01A90063DF0C /* New.m */; };
+		91505BEF1835271300B7CADA /* LoaderViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 91505BEE1835271300B7CADA /* LoaderViewController.m */; };
 		91606A4817F9C33A00728C69 /* back.png in Resources */ = {isa = PBXBuildFile; fileRef = 91606A4717F9C33A00728C69 /* back.png */; };
 		9161B9CD1772EE24009B12C9 /* MenuViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9161B9CC1772EE24009B12C9 /* MenuViewController.m */; };
 		9161B9D01772EF55009B12C9 /* AProposViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9161B9CF1772EF55009B12C9 /* AProposViewController.m */; };
@@ -27,9 +30,7 @@
 		9198B79E1772E7F100F0AE8B /* Thematic.m in Sources */ = {isa = PBXBuildFile; fileRef = 9198B79D1772E7F100F0AE8B /* Thematic.m */; };
 		9198B7A41772EC7D00F0AE8B /* InitialSlidingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9198B7A31772EC7D00F0AE8B /* InitialSlidingViewController.m */; };
 		9198B7A71772ED0300F0AE8B /* AccueilViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9198B7A61772ED0300F0AE8B /* AccueilViewController.m */; };
-		919DFB8D177216F100C77B15 /* Member.m in Sources */ = {isa = PBXBuildFile; fileRef = 919DFB8C177216F100C77B15 /* Member.m */; };
 		919DFB90177216FF00C77B15 /* Project.m in Sources */ = {isa = PBXBuildFile; fileRef = 919DFB8F177216FF00C77B15 /* Project.m */; };
-		91A2713D176F56F500A23429 /* New.m in Sources */ = {isa = PBXBuildFile; fileRef = 91A2713C176F56F500A23429 /* New.m */; };
 		91CA324E176F987500073E2A /* ManagedLesson.m in Sources */ = {isa = PBXBuildFile; fileRef = 91CA324D176F987500073E2A /* ManagedLesson.m */; };
 		91CA3251176F99BB00073E2A /* ManagedThematic.m in Sources */ = {isa = PBXBuildFile; fileRef = 91CA3250176F99BB00073E2A /* ManagedThematic.m */; };
 		91CD356C1774759D00DA4B5C /* ProjectViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 91CD356B1774759D00DA4B5C /* ProjectViewController.m */; };
@@ -54,6 +55,12 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		911469E5181C01620063DF0C /* Member.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Member.h; sourceTree = "<group>"; };
+		911469E6181C01620063DF0C /* Member.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Member.m; sourceTree = "<group>"; };
+		911469E8181C01A90063DF0C /* New.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = New.h; sourceTree = "<group>"; };
+		911469E9181C01A90063DF0C /* New.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = New.m; sourceTree = "<group>"; };
+		91505BED1835271300B7CADA /* LoaderViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoaderViewController.h; sourceTree = "<group>"; };
+		91505BEE1835271300B7CADA /* LoaderViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoaderViewController.m; sourceTree = "<group>"; };
 		91606A4717F9C33A00728C69 /* back.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = back.png; sourceTree = "<group>"; };
 		9161B9CB1772EE24009B12C9 /* MenuViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MenuViewController.h; sourceTree = "<group>"; };
 		9161B9CC1772EE24009B12C9 /* MenuViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MenuViewController.m; sourceTree = "<group>"; };
@@ -86,12 +93,8 @@
 		9198B7A31772EC7D00F0AE8B /* InitialSlidingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InitialSlidingViewController.m; sourceTree = "<group>"; };
 		9198B7A51772ED0300F0AE8B /* AccueilViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AccueilViewController.h; sourceTree = "<group>"; };
 		9198B7A61772ED0300F0AE8B /* AccueilViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AccueilViewController.m; sourceTree = "<group>"; };
-		919DFB8B177216F100C77B15 /* Member.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Member.h; sourceTree = "<group>"; };
-		919DFB8C177216F100C77B15 /* Member.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Member.m; sourceTree = "<group>"; };
 		919DFB8E177216FF00C77B15 /* Project.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Project.h; sourceTree = "<group>"; };
 		919DFB8F177216FF00C77B15 /* Project.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Project.m; sourceTree = "<group>"; };
-		91A2713B176F56F500A23429 /* New.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = New.h; sourceTree = "<group>"; };
-		91A2713C176F56F500A23429 /* New.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = New.m; sourceTree = "<group>"; };
 		91CA324C176F987500073E2A /* ManagedLesson.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ManagedLesson.h; sourceTree = "<group>"; };
 		91CA324D176F987500073E2A /* ManagedLesson.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ManagedLesson.m; sourceTree = "<group>"; };
 		91CA324F176F99BB00073E2A /* ManagedThematic.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ManagedThematic.h; sourceTree = "<group>"; };
@@ -213,24 +216,24 @@
 			isa = PBXGroup;
 			children = (
 				91D092F5176C68AE0095D10D /* EPNet.xcdatamodeld */,
+				911469E8181C01A90063DF0C /* New.h */,
+				911469E9181C01A90063DF0C /* New.m */,
 				9161B9ED17733DF8009B12C9 /* Lesson.h */,
 				9161B9EE17733DF8009B12C9 /* Lesson.m */,
 				9198B79C1772E7F100F0AE8B /* Thematic.h */,
 				9198B79D1772E7F100F0AE8B /* Thematic.m */,
 				919DFB8E177216FF00C77B15 /* Project.h */,
 				919DFB8F177216FF00C77B15 /* Project.m */,
-				919DFB8B177216F100C77B15 /* Member.h */,
-				919DFB8C177216F100C77B15 /* Member.m */,
-				91A2713B176F56F500A23429 /* New.h */,
-				91A2713C176F56F500A23429 /* New.m */,
+				911469E5181C01620063DF0C /* Member.h */,
+				911469E6181C01620063DF0C /* Member.m */,
 				91D0931E176CDA670095D10D /* ManagedMember.h */,
 				91D0931F176CDA670095D10D /* ManagedMember.m */,
+				91E8E6A8176EEFC700F961A4 /* ManagedNew.h */,
+				91E8E6A9176EEFC700F961A4 /* ManagedNew.m */,
 				91CA324C176F987500073E2A /* ManagedLesson.h */,
 				91CA324D176F987500073E2A /* ManagedLesson.m */,
 				91CA324F176F99BB00073E2A /* ManagedThematic.h */,
 				91CA3250176F99BB00073E2A /* ManagedThematic.m */,
-				91E8E6A8176EEFC700F961A4 /* ManagedNew.h */,
-				91E8E6A9176EEFC700F961A4 /* ManagedNew.m */,
 				918E902A1771CE0600674C04 /* ManagedProject.h */,
 				918E902B1771CE0600674C04 /* ManagedProject.m */,
 			);
@@ -260,6 +263,8 @@
 				91D754471773697300A3AA1D /* EquipeViewController.m */,
 				91CD356A1774759C00DA4B5C /* ProjectViewController.h */,
 				91CD356B1774759D00DA4B5C /* ProjectViewController.m */,
+				91505BED1835271300B7CADA /* LoaderViewController.h */,
+				91505BEE1835271300B7CADA /* LoaderViewController.m */,
 			);
 			name = Controller;
 			sourceTree = "<group>";
@@ -393,13 +398,13 @@
 				91D09320176CDA670095D10D /* ManagedMember.m in Sources */,
 				91E8E6AA176EEFC700F961A4 /* ManagedNew.m in Sources */,
 				91E8E6B1176EF1BF00F961A4 /* ViewController.m in Sources */,
-				91A2713D176F56F500A23429 /* New.m in Sources */,
 				91CA324E176F987500073E2A /* ManagedLesson.m in Sources */,
 				91CA3251176F99BB00073E2A /* ManagedThematic.m in Sources */,
 				918E902C1771CE0700674C04 /* ManagedProject.m in Sources */,
-				919DFB8D177216F100C77B15 /* Member.m in Sources */,
 				919DFB90177216FF00C77B15 /* Project.m in Sources */,
+				911469E7181C01620063DF0C /* Member.m in Sources */,
 				9198B79E1772E7F100F0AE8B /* Thematic.m in Sources */,
+				91505BEF1835271300B7CADA /* LoaderViewController.m in Sources */,
 				9198B7A41772EC7D00F0AE8B /* InitialSlidingViewController.m in Sources */,
 				9198B7A71772ED0300F0AE8B /* AccueilViewController.m in Sources */,
 				9161B9CD1772EE24009B12C9 /* MenuViewController.m in Sources */,
@@ -414,6 +419,7 @@
 				91D754481773697300A3AA1D /* EquipeViewController.m in Sources */,
 				91D7544B17736ECA00A3AA1D /* CustomEquipeCell.m in Sources */,
 				91CD356C1774759D00DA4B5C /* ProjectViewController.m in Sources */,
+				911469EA181C01A90063DF0C /* New.m in Sources */,
 				91CD356F177484C900DA4B5C /* CustomProjetCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -60,7 +60,6 @@
     self.navigationItem.rightBarButtonItem = [aProposButton initWithCustomView:myBtnRight];
     self.navigationController.navigationBar.shadowImage = [[UIImage alloc]init];
 
-    [ManagedProject loadDataFromWebService];
 }
 
 -(void)requestWSFinishedReloadTB
@@ -101,6 +100,8 @@
     dicoProjets = [managedObjectContext executeFetchRequest:fetchRequest error:&error];
 
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(requestWSFinishedReloadTB) name:@"finishLoadFromWS" object:nil];
+    
+    [ManagedProject loadDataFromWebService];
 
 }
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView

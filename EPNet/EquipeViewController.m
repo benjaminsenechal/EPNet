@@ -78,7 +78,10 @@
 
     NSError *error;
     dicoMember = [managedObjectContext executeFetchRequest:fetchRequest error:&error];
-
+    NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc]
+                                        initWithKey:@"idMember" ascending:YES selector:nil];
+    dicoMember = [NSArray arrayWithObject:sortDescriptor];
+    [fetchRequest setSortDescriptors:dicoMember];
    [tableViewMember reloadData];
     
 }
@@ -94,13 +97,16 @@
                                    entityForName:@"Member" inManagedObjectContext:managedObjectContext];
     [fetchRequest setEntity:entity];
     
+    NSSortDescriptor *sortDescription = [[NSSortDescriptor alloc] initWithKey:@"idMember" ascending:YES];
+    [fetchRequest setSortDescriptors:@[sortDescription]];
+    
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"client == %@", @"false"];
+    [fetchRequest setPredicate:predicate];
+    
     NSError *error;
 
     dicoMember = [managedObjectContext executeFetchRequest:fetchRequest error:&error];
-    for (int i = 0; i < [dicoMember count]; i++) {
-         Member *ne =  [dicoMember objectAtIndex:i];
-        NSLog(@"member : %@", ne.idMember);
-    }
+
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(requestWSFinishedReloadTB) name:@"finishLoadFromWS" object:nil];
 
     

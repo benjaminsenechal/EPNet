@@ -55,11 +55,7 @@
             newThematic.title = [dicoThematic objectForKey:@"title"];
             newThematic.updated_at = [dicoThematic objectForKey:@"updated_at"];
             newThematic.created_at = [dicoThematic objectForKey:@"created_at"];
-            /*
-            for (int y=0; y < [[dicoThematic objectForKey:@"lessons"]count ]; y++ ){
-              Lesson *l = [ManagedLesson returnLessonModelFromDictionary:[[dicoThematic objectForKey:@"lessons"] objectAtIndex:y ]withContext:managedObjectContext];
-              newThematic.lesson = l;
-            }*/
+
             NSSet *m = newThematic.lesson;
             NSMutableSet *lessonsArray = [[NSMutableSet alloc] initWithCapacity:m.count];
             

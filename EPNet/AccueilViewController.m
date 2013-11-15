@@ -22,6 +22,7 @@
 @synthesize loader;
 @synthesize dates;
 int f=0;
+
 - (void)viewWillAppear:(BOOL)animated
 {
     
@@ -67,10 +68,9 @@ int f=0;
     self.navigationController.navigationBar.shadowImage = [[UIImage alloc]init];
     
     if (f == 0) {
-        [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(requestWSFinishedReloadTB) name:@"finishLoadFromWS" object:nil];
         [ManagedNew loadDataFromWebService];
         [ManagedMember loadDataFromWebService];
-
+        [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(requestWSFinishedReloadTB) name:@"finishLoadFromWS" object:nil];
         f = 1;
         NSLog(@"RELOADDDD");
     }else{
@@ -95,11 +95,13 @@ int f=0;
                                    entityForName:@"New" inManagedObjectContext:managedObjectContext];
     [fetchRequest setEntity:entity];
     
+    NSSortDescriptor *sortDescription = [[NSSortDescriptor alloc] initWithKey:@"created_at" ascending:NO];
+    [fetchRequest setSortDescriptors:@[sortDescription]];
+    
     NSError *error;
     dicoNews = [managedObjectContext executeFetchRequest:fetchRequest error:&error];
 
     [tableViewNews reloadData];
-
     [loader stopAnimating];
     
 }
@@ -115,26 +117,18 @@ int f=0;
     NSEntityDescription *entity = [NSEntityDescription
                                    entityForName:@"New" inManagedObjectContext:managedObjectContext];
     [fetchRequest setEntity:entity];
+   
+    NSSortDescriptor *sortDescription = [[NSSortDescriptor alloc] initWithKey:@"created_at" ascending:NO];
+    [fetchRequest setSortDescriptors:@[sortDescription]];
     
-     NSError *error;
+    NSError *error;
     
     dicoNews = [managedObjectContext executeFetchRequest:fetchRequest error:&error];
 
-  /*   for (int i = 0; i < [dicoNews count]; i++) {
-       // New *ne =  [dicoNews objectAtIndex:i];
-       // NSLog(@"member : %@", ne.member.avatarThumb);
+     for (int i = 0; i < [dicoNews count]; i++) {
+         New *ne =  [dicoNews objectAtIndex:i];
+         NSLog(@"member : %@", ne.member.lastname);
     }
-  //  [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(requestWSFinishedReloadTB) name:@"finishLoadFromWS" object:nil];
-    if (f == 0) {
-        f = 1;
-        [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(requestWSFinishedReloadTB) name:@"finishLoadFromWS" object:nil];
-        [ManagedNew loadDataFromWebService];
-    }else{
-    //    [loader stopAnimating];
-    }
-    */
-
-
 }
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
@@ -171,8 +165,7 @@ int f=0;
     NSString *tmpString = n.title;
     [tmpCell.titleNews setText:[NSString stringWithFormat:@"%@",tmpString]];
     tmpCell.titleNews.backgroundColor = [UIColor colorWithRed:251.0/255.0 green:251.0/255.0 blue:251.0/255.0 alpha:0.9];
-  //  [tmpCell.titleNews setText:n.title];
-  //  [tmpCell.dateNews setText:n.created_at];
+
     [tmpCell.newsImage setImage:[UIImage imageWithData:n.imageThumbRect]];
 
     return tmpCell;
@@ -181,7 +174,6 @@ int f=0;
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
 }
 
 - (IBAction)menuAction:(id)sender {

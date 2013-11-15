@@ -25,9 +25,6 @@
 {
     [super viewDidLoad];
     
-    NSLog(@"%@", currentDicoNew.title);
-    NSLog(@"Member: %@", currentDicoNew);
-    
     UIImage *redButtonImage = [UIImage imageNamed:@"back"];
     btnBack = [UIButton buttonWithType:UIButtonTypeCustom];
     btnBack.frame = CGRectMake(20.0, 40.0, 15.0, 25.0);

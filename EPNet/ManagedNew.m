@@ -44,9 +44,8 @@
     NSURL *url = [NSURL URLWithString:@"http://www.epnet.fr/news.json"];
     NSURLRequest *request = [NSURLRequest requestWithURL:url];
     AFJSONRequestOperation *operation = [AFJSONRequestOperation JSONRequestOperationWithRequest:request success:^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
-        NSMutableArray *responseNews;
+        NSMutableArray *responseNews = [[NSMutableArray alloc]init];
         responseNews = JSON;
-        NSLog(@" table %@ ", responseNews);
         for (int i = 0; i < [responseNews count]; i++) {
             NSMutableArray *dicoNew = [responseNews objectAtIndex:i];
             New *newNew = [NSEntityDescription
@@ -59,10 +58,6 @@
             newNew.title = [dicoNew valueForKey:@"title"];
             newNew.updated_at = [dicoNew valueForKey:@"updated_at"];
            
-         //   UIImage *image = [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://epnet.fr/%@",[[dicoNew valueForKey:@"image"]valueForKey:@"url"]]]]];
-         //   NSData *tmpImage  = UIImageJPEGRepresentation(image , 1.0);
-         //   newNew.image = tmpImage;
-
             UIImage *imageThumb = [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://epnet.fr/%@",[[[dicoNew valueForKey:@"image"]valueForKey:@"thumb"] valueForKey:@"url"]]]]];
             NSData *tmpImageThumb  = UIImageJPEGRepresentation(imageThumb , 1.0);
             newNew.imageThumb = tmpImageThumb;
@@ -82,10 +77,7 @@
             NSLog(@"Whoops, couldn't save: %@", [error localizedDescription]);
         }
         
-        //     [self displayPartenaire:managedObjectContext andArray:members];
-        
         [[NSNotificationCenter defaultCenter]postNotification:[NSNotification notificationWithName:@"finishLoadFromWS" object:nil]];
-        
         
     } failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {
         NSLog(@"Failed Response : %@", JSON);

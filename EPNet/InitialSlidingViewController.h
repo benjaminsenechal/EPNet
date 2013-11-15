@@ -7,11 +7,11 @@
 //
 
 #import "ECSlidingViewController.h"
-
 #import "ManagedMember.h"
 #import "ManagedNew.h"
 #import "ManagedThematic.h"
 #import "ManagedProject.h"
+
 @interface InitialSlidingViewController : ECSlidingViewController
 @property (strong, nonatomic) UIWindow *window;
 @property (strong, nonatomic) NSString *vc;

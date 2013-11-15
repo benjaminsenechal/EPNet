@@ -20,6 +20,8 @@
 @synthesize lessonSelected;
 @synthesize dicoLessons;
 Thematic *n;
+int d=0;
+
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewDidLoad];
@@ -60,9 +62,14 @@ Thematic *n;
     self.navigationItem.rightBarButtonItem = [aProposButton initWithCustomView:myBtnRight];
     self.navigationController.navigationBar.shadowImage = [[UIImage alloc]init];
     
-    [ManagedThematic loadDataFromWebService];
-    [ManagedLesson loadDataFromWebService];
-    
+    if (d == 0){
+        [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(requestWSFinishedReloadTB) name:@"finishLoadFromWS" object:nil];
+        [ManagedLesson loadDataFromWebService];
+        [ManagedThematic loadDataFromWebService];
+        d=1;
+    }else{
+        NSLog(@"No reload");
+    }
 }
 
 
@@ -89,8 +96,6 @@ Thematic *n;
 {
     [super viewDidLoad];
 
-    // Data manage
-  //  [ManagedThematic loadDataFromWebService];
     AppDelegate *appDelegate = (AppDelegate *)[[UIApplication sharedApplication]delegate];
     NSManagedObjectContext *managedObjectContext = [appDelegate managedObjectContext];
     
@@ -111,7 +116,6 @@ Thematic *n;
           // NSLog(@"them:%@ - lessons:%@", n.title ,[[test valueForKey:@"title"]objectAtIndex:i] );
         }
     }
-    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(requestWSFinishedReloadTB) name:@"finishLoadFromWS" object:nil];
 }
 
 
