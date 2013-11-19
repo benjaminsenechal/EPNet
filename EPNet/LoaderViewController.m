@@ -13,7 +13,8 @@
 @end
 
 @implementation LoaderViewController
-
+Thematic *n;
+@synthesize dicoLessons;
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
@@ -23,25 +24,38 @@
     return self;
 }
 
+- (void)viewDidAppear:(BOOL)animated{
+   // [ManagedLesson loadDataFromWebService];
+   // [ManagedThematic loadDataFromWebService];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(requestWSFinishedReloadTB) name:@"finishLoadThematicFromWS" object:nil];
+}
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    [self loadAllData];
+    dicoLessons = [Lesson findAllSortedBy:@"title" ascending:YES];
+    NSLog(@"TitreLessons %@", [dicoLessons valueForKey:@"title"]);
+    
+    NSArray *dicoT = [Thematic findAllSortedBy:@"title" ascending:YES];
+    NSLog(@"TitreThematic %@", [dicoT valueForKey:@"title"]);
+    for (int i = 0; i < [dicoT count]; i++) {
+        n =  [dicoT objectAtIndex:i];
+        NSSet *nn = n.lesson;
+        NSArray *test  = [nn allObjects];
+        NSLog(@"%@", [test valueForKey:@"title"]);
+        for (int i =0; i< [test count]; i++){
+             NSLog(@"them:%@ - lessons:%@", n.title ,[[test valueForKey:@"title"]objectAtIndex:i] );
+        }
+    }
+    
 }
+-(void)requestWSFinishedReloadTB{
+    NSLog(@"bordel");
 
--(void)loadAllData{
-    [ManagedNew loadDataFromWebService];
-    [ManagedMember loadDataFromWebService];
-    [ManagedLesson loadDataFromWebService];
-    [ManagedThematic loadDataFromWebService];
-    [ManagedProject loadDataFromWebService];
-}
-
--(void)load{
-    NSLog(@"Tout est chargé");
+           
+    [[NSNotificationCenter defaultCenter]removeObserver:self name:@"finishLoadThematicFromWS" object:nil];
 
 }
-
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];

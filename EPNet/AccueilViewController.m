@@ -28,6 +28,9 @@ int f=0;
     
     [super viewWillAppear:animated];
     
+    ODRefreshControl *refreshControl = [[ODRefreshControl alloc] initInScrollView:self.tableViewNews];
+    [refreshControl addTarget:self action:@selector(dropViewDidBeginRefreshing:) forControlEvents:UIControlEventValueChanged];
+    
     [[UINavigationBar appearance] setTitleTextAttributes: @{
                                 UITextAttributeTextColor: [UIColor darkGrayColor],
                           UITextAttributeTextShadowColor: [UIColor whiteColor],
@@ -68,19 +71,41 @@ int f=0;
     self.navigationController.navigationBar.shadowImage = [[UIImage alloc]init];
     
     if (f == 0) {
-        [ManagedNew loadDataFromWebService];
         [ManagedMember loadDataFromWebService];
-        [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(requestWSFinishedReloadTB) name:@"finishLoadFromWS" object:nil];
+        [ManagedNew loadDataFromWebService];
+
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(finishedLoad) name:@"notificationLoadMembersNewsFinished" object:nil];
         f = 1;
         NSLog(@"RELOADDDD");
     }else{
         NSLog(@"NO RELOADDDD");
         [loader stopAnimating];
+        [self finishedLoad];
     }
-    
+    [tableViewNews reloadData];
+
 }
-
-
+- (void)dropViewDidBeginRefreshing:(ODRefreshControl *)refreshControl
+{
+    [self finishedLoad];
+    double delayInSeconds = 1.0;
+    dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, delayInSeconds * NSEC_PER_SEC);
+    dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
+        [refreshControl endRefreshing];
+    });
+}
+-(void)finishedLoad{
+    New *n;
+    dicoNews = [New findAllSortedBy:@"created_at" ascending:NO];
+    for (int i = 0; i < [dicoNews count]; i++) {
+        n =  [dicoNews objectAtIndex:i];
+        NSLog(@"Les News %@ - %@", n.title, n.member.lastname);
+    }
+    [[NSNotificationCenter defaultCenter]removeObserver:self name:@"notificationLoadMembersNewsFinished" object:nil];
+    [tableViewNews reloadData];
+    [loader stopAnimating];
+}
+/*
 -(void)requestWSFinishedReloadTB
 {
     NSLog(@"Reload news");
@@ -104,11 +129,13 @@ int f=0;
     [tableViewNews reloadData];
     [loader stopAnimating];
     
-}
+}*/
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    [tableViewNews reloadData];
 
+/*
     // Data manage
     AppDelegate *appDelegate = (AppDelegate *)[[UIApplication sharedApplication]delegate];
     NSManagedObjectContext *managedObjectContext = [appDelegate managedObjectContext];
@@ -128,7 +155,7 @@ int f=0;
      for (int i = 0; i < [dicoNews count]; i++) {
          New *ne =  [dicoNews objectAtIndex:i];
          NSLog(@"member : %@", ne.member.lastname);
-    }
+    }*/
 }
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath

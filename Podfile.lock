@@ -12,6 +12,7 @@ PODS:
   - ECSlidingViewController (0.10.0)
   - MagicalRecord (2.2)
   - MDCParallaxView (0.1.4)
+  - ODRefreshControl (1.1.0)
   - sundown (0.1.0)
 
 DEPENDENCIES:
@@ -20,6 +21,7 @@ DEPENDENCIES:
   - ECSlidingViewController (~> 0.10.0)
   - MagicalRecord (~> 2.0)
   - MDCParallaxView (~> 0.1.4)
+  - ODRefreshControl (~> 1.1.0)
   - sundown (~> 0.1.0)
 
 SPEC CHECKSUMS:
@@ -29,6 +31,7 @@ SPEC CHECKSUMS:
   ECSlidingViewController: fc9a9a6564d4a64c0d8c7cf5583d2b9a469ecd04
   MagicalRecord: b1fc46c99a9749fe7fe7e6f43a89b62ef5201933
   MDCParallaxView: a1aea11598439a6c20864e7bec23aa595464475b
+  ODRefreshControl: 886e323a7c25114b9e5c397a9eefbebc034224a9
   sundown: f0b86bd08ee36f84e9e6a6332d3cbd0309889dfa
 
 COCOAPODS: 0.28.0

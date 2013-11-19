@@ -21,6 +21,7 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     [MagicalRecord setupCoreDataStack];
+    [MagicalRecord setupCoreDataStackWithStoreNamed:@"EPNet.sqlite"];
     [[UINavigationBar appearance] setTintColor:[UIColor colorWithRed:241.0/255.0 green:241.0/255.0 blue:241.0/255.0 alpha:1.00]];
 
     return YES;
@@ -53,6 +54,7 @@
 - (void)applicationWillTerminate:(UIApplication *)application
 {
     // Saves changes in the application's managed object context before the application terminates.
+    [MagicalRecord cleanUp];
     [self saveContext];
 }
 

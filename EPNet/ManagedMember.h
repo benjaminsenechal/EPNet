@@ -15,7 +15,7 @@
 
 @interface ManagedMember : NSObject
 +(void)loadDataFromWebService;
-+(Member *)returnMemberModelFromDictionary:(NSDictionary *)dicoNew withContext:(NSManagedObjectContext *)managedObjectContext;
-+(Member *)returnMemberModelWithId:(NSString *)myid withContext:(NSManagedObjectContext *)managedObjectContext;
++(Member *)returnMember:(NSString *)idMember;
+@property(strong, nonatomic)NSArray *dico;
 
 @end

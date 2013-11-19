@@ -60,48 +60,23 @@
     self.navigationItem.rightBarButtonItem = [aProposButton initWithCustomView:myBtnRight];
     self.navigationController.navigationBar.shadowImage = [[UIImage alloc]init];
 
+    dicoProjets = [Project findAllSortedBy:@"created_at" ascending:YES];
+
+    [ManagedProject loadDataFromWebService];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(finishedLoad) name:@"notificationLoadProjectFinished" object:nil];
+    
 }
 
--(void)requestWSFinishedReloadTB
-{
-    NSLog(@"Reload Projet");
-    
-    [[NSNotificationCenter defaultCenter]removeObserver:self name:@"finishLoadFromWS" object:nil];
-    
-    AppDelegate *appDelegate = (AppDelegate *)[[UIApplication sharedApplication]delegate];
-    NSManagedObjectContext *managedObjectContext = [appDelegate managedObjectContext];
-    
-    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
-    NSEntityDescription *entity = [NSEntityDescription
-                                   entityForName:@"Project" inManagedObjectContext:managedObjectContext];
-    [fetchRequest setEntity:entity];
-    
-    NSError *error;
-    dicoProjets = [managedObjectContext executeFetchRequest:fetchRequest error:&error];
-    
+-(void)finishedLoad{
+    dicoProjets = [Project findAllSortedBy:@"created_at" ascending:YES];
+    [[NSNotificationCenter defaultCenter]removeObserver:self name:@"notificationLoadProjectFinished" object:nil];
     [tableViewProjets reloadData];
-    
 }
+
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    // Data manage
-   // [ManagedProject loadDataFromWebService];
-    AppDelegate *appDelegate = (AppDelegate *)[[UIApplication sharedApplication]delegate];
-    NSManagedObjectContext *managedObjectContext = [appDelegate managedObjectContext];
-    
-    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
-    NSEntityDescription *entity = [NSEntityDescription
-                                   entityForName:@"Project" inManagedObjectContext:managedObjectContext];
-    [fetchRequest setEntity:entity];
-    
-    NSError *error;
-    
-    dicoProjets = [managedObjectContext executeFetchRequest:fetchRequest error:&error];
-
-    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(requestWSFinishedReloadTB) name:@"finishLoadFromWS" object:nil];
-    
-    [ManagedProject loadDataFromWebService];
 
 }
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
@@ -137,14 +112,14 @@
 
     return Cell;
 }
-/*
+
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     CGSize size = [[[dicoProjets valueForKey:@"desc" ] objectAtIndex:indexPath.row]
                    sizeWithFont:[UIFont systemFontOfSize:14]
                    constrainedToSize:CGSizeMake(320, CGFLOAT_MAX)];
     return size.height + 230;
 }
-*/
+
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];

@@ -230,10 +230,10 @@
 				91D0931F176CDA670095D10D /* ManagedMember.m */,
 				91E8E6A8176EEFC700F961A4 /* ManagedNew.h */,
 				91E8E6A9176EEFC700F961A4 /* ManagedNew.m */,
-				91CA324C176F987500073E2A /* ManagedLesson.h */,
-				91CA324D176F987500073E2A /* ManagedLesson.m */,
 				91CA324F176F99BB00073E2A /* ManagedThematic.h */,
 				91CA3250176F99BB00073E2A /* ManagedThematic.m */,
+				91CA324C176F987500073E2A /* ManagedLesson.h */,
+				91CA324D176F987500073E2A /* ManagedLesson.m */,
 				918E902A1771CE0600674C04 /* ManagedProject.h */,
 				918E902B1771CE0600674C04 /* ManagedProject.m */,
 			);

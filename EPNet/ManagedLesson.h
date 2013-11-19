@@ -18,6 +18,5 @@
 
 @interface ManagedLesson : NSObject
 +(void)loadDataFromWebService;
-+(Lesson *)returnLessonModelFromDictionary:(NSMutableArray *)dico withContext:(NSManagedObjectContext *)managedObjectContext;
-
++(Lesson *)returnLessonModelFromDictionary:(NSMutableArray *)dico;
 @end

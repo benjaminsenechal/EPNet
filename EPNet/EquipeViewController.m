@@ -21,7 +21,8 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    
+    [tableViewMember reloadData];
+
     [[UINavigationBar appearance] setTitleTextAttributes: @{
                                 UITextAttributeTextColor: [UIColor darkGrayColor],
                           UITextAttributeTextShadowColor: [UIColor whiteColor],
@@ -82,34 +83,20 @@
                                         initWithKey:@"idMember" ascending:YES selector:nil];
     dicoMember = [NSArray arrayWithObject:sortDescriptor];
     [fetchRequest setSortDescriptors:dicoMember];
-   [tableViewMember reloadData];
+    [tableViewMember reloadData];
     
 }
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    // Data manage
-    AppDelegate *appDelegate = (AppDelegate *)[[UIApplication sharedApplication]delegate];
-    NSManagedObjectContext *managedObjectContext = [appDelegate managedObjectContext];
-    
-    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
-    NSEntityDescription *entity = [NSEntityDescription
-                                   entityForName:@"Member" inManagedObjectContext:managedObjectContext];
-    [fetchRequest setEntity:entity];
-    
-    NSSortDescriptor *sortDescription = [[NSSortDescriptor alloc] initWithKey:@"idMember" ascending:YES];
-    [fetchRequest setSortDescriptors:@[sortDescription]];
-    
-    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"client == %@", @"false"];
-    [fetchRequest setPredicate:predicate];
-    
-    NSError *error;
 
-    dicoMember = [managedObjectContext executeFetchRequest:fetchRequest error:&error];
+    dicoMember = [Member findAllSortedBy:@"idMember" ascending:YES];
+    double delayInSeconds = 0.2;
+    dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, delayInSeconds * NSEC_PER_SEC);
+    dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
+        [tableViewMember reloadData];
+    });
 
-    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(requestWSFinishedReloadTB) name:@"finishLoadFromWS" object:nil];
-
-    
 }
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {

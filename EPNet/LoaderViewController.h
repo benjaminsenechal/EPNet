@@ -18,5 +18,6 @@
 #import "ManagedThematic.h"
 #import "ManagedProject.h"
 @interface LoaderViewController : UIViewController
+@property(strong, nonatomic)NSArray *dicoLessons;
 
 @end

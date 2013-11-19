@@ -54,6 +54,12 @@
 #define COCOAPODS_VERSION_MINOR_MagicalRecord 2
 #define COCOAPODS_VERSION_PATCH_MagicalRecord 0
 
+// ODRefreshControl
+#define COCOAPODS_POD_AVAILABLE_ODRefreshControl
+#define COCOAPODS_VERSION_MAJOR_ODRefreshControl 1
+#define COCOAPODS_VERSION_MINOR_ODRefreshControl 1
+#define COCOAPODS_VERSION_PATCH_ODRefreshControl 0
+
 // sundown
 #define COCOAPODS_POD_AVAILABLE_sundown
 #define COCOAPODS_VERSION_MAJOR_sundown 0

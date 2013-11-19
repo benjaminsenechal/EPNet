@@ -264,7 +264,7 @@
                                 </connections>
                             </navigationBar>
                             <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" hidesWhenStopped="YES" animating="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="43t-vn-BZ1">
-                                <rect key="frame" x="226" y="44" width="20" height="20"/>
+                                <rect key="frame" x="228" y="32" width="20" height="20"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </activityIndicatorView>
                         </subviews>
@@ -707,6 +707,6 @@
         <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="BeI-9q-rt6"/>
+        <segue reference="04w-YL-ADO"/>
     </inferredMetricsTieBreakers>
 </document>

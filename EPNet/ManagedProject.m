@@ -11,35 +11,10 @@
 @implementation ManagedProject
 
 +(void)loadDataFromWebService{
-    AppDelegate *appDelegate = (AppDelegate *)[[UIApplication sharedApplication]delegate];
-    NSManagedObjectContext *managedObjectContext = [appDelegate managedObjectContext];
-    NSArray *projects = [[NSArray alloc] init];
-    [self deleteAllProject:managedObjectContext andArray:projects];
-    [self addProject:managedObjectContext andArray:projects];
-    NSLog(@"ManagedProject");
+    [self persistProject];
 }
 
-+(void)deleteAllProject:(NSManagedObjectContext *)managedObjectContext andArray:(NSArray *)project
-{
-    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
-    NSEntityDescription *entity = [NSEntityDescription
-                                   entityForName:@"Project" inManagedObjectContext:managedObjectContext];
-    [fetchRequest setEntity:entity];
-    
-    NSError *error;
-    project = [managedObjectContext executeFetchRequest:fetchRequest error:&error];
-    
-    for (NSManagedObject * m in project) {
-        [managedObjectContext deleteObject:m];
-    }
-    
-    if (![managedObjectContext save:&error]) {
-        NSLog(@"Error: %@", [error localizedDescription]);
-    }
-}
-
-+(void)addProject:(NSManagedObjectContext *)managedObjectContext andArray:(NSArray *)new
-{
++(void)persistProject{
     NSURL *url = [NSURL URLWithString:@"http://epnet.fr/projects.json"];
     NSURLRequest *request = [NSURLRequest requestWithURL:url];
     AFJSONRequestOperation *operation = [AFJSONRequestOperation JSONRequestOperationWithRequest:request success:^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
@@ -47,50 +22,54 @@
         responseProject = JSON;
         for (int i = 0; i < [responseProject count]; i++) {
             NSDictionary *dicoNew = [responseProject objectAtIndex:i];
-            Project *newProject = [NSEntityDescription
-                           insertNewObjectForEntityForName:@"Project"
-                           inManagedObjectContext:managedObjectContext];
+            
+            
             NSNumber *v = [dicoNew valueForKey:@"id"];
-            newProject.idProject = v;
-            newProject.desc = [dicoNew valueForKey:@"description"];
-            newProject.created_at = [dicoNew valueForKey:@"created_at"];
-            newProject.title = [dicoNew valueForKey:@"title"];
-            newProject.updated_at = [dicoNew valueForKey:@"updated_at"];
 
+            NSString *desc = [dicoNew valueForKey:@"description"];
+            NSString *created_at = [dicoNew valueForKey:@"created_at"];
+            NSString *title = [dicoNew valueForKey:@"title"];
+            NSString *updated_at = [dicoNew valueForKey:@"updated_at"];
+            
             UIImage *imageThumb = [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://epnet.fr/%@",[[[dicoNew valueForKey:@"image"]valueForKey:@"thumb"] valueForKey:@"url"]]]]];
             NSData *tmpImageThumb  = UIImageJPEGRepresentation(imageThumb , 1.0);
-            newProject.imageThumb = tmpImageThumb;
             
             UIImage *imageThumbRect = [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://epnet.fr/%@",[[[dicoNew valueForKey:@"image"]valueForKey:@"thumb_rect"] valueForKey:@"url"]]]]];
             NSData *tmpImageThumbRect = UIImageJPEGRepresentation(imageThumbRect , 1.0);
-            newProject.imageThumbRect = tmpImageThumbRect;
-       
-            NSSet *m = newProject.member;
+            
+            NSSet *m = [dicoNew valueForKey:@"members"];
             NSMutableSet *tagNamesArray = [[NSMutableSet alloc] initWithCapacity:m.count];
             
             for (int y=0; y < [[dicoNew valueForKey:@"members"]count ]; y++ ){
-                Member *memberByNew=[ManagedMember returnMemberModelWithId:[[[dicoNew valueForKey:@"members"]valueForKey:@"id" ] objectAtIndex:y] withContext:managedObjectContext];
-               [tagNamesArray addObject:memberByNew];
+                Member *memberByNew=[ManagedMember returnMember:[[[dicoNew valueForKey:@"members"]valueForKey:@"id"] objectAtIndex:y]];
+                [tagNamesArray addObject:memberByNew];
             }
-            newProject.member = tagNamesArray;
             
+            Project *existingEntity = [Project findFirstByAttribute:@"idProject" withValue:v];
+            
+            if (!existingEntity)
+            {
+                NSManagedObjectContext *localContext = [NSManagedObjectContext contextForCurrentThread];
+                Project *newProject = [Project createInContext:localContext];
+                newProject.idProject = v;
+                newProject.desc = desc;
+                newProject.created_at = created_at;
+                newProject.title = title;
+                newProject.updated_at = updated_at;
+                newProject.imageThumb = tmpImageThumb;
+                newProject.imageThumbRect = tmpImageThumbRect;
+                newProject.member = tagNamesArray;
+                [localContext saveToPersistentStoreAndWait];
+            }
         }
         
-        NSError *error;
-        
-        if (![managedObjectContext save:&error]) {
-            NSLog(@"Whoops, couldn't save: %@", [error localizedDescription]);
-        }
-        
-        [[NSNotificationCenter defaultCenter]postNotification:[NSNotification notificationWithName:@"finishLoadFromWS" object:nil]];
-        
+        [[NSNotificationCenter defaultCenter]postNotification:[NSNotification notificationWithName:@"notificationLoadProjectFinished" object:nil]];
         
     } failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {
         NSLog(@"Failed Response : %@", JSON);
     }];
     [operation start];
-    
-}
 
+}
 
 @end

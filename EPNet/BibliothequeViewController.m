@@ -63,7 +63,7 @@ int d=0;
     self.navigationController.navigationBar.shadowImage = [[UIImage alloc]init];
     
     if (d == 0){
-        [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(requestWSFinishedReloadTB) name:@"finishLoadFromWS" object:nil];
+        [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(requestWSFinishedReloadTB) name:@"finishLoadLessonFromWS" object:nil];
         [ManagedLesson loadDataFromWebService];
         [ManagedThematic loadDataFromWebService];
         d=1;
@@ -77,36 +77,17 @@ int d=0;
 {
     NSLog(@"Reload BilBlio");
     
-    [[NSNotificationCenter defaultCenter]removeObserver:self name:@"finishLoadFromWS" object:nil];
-    
-    AppDelegate *appDelegate = (AppDelegate *)[[UIApplication sharedApplication]delegate];
-    NSManagedObjectContext *managedObjectContext = [appDelegate managedObjectContext];
-    
-    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
-    NSEntityDescription *entity = [NSEntityDescription
-                                   entityForName:@"Thematic" inManagedObjectContext:managedObjectContext];
-    [fetchRequest setEntity:entity];
-    
-    NSError *error;
-    dicoLessons = [managedObjectContext executeFetchRequest:fetchRequest error:&error];
+    [[NSNotificationCenter defaultCenter]removeObserver:self name:@"finishLoadLessonFromWS" object:nil];
+
+    dicoLessons = [Thematic findAllSortedBy:@"title" ascending:YES];
     [tableViewThematic reloadData];
     
 }
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-
-    AppDelegate *appDelegate = (AppDelegate *)[[UIApplication sharedApplication]delegate];
-    NSManagedObjectContext *managedObjectContext = [appDelegate managedObjectContext];
     
-    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
-    NSEntityDescription *entity = [NSEntityDescription
-                                   entityForName:@"Thematic" inManagedObjectContext:managedObjectContext];
-    [fetchRequest setEntity:entity];
-    
-    NSError *error;
-    
-    dicoLessons = [managedObjectContext executeFetchRequest:fetchRequest error:&error];
+    dicoLessons = [Thematic findAllSortedBy:@"title" ascending:YES];
     for (int i = 0; i < [dicoLessons count]; i++) {
         n =  [dicoLessons objectAtIndex:i];
         NSSet *nn = n.lesson;
