@@ -52,7 +52,7 @@
                                DTMaxImageSize : [NSValue valueWithCGSize:maxImageSize],
                                };
     NSAttributedString *attrString = [[NSAttributedString alloc] initWithHTMLData:currentDicoLesson.content options:options documentAttributes:nil];
-   // NSLog(@"%@",attrString);
+
     textView.attributedString = attrString;
 	textView.shouldDrawImages = YES;
 	textView.shouldDrawLinks = YES;

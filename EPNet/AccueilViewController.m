@@ -76,24 +76,23 @@ int f=0;
 
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(finishedLoad) name:@"notificationLoadMembersNewsFinished" object:nil];
         f = 1;
-        NSLog(@"RELOADDDD");
     }else{
-        NSLog(@"NO RELOADDDD");
-        [loader stopAnimating];
         [self finishedLoad];
     }
     [tableViewNews reloadData];
 
 }
+
 - (void)dropViewDidBeginRefreshing:(ODRefreshControl *)refreshControl
 {
     [self finishedLoad];
-    double delayInSeconds = 1.0;
+    double delayInSeconds = 0.5;
     dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, delayInSeconds * NSEC_PER_SEC);
     dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
         [refreshControl endRefreshing];
     });
 }
+
 -(void)finishedLoad{
     New *n;
     dicoNews = [New findAllSortedBy:@"created_at" ascending:NO];
@@ -105,64 +104,16 @@ int f=0;
     [tableViewNews reloadData];
     [loader stopAnimating];
 }
-/*
--(void)requestWSFinishedReloadTB
-{
-    NSLog(@"Reload news");
-    
-    [[NSNotificationCenter defaultCenter]removeObserver:self name:@"finishLoadFromWS" object:nil];
-    
-    AppDelegate *appDelegate = (AppDelegate *)[[UIApplication sharedApplication]delegate];
-    NSManagedObjectContext *managedObjectContext = [appDelegate managedObjectContext];
-    
-    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
-    NSEntityDescription *entity = [NSEntityDescription
-                                   entityForName:@"New" inManagedObjectContext:managedObjectContext];
-    [fetchRequest setEntity:entity];
-    
-    NSSortDescriptor *sortDescription = [[NSSortDescriptor alloc] initWithKey:@"created_at" ascending:NO];
-    [fetchRequest setSortDescriptors:@[sortDescription]];
-    
-    NSError *error;
-    dicoNews = [managedObjectContext executeFetchRequest:fetchRequest error:&error];
 
-    [tableViewNews reloadData];
-    [loader stopAnimating];
-    
-}*/
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    [tableViewNews reloadData];
-
-/*
-    // Data manage
-    AppDelegate *appDelegate = (AppDelegate *)[[UIApplication sharedApplication]delegate];
-    NSManagedObjectContext *managedObjectContext = [appDelegate managedObjectContext];
-    
-    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
-    NSEntityDescription *entity = [NSEntityDescription
-                                   entityForName:@"New" inManagedObjectContext:managedObjectContext];
-    [fetchRequest setEntity:entity];
-   
-    NSSortDescriptor *sortDescription = [[NSSortDescriptor alloc] initWithKey:@"created_at" ascending:NO];
-    [fetchRequest setSortDescriptors:@[sortDescription]];
-    
-    NSError *error;
-    
-    dicoNews = [managedObjectContext executeFetchRequest:fetchRequest error:&error];
-
-     for (int i = 0; i < [dicoNews count]; i++) {
-         New *ne =  [dicoNews objectAtIndex:i];
-         NSLog(@"member : %@", ne.member.lastname);
-    }*/
 }
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     newsSelected = [dicoNews objectAtIndex:indexPath.row];
     [self performSegueWithIdentifier:@"newsSegue" sender:self];
-    
 }
 
 -(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender

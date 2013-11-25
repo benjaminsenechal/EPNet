@@ -40,7 +40,7 @@
     [imageAuthor setImage:[UIImage imageWithData:currentDicoNew.member.avatarThumb]];
     imageAuthor.layer.cornerRadius = 35;
     imageAuthor.layer.masksToBounds = YES;
-    
+
     imageNew = [[UIImageView alloc] initWithFrame:CGRectMake(0, 40, 320, 178)];
     [imageNew  setImage:[UIImage imageWithData:currentDicoNew.imageThumb]];
     imageNew.contentMode = UIViewContentModeScaleAspectFill;

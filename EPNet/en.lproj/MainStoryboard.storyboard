@@ -368,6 +368,10 @@
                                     </navigationItem>
                                 </items>
                             </navigationBar>
+                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" hidesWhenStopped="YES" animating="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="odC-Hb-eQp">
+                                <rect key="frame" x="233" y="31" width="20" height="20"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </activityIndicatorView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
@@ -382,6 +386,7 @@
                     </view>
                     <connections>
                         <outlet property="aProposButton" destination="Oh4-LF-782" id="t9e-Gh-Z9A"/>
+                        <outlet property="loader" destination="odC-Hb-eQp" id="W1J-O0-2Gg"/>
                         <outlet property="menuButton" destination="jCY-UN-GSe" id="nY4-Sj-yUU"/>
                         <outlet property="tableViewThematic" destination="Kna-YA-2Br" id="Lue-GE-Z4F"/>
                         <segue destination="7dE-XX-yxy" kind="push" identifier="lessonSegue" id="26U-6Y-XYE"/>

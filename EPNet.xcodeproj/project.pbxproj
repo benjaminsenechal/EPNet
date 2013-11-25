@@ -51,7 +51,6 @@
 		91D754481773697300A3AA1D /* EquipeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 91D754471773697300A3AA1D /* EquipeViewController.m */; };
 		91D7544B17736ECA00A3AA1D /* CustomEquipeCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 91D7544A17736ECA00A3AA1D /* CustomEquipeCell.m */; };
 		91E8E6AA176EEFC700F961A4 /* ManagedNew.m in Sources */ = {isa = PBXBuildFile; fileRef = 91E8E6A9176EEFC700F961A4 /* ManagedNew.m */; };
-		91E8E6B1176EF1BF00F961A4 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 91E8E6B0176EF1BF00F961A4 /* ViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -127,8 +126,6 @@
 		91D7544A17736ECA00A3AA1D /* CustomEquipeCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomEquipeCell.m; sourceTree = "<group>"; };
 		91E8E6A8176EEFC700F961A4 /* ManagedNew.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ManagedNew.h; sourceTree = "<group>"; };
 		91E8E6A9176EEFC700F961A4 /* ManagedNew.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ManagedNew.m; sourceTree = "<group>"; };
-		91E8E6AF176EF1BF00F961A4 /* ViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
-		91E8E6B0176EF1BF00F961A4 /* ViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
 		C361108D1C274BF69D6F5DD2 /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = SOURCE_ROOT; };
 		EEB62175A2474C4D8D1C52B5 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -243,8 +240,6 @@
 		91E8E6AD176EF18B00F961A4 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
-				91E8E6AF176EF1BF00F961A4 /* ViewController.h */,
-				91E8E6B0176EF1BF00F961A4 /* ViewController.m */,
 				9198B7A21772EC7D00F0AE8B /* InitialSlidingViewController.h */,
 				9198B7A31772EC7D00F0AE8B /* InitialSlidingViewController.m */,
 				9198B7A51772ED0300F0AE8B /* AccueilViewController.h */,
@@ -397,7 +392,6 @@
 				91D092F7176C68AE0095D10D /* EPNet.xcdatamodeld in Sources */,
 				91D09320176CDA670095D10D /* ManagedMember.m in Sources */,
 				91E8E6AA176EEFC700F961A4 /* ManagedNew.m in Sources */,
-				91E8E6B1176EF1BF00F961A4 /* ViewController.m in Sources */,
 				91CA324E176F987500073E2A /* ManagedLesson.m in Sources */,
 				91CA3251176F99BB00073E2A /* ManagedThematic.m in Sources */,
 				918E902C1771CE0700674C04 /* ManagedProject.m in Sources */,

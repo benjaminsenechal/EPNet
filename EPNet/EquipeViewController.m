@@ -21,8 +21,10 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    [tableViewMember reloadData];
-
+    
+    ODRefreshControl *refreshControl = [[ODRefreshControl alloc] initInScrollView:self.tableViewMember];
+    [refreshControl addTarget:self action:@selector(dropViewDidBeginRefreshing:) forControlEvents:UIControlEventValueChanged];
+    
     [[UINavigationBar appearance] setTitleTextAttributes: @{
                                 UITextAttributeTextColor: [UIColor darkGrayColor],
                           UITextAttributeTextShadowColor: [UIColor whiteColor],
@@ -61,43 +63,24 @@
          forControlEvents:UIControlEventTouchUpInside];
     self.navigationItem.rightBarButtonItem = [aProposButton initWithCustomView:myBtnRight];
     self.navigationController.navigationBar.shadowImage = [[UIImage alloc]init];
-    
+    [self finishedLoad];
 }
--(void)requestWSFinishedReloadTB
-{
-    NSLog(@"Reload Equipe");
-    
-    [[NSNotificationCenter defaultCenter]removeObserver:self name:@"finishLoadFromWS" object:nil];
-    
-    AppDelegate *appDelegate = (AppDelegate *)[[UIApplication sharedApplication]delegate];
-    NSManagedObjectContext *managedObjectContext = [appDelegate managedObjectContext];
-    
-    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
-    NSEntityDescription *entity = [NSEntityDescription
-                                   entityForName:@"Member" inManagedObjectContext:managedObjectContext];
-    [fetchRequest setEntity:entity];
 
-    NSError *error;
-    dicoMember = [managedObjectContext executeFetchRequest:fetchRequest error:&error];
-    NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc]
-                                        initWithKey:@"idMember" ascending:YES selector:nil];
-    dicoMember = [NSArray arrayWithObject:sortDescriptor];
-    [fetchRequest setSortDescriptors:dicoMember];
-    [tableViewMember reloadData];
-    
-}
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+}
 
-    dicoMember = [Member findAllSortedBy:@"idMember" ascending:YES];
-    double delayInSeconds = 0.2;
+- (void)finishedLoad{
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"client = 'false'"];
+    dicoMember = [Member findAllSortedBy:@"idMember" ascending:YES withPredicate:predicate];
+    double delayInSeconds = 0.5;
     dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, delayInSeconds * NSEC_PER_SEC);
     dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
         [tableViewMember reloadData];
     });
-
 }
+
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
     return 1;
@@ -106,6 +89,16 @@
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     return [dicoMember count];
+}
+
+- (void)dropViewDidBeginRefreshing:(ODRefreshControl *)refreshControl
+{
+    [self finishedLoad];
+    double delayInSeconds = 0.5;
+    dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, delayInSeconds * NSEC_PER_SEC);
+    dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
+        [refreshControl endRefreshing];
+    });
 }
 
 

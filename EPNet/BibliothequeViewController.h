@@ -28,5 +28,6 @@
 @property(strong, nonatomic)NSArray *dicoLessons;
 @property(strong, nonatomic)Thematic *themSelected;
 @property(strong, nonatomic)Lesson *lessonSelected;
+@property (strong, nonatomic) IBOutlet UIActivityIndicatorView *loader;
 
 @end

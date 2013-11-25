@@ -18,8 +18,10 @@
 @synthesize dicoProjets;
 - (void)viewWillAppear:(BOOL)animated
 {
-
     [super viewWillAppear:animated];
+ 
+    ODRefreshControl *refreshControl = [[ODRefreshControl alloc] initInScrollView:self.tableViewProjets];
+    [refreshControl addTarget:self action:@selector(dropViewDidBeginRefreshing:) forControlEvents:UIControlEventValueChanged];
     
     [[UINavigationBar appearance] setTitleTextAttributes: @{
                                 UITextAttributeTextColor: [UIColor darkGrayColor],
@@ -71,6 +73,17 @@
     dicoProjets = [Project findAllSortedBy:@"created_at" ascending:YES];
     [[NSNotificationCenter defaultCenter]removeObserver:self name:@"notificationLoadProjectFinished" object:nil];
     [tableViewProjets reloadData];
+}
+
+
+- (void)dropViewDidBeginRefreshing:(ODRefreshControl *)refreshControl
+{
+    [self finishedLoad];
+    double delayInSeconds = 0.5;
+    dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, delayInSeconds * NSEC_PER_SEC);
+    dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
+        [refreshControl endRefreshing];
+    });
 }
 
 

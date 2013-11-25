@@ -30,10 +30,6 @@
             NSString *created_at = [dicoNew valueForKey:@"created_at"];
             NSString *title = [dicoNew valueForKey:@"title"];
             NSString *updated_at = [dicoNew valueForKey:@"updated_at"];
-            
-            UIImage *imageThumb = [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://epnet.fr/%@",[[[dicoNew valueForKey:@"image"]valueForKey:@"thumb"] valueForKey:@"url"]]]]];
-            NSData *tmpImageThumb  = UIImageJPEGRepresentation(imageThumb , 1.0);
-            
             UIImage *imageThumbRect = [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://epnet.fr/%@",[[[dicoNew valueForKey:@"image"]valueForKey:@"thumb_rect"] valueForKey:@"url"]]]]];
             NSData *tmpImageThumbRect = UIImageJPEGRepresentation(imageThumbRect , 1.0);
             
@@ -56,7 +52,6 @@
                 newProject.created_at = created_at;
                 newProject.title = title;
                 newProject.updated_at = updated_at;
-                newProject.imageThumb = tmpImageThumb;
                 newProject.imageThumbRect = tmpImageThumbRect;
                 newProject.member = tagNamesArray;
                 [localContext saveToPersistentStoreAndWait];

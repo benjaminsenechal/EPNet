@@ -23,8 +23,6 @@
             NSMutableArray *dicoNew = [responseMembers objectAtIndex:i];
 
             NSNumber *v = [dicoNew valueForKey:@"id"];
-            UIImage *avatar = [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://epnet.fr/%@",[[dicoNew valueForKey:@"avatar"] objectForKey:@"url"] ]]]];
-            NSData *imageData = UIImageJPEGRepresentation(avatar , 1.0);
             UIImage *avatarThumb = [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://epnet.fr/%@",[[[dicoNew valueForKey:@"avatar"] objectForKey:@"thumb"] objectForKey:@"url"]]]]];
             NSData *tmpAvatarThumb  = UIImageJPEGRepresentation(avatarThumb, 1.0);
             NSNumber *va = [dicoNew valueForKey:@"client"];
@@ -74,7 +72,6 @@
                 NSManagedObjectContext *localContext = [NSManagedObjectContext contextForCurrentThread];
                 Member *newMember = [Member createInContext:localContext];
                 newMember.idMember = v;
-                newMember.avatar = imageData;
                 newMember.avatarThumb = tmpAvatarThumb;
                 newMember.client = va;
                 newMember.updated_at = updated_at;

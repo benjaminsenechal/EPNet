@@ -19,12 +19,17 @@
 @synthesize themSelected;
 @synthesize lessonSelected;
 @synthesize dicoLessons;
+@synthesize loader;
 Thematic *n;
 int d=0;
 
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewDidLoad];
+    
+    ODRefreshControl *refreshControl = [[ODRefreshControl alloc] initInScrollView:self.tableViewThematic];
+    [refreshControl addTarget:self action:@selector(dropViewDidBeginRefreshing:) forControlEvents:UIControlEventValueChanged];
+    
     self.view.layer.shadowOpacity = 0.75f;
     self.view.layer.shadowRadius = 10.0f;
     [[UINavigationBar appearance] setTitleTextAttributes: @{
@@ -63,30 +68,42 @@ int d=0;
     self.navigationController.navigationBar.shadowImage = [[UIImage alloc]init];
     
     if (d == 0){
-        [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(requestWSFinishedReloadTB) name:@"finishLoadLessonFromWS" object:nil];
+        [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(finishedLoad) name:@"finishLoadLessonFromWS" object:nil];
         [ManagedLesson loadDataFromWebService];
         [ManagedThematic loadDataFromWebService];
         d=1;
     }else{
         NSLog(@"No reload");
+        [loader stopAnimating];
     }
 }
 
-
--(void)requestWSFinishedReloadTB
+- (void)dropViewDidBeginRefreshing:(ODRefreshControl *)refreshControl
 {
-    NSLog(@"Reload BilBlio");
-    
-    [[NSNotificationCenter defaultCenter]removeObserver:self name:@"finishLoadLessonFromWS" object:nil];
-
-    dicoLessons = [Thematic findAllSortedBy:@"title" ascending:YES];
-    [tableViewThematic reloadData];
-    
+    [self finishedLoad];
+    double delayInSeconds = 0.5;
+    dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, delayInSeconds * NSEC_PER_SEC);
+    dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
+        [refreshControl endRefreshing];
+    });
 }
+
+-(void)finishedLoad
+{
+    [[NSNotificationCenter defaultCenter]removeObserver:self name:@"finishLoadLessonFromWS" object:nil];
+    dicoLessons = [Thematic findAllSortedBy:@"title" ascending:YES];
+    [loader stopAnimating];
+    double delayInSeconds = 0.5;
+    dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, delayInSeconds * NSEC_PER_SEC);
+    dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
+        [tableViewThematic reloadData];
+    });
+
+}
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    
     dicoLessons = [Thematic findAllSortedBy:@"title" ascending:YES];
     for (int i = 0; i < [dicoLessons count]; i++) {
         n =  [dicoLessons objectAtIndex:i];
@@ -98,7 +115,6 @@ int d=0;
         }
     }
 }
-
 
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
