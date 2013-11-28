@@ -28,8 +28,9 @@ int f=0;
     
     [super viewWillAppear:animated];
     
-    ODRefreshControl *refreshControl = [[ODRefreshControl alloc] initInScrollView:self.tableViewNews];
+    UIRefreshControl *refreshControl = [[UIRefreshControl alloc] init];
     [refreshControl addTarget:self action:@selector(dropViewDidBeginRefreshing:) forControlEvents:UIControlEventValueChanged];
+    [self.tableViewNews addSubview:refreshControl];
     
     [[UINavigationBar appearance] setTitleTextAttributes: @{
                                 UITextAttributeTextColor: [UIColor darkGrayColor],
@@ -83,7 +84,7 @@ int f=0;
 
 }
 
-- (void)dropViewDidBeginRefreshing:(ODRefreshControl *)refreshControl
+- (void)dropViewDidBeginRefreshing:(UIRefreshControl *)refreshControl
 {
     [self finishedLoad];
     double delayInSeconds = 0.5;

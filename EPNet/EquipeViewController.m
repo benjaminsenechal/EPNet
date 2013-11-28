@@ -22,8 +22,9 @@
 {
     [super viewWillAppear:animated];
     
-    ODRefreshControl *refreshControl = [[ODRefreshControl alloc] initInScrollView:self.tableViewMember];
+    UIRefreshControl *refreshControl = [[UIRefreshControl alloc] init];
     [refreshControl addTarget:self action:@selector(dropViewDidBeginRefreshing:) forControlEvents:UIControlEventValueChanged];
+    [self.tableViewMember addSubview:refreshControl];
     
     [[UINavigationBar appearance] setTitleTextAttributes: @{
                                 UITextAttributeTextColor: [UIColor darkGrayColor],
@@ -91,7 +92,7 @@
     return [dicoMember count];
 }
 
-- (void)dropViewDidBeginRefreshing:(ODRefreshControl *)refreshControl
+- (void)dropViewDidBeginRefreshing:(UIRefreshControl *)refreshControl
 {
     [self finishedLoad];
     double delayInSeconds = 0.5;

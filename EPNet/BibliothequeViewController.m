@@ -27,8 +27,9 @@ int d=0;
 {
     [super viewDidLoad];
     
-    ODRefreshControl *refreshControl = [[ODRefreshControl alloc] initInScrollView:self.tableViewThematic];
+    UIRefreshControl *refreshControl = [[UIRefreshControl alloc] init];
     [refreshControl addTarget:self action:@selector(dropViewDidBeginRefreshing:) forControlEvents:UIControlEventValueChanged];
+    [self.tableViewThematic addSubview:refreshControl];
     
     self.view.layer.shadowOpacity = 0.75f;
     self.view.layer.shadowRadius = 10.0f;
@@ -78,7 +79,7 @@ int d=0;
     }
 }
 
-- (void)dropViewDidBeginRefreshing:(ODRefreshControl *)refreshControl
+- (void)dropViewDidBeginRefreshing:(UIRefreshControl *)refreshControl
 {
     [self finishedLoad];
     double delayInSeconds = 0.5;
