@@ -28,7 +28,9 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-
+    
+    self.navigationController.interactivePopGestureRecognizer.delegate = (id<UIGestureRecognizerDelegate>)self;
+    
     imageAuthor = [[UIImageView alloc] initWithFrame:CGRectMake((self.view.frame.size.width/2)-40, -45, 70, 70)];
     [imageAuthor setImage:[UIImage imageWithData:currentDicoLesson.member.avatarThumb]];
     imageAuthor.layer.cornerRadius = 35;

@@ -24,6 +24,8 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+ 
+    self.navigationController.interactivePopGestureRecognizer.delegate = (id<UIGestureRecognizerDelegate>)self;
     
     UIImage *redButtonImage = [UIImage imageNamed:@"back"];
     btnBack = [UIButton buttonWithType:UIButtonTypeCustom];

@@ -24,5 +24,6 @@
 - (IBAction)aProposAction:(id)sender;
 @property (strong, nonatomic) IBOutlet UITableView *tableViewProjets;
 @property (strong, nonatomic) IBOutlet NSArray *dicoProjets;
+@property (strong, nonatomic) IBOutlet UIActivityIndicatorView *loader;
 
 @end

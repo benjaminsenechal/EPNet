@@ -16,6 +16,8 @@
 @synthesize aProposButton;
 @synthesize tableViewProjets;
 @synthesize dicoProjets;
+@synthesize loader;
+int e=0;
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
@@ -63,17 +65,27 @@
     self.navigationItem.rightBarButtonItem = [aProposButton initWithCustomView:myBtnRight];
     self.navigationController.navigationBar.shadowImage = [[UIImage alloc]init];
 
-    dicoProjets = [Project findAllSortedBy:@"created_at" ascending:YES];
+    if (e == 0){
+        dicoProjets = [Project findAllSortedBy:@"created_at" ascending:NO];
+        [ManagedProject loadDataFromWebService];
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(finishedLoad) name:@"notificationLoadProjectFinished" object:nil];
+        e=1;
+    }else{
+        [loader stopAnimating];
+        [self finishedLoad];
+    }
 
-    [ManagedProject loadDataFromWebService];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(finishedLoad) name:@"notificationLoadProjectFinished" object:nil];
-    
 }
 
 -(void)finishedLoad{
-    dicoProjets = [Project findAllSortedBy:@"created_at" ascending:YES];
+    dicoProjets = [Project findAllSortedBy:@"created_at" ascending:NO];
     [[NSNotificationCenter defaultCenter]removeObserver:self name:@"notificationLoadProjectFinished" object:nil];
-    [tableViewProjets reloadData];
+    double delayInSeconds = 0.1;
+    dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, delayInSeconds * NSEC_PER_SEC);
+    dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
+        [tableViewProjets reloadData];
+    });
+    [loader stopAnimating];
 }
 
 
@@ -91,7 +103,6 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-
 }
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
@@ -110,7 +121,7 @@
     Cell = [tableView dequeueReusableCellWithIdentifier:@"myCell"];
     Project *n = [dicoProjets objectAtIndex:indexPath.row];
     [Cell.imageProjet setImage:[UIImage imageWithData:n.imageThumbRect]];
-
+    
     [Cell.labelTitle setText:n.title];
     
     Cell.labelDesc.font = [UIFont systemFontOfSize:14];

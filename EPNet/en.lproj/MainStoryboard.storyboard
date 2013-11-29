@@ -156,7 +156,7 @@
                                 </constraints>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
                                 <state key="normal" title="Button">
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                    <color key="titleShadowColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <state key="highlighted">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -636,6 +636,10 @@
                                     </navigationItem>
                                 </items>
                             </navigationBar>
+                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" hidesWhenStopped="YES" animating="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="bPC-iL-gCi">
+                                <rect key="frame" x="224" y="34" width="20" height="20"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </activityIndicatorView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
@@ -650,6 +654,7 @@
                     </view>
                     <connections>
                         <outlet property="aProposButton" destination="wkv-ut-W7G" id="qOF-1H-vt5"/>
+                        <outlet property="loader" destination="bPC-iL-gCi" id="S0T-aG-hwy"/>
                         <outlet property="menuButton" destination="GLo-aI-mJn" id="OoQ-1H-Wne"/>
                         <outlet property="tableViewProjets" destination="eCx-Al-RKB" id="5ea-yC-U1m"/>
                     </connections>

@@ -75,7 +75,7 @@
 - (void)finishedLoad{
     NSPredicate *predicate = [NSPredicate predicateWithFormat:@"client = 'false'"];
     dicoMember = [Member findAllSortedBy:@"idMember" ascending:YES withPredicate:predicate];
-    double delayInSeconds = 0.5;
+    double delayInSeconds = 0.1;
     dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, delayInSeconds * NSEC_PER_SEC);
     dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
         [tableViewMember reloadData];
