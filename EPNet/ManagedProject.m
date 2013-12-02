@@ -28,6 +28,7 @@ NSArray *dicoProject;
             NSNumber *v = [dicoNew valueForKey:@"id"];
 
             NSString *desc = [dicoNew valueForKey:@"description"];
+            NSString *link = [dicoNew valueForKey:@"link"];
             NSString *created_at = [dicoNew valueForKey:@"created_at"];
             NSString *title = [dicoNew valueForKey:@"title"];
             NSString *updated_at = [dicoNew valueForKey:@"updated_at"];
@@ -53,6 +54,7 @@ NSArray *dicoProject;
                 if (updateProject) {
                     updateProject.idProject = v;
                     updateProject.desc = desc;
+                    updateProject.link = link;
                     updateProject.created_at = created_at;
                     updateProject.title = title;
                     updateProject.updated_at = updated_at;
@@ -68,6 +70,7 @@ NSArray *dicoProject;
                 Project *newProject = [Project createInContext:localContext];
                 newProject.idProject = v;
                 newProject.desc = desc;
+                newProject.link = link;
                 newProject.created_at = created_at;
                 newProject.title = title;
                 newProject.updated_at = updated_at;

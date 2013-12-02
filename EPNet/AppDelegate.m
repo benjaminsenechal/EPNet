@@ -7,10 +7,12 @@
 //
 
 #import "AppDelegate.h"
+#import "GAI.h"
 #import "ManagedMember.h"
 #import "ManagedLesson.h"
 #import "ManagedNew.h"
 #import "ManagedProject.h"
+#import "GAITrackedViewController.h"
 
 @implementation AppDelegate
 
@@ -21,12 +23,24 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     [MagicalRecord setupCoreDataStack];
+    
+    [GAI sharedInstance].trackUncaughtExceptions = YES;
+    [GAI sharedInstance].dispatchInterval = 2;
+    [[[GAI sharedInstance] logger] setLogLevel:kGAILogLevelVerbose];
+    [[GAI sharedInstance] trackerWithTrackingId:@"UA-46158321-1"];
+    
     [MagicalRecord setupCoreDataStackWithStoreNamed:@"EPNet.sqlite"];
     [[UINavigationBar appearance] setTintColor:[UIColor colorWithRed:241.0/255.0 green:241.0/255.0 blue:241.0/255.0 alpha:1.00]];
-
+    
     return YES;
 }
-							
+
+- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
+    // Return YES for supported orientations
+    return ((interfaceOrientation == UIInterfaceOrientationLandscapeLeft) ||
+            (interfaceOrientation == UIInterfaceOrientationLandscapeRight));
+}
+
 - (void)applicationWillResignActive:(UIApplication *)application
 {
     // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.

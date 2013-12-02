@@ -121,6 +121,7 @@ int e=0;
     CustomProjetCell *Cell = [[CustomProjetCell alloc] init];
     Cell = [tableView dequeueReusableCellWithIdentifier:@"myCell"];
     Project *n = [dicoProjets objectAtIndex:indexPath.row];
+
     [Cell.imageProjet setImage:[UIImage imageWithData:n.imageThumbRect]];
     
     [Cell.labelTitle setText:n.title];
@@ -138,6 +139,13 @@ int e=0;
 
     return Cell;
 }
+
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    Project *n = [dicoProjets objectAtIndex:indexPath.row];
+    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:n.link]];
+}
+
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     CGSize size = [[[dicoProjets valueForKey:@"desc" ] objectAtIndex:indexPath.row]

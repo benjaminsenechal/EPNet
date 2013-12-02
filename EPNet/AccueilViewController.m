@@ -28,6 +28,8 @@ int f=0;
     
     [super viewWillAppear:animated];
     
+    self.screenName = @"Acceuil Screen";
+    
     UIRefreshControl *refreshControl = [[UIRefreshControl alloc] init];
     [refreshControl addTarget:self action:@selector(dropViewDidBeginRefreshing:) forControlEvents:UIControlEventValueChanged];
     [self.tableViewNews addSubview:refreshControl];

@@ -210,8 +210,8 @@
                                                         <constraint firstAttribute="height" constant="171" id="YL3-Ra-bAi"/>
                                                     </constraints>
                                                 </imageView>
-                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="PWH-PS-3Nf">
-                                                    <rect key="frame" x="0.0" y="89" width="320" height="48"/>
+                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" misplaced="YES" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="PWH-PS-3Nf">
+                                                    <rect key="frame" x="0.0" y="75" width="320" height="48"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="48" id="DS2-5A-FhD"/>
                                                     </constraints>
@@ -317,8 +317,8 @@
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" translatesAutoresizingMaskIntoConstraints="NO" id="G4s-XE-9Fe">
                                                     <rect key="frame" x="0.0" y="0.0" width="320" height="181"/>
                                                 </imageView>
-                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xqC-qx-1Dj">
-                                                    <rect key="frame" x="0.0" y="115" width="320" height="45"/>
+                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" misplaced="YES" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xqC-qx-1Dj">
+                                                    <rect key="frame" x="0.0" y="80" width="320" height="45"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="45" id="8AP-CL-hJ0"/>
                                                     </constraints>
@@ -439,7 +439,7 @@
                                                             <color key="textColor" red="0.019607843829999999" green="0.68627452850000004" blue="0.91372555489999996" alpha="1" colorSpace="deviceRGB"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
-                                                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="aM9-UW-uxi">
+                                                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="aM9-UW-uxi">
                                                             <rect key="frame" x="20" y="103" width="70" height="21"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="height" constant="21" id="jkj-LG-Vfb"/>

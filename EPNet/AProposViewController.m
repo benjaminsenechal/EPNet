@@ -51,11 +51,12 @@
     textDescription.text = @"EPNet est une association de l'EPSI, basée sur la technologie web. Créée en Septembre 2012, les principaux buts de l’association sont de vous faire avancer sur vos projets à l’aide de formations et de réunions hebdomadaires sur l’état de vos compétences, mais aussi de vous mettre en contact avec des professionnels.\n\nLa technologie web est omniprésente de nos jours et permet des interactions de plus en plus innovantes et dynamiques. Grâce à sa caractéristique multiplateforme, le web est accessible à tous et pour tous.\n\nLes principaux sujets de motivations de l’association sont ceux liés à votre évolution professionnelle. En effet, plus elle sera ascendante, plus vos projets prendront de l’ampleur et cela permettra de vous forger une image importante aux yeux de vos futures entreprises.";
     textDescription.font = FONT(14);
     textDescription.backgroundColor = [UIColor clearColor];
-    textDescription.textAlignment = NSTextAlignmentJustified;
+    textDescription.textAlignment = NSTextAlignmentNatural;
     [textDescription setUserInteractionEnabled:NO];
     
     // Web site link
     labelSite = [[UILabel alloc] initWithFrame:CGRectMake(0, 520, 280, 30)];
+    labelSite.highlightedTextColor=[UIColor colorWithRed:200.0/255.0 green:200.0/255.0 blue:200.0/255.0 alpha:1];
     labelSite.text = @"epnet.fr";
     labelSite.font = FONT(14);
     [labelSite setTextColor:[UIColor colorWithRed:0.0/255.0 green:174.0/255.0 blue:239.0/255.0 alpha:1]];
@@ -64,9 +65,9 @@
     UITapGestureRecognizer* tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(lienEPnet:)];
     [labelSite setUserInteractionEnabled:YES];
     [labelSite addGestureRecognizer:tap];
-    
+
     // Title contact
-    labelContact = [[UILabel alloc] initWithFrame:CGRectMake(0, 550, 280, 30)];
+    /*labelContact = [[UILabel alloc] initWithFrame:CGRectMake(0, 550, 280, 30)];
     labelContact.textAlignment = NSTextAlignmentCenter;
     labelContact.text = @"Entrons en contact.";
     labelContact.font = FONT(24);
@@ -74,7 +75,6 @@
     [labelContact setTextColor:[UIColor colorWithRed:192.0/255.0 green:192.0/255.0 blue:192.0/255.0 alpha:1]];
     labelContact.backgroundColor = [UIColor clearColor];
     
-    // Adress
     
     textAdress = [[UITextView alloc] initWithFrame:CGRectMake(0, 580, 280, 70)];
     textAdress.text = @"EPNet\n23 rue du Dépôt\n62000, Arras";
@@ -82,11 +82,12 @@
     [textAdress setTextColor:[UIColor colorWithRed:192.0/255.0 green:192.0/255.0 blue:192.0/255.0 alpha:1]];
     textAdress.backgroundColor = [UIColor clearColor];
     [textAdress setUserInteractionEnabled:NO];
-    
+    */
     // Number
-    labelTelNumber = [[UILabel alloc] initWithFrame:CGRectMake(5, 630, 280, 30)];
+    labelTelNumber = [[UILabel alloc] initWithFrame:CGRectMake(0, 540, 280, 30)];
     labelTelNumber.text = @"06 34 25 45 34";
     labelTelNumber.font = FONT(14);
+    labelTelNumber.textAlignment = NSTextAlignmentCenter;
     [labelTelNumber setTextColor:[UIColor colorWithRed:0.0/255.0 green:174.0/255.0 blue:239.0/255.0 alpha:1]];
     labelTelNumber.backgroundColor = [UIColor clearColor];
     UITapGestureRecognizer* call = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(call:)];
@@ -94,16 +95,16 @@
     [labelTelNumber addGestureRecognizer:call];
     
     // Set Image
-    imageMap = [[UIImageView alloc] initWithFrame:CGRectMake(25, 660, 232, 232)];
+    imageMap = [[UIImageView alloc] initWithFrame:CGRectMake(0, 570, 280, 149)];
     [imageMap setImage:[UIImage imageNamed:[NSString stringWithFormat:@"gmap.png"]]];
     
-    // Title contact
-    labelSuivezNous = [[UILabel alloc] initWithFrame:CGRectMake(0, 890, 280, 30)];
+    /*
+    labelSuivezNous = [[UILabel alloc] initWithFrame:CGRectMake(0, 740, 280, 30)];
     labelSuivezNous.text = @"Suivez Nous.";
     labelSuivezNous.textAlignment = NSTextAlignmentCenter;
     labelSuivezNous.font = FONT(24);
     [labelSuivezNous setTextColor:[UIColor colorWithRed:192.0/255.0 green:192.0/255.0 blue:192.0/255.0 alpha:1]];
-    labelSuivezNous.backgroundColor = [UIColor clearColor];
+    labelSuivezNous.backgroundColor = [UIColor clearColor];*/
     
     // Twitter
     labelTwitter = [[UILabel alloc] initWithFrame:CGRectMake(0, 915, 280, 30)];

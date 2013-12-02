@@ -113,6 +113,7 @@
     Cell.imageMember.layer.masksToBounds = YES;
     NSString *string = [NSString stringWithFormat:@"%@ %@", n.firstname, n.lastname];
     [Cell.labelFirst setText:string];
+    [Cell.labelFirst setFont:FONT(16)];
     
     [Cell.labelRole setText:n.role];
     [Cell.labelRole setFont:FONT(16)];

@@ -18,8 +18,9 @@
 #import "ManagedProject.h"
 #import "CustomNewsViewCell.h"
 #import "NewViewController.h"
+#import "GAITrackedViewController.h"
 
-@interface AccueilViewController : UIViewController<UITableViewDelegate, UITableViewDataSource,  UINavigationBarDelegate, UISearchBarDelegate, UIToolbarDelegate>
+@interface AccueilViewController : GAITrackedViewController<UITableViewDelegate, UITableViewDataSource,  UINavigationBarDelegate, UISearchBarDelegate, UIToolbarDelegate>
 @property (strong, nonatomic) IBOutlet UIBarButtonItem *menuButton;
 - (IBAction)menuAction:(id)sender;
 @property (strong, nonatomic) IBOutlet UIBarButtonItem *aProposButton;
