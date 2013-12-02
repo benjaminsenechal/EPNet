@@ -75,7 +75,7 @@
 	const char *filePath = [_path fileSystemRepresentation];
 	
 	// get size of needed buffer
-	int bufferLength = getxattr(filePath, attrName, NULL, 0, 0, 0);
+	ssize_t bufferLength = getxattr(filePath, attrName, NULL, 0, 0, 0);
 	
 	if (bufferLength<=0)
 	{
@@ -86,7 +86,7 @@
 	char *buffer = malloc(bufferLength);
 	
 	// now actually get the attribute string
-	getxattr(filePath, attrName, buffer, 255, 0, 0);
+	getxattr(filePath, attrName, buffer, bufferLength, 0, 0);
 	
 	// convert to NSString
 	NSString *retString = [[NSString alloc] initWithBytes:buffer length:bufferLength encoding:NSUTF8StringEncoding];

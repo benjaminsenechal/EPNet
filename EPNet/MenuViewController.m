@@ -19,7 +19,7 @@
 
 - (void)awakeFromNib
 {
-    self.menuItems = [NSArray arrayWithObjects:@"Accueil",@"Bibliothèque",@"Equipe",@"Projets", nil];
+    self.menuItems = [NSArray arrayWithObjects:@"", @"Accueil",@"Bibliothèque",@"Équipe",@"Projets", nil];
 }
 
 - (void)viewDidLoad
@@ -42,20 +42,26 @@
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:cellID];
     }
     cell.textLabel.text = [self.menuItems objectAtIndex:indexPath.row];
-    cell.textLabel.font = [UIFont fontWithName:@"Helvetica" size:17.0];
+    cell.textLabel.font = [UIFont fontWithName:@"MyriadPro-Regular" size:17.0];
     cell.textLabel.textColor = [UIColor whiteColor];
     UIView *bgColorView = [[UIView alloc] init];
     [bgColorView setBackgroundColor:[UIColor colorWithRed:0.0/255.0 green:174.0/255.0 blue:239.0/255.0 alpha:1]];
+    if([[self.menuItems objectAtIndex:indexPath.row] isEqual:@""]){
+        [bgColorView setBackgroundColor:[UIColor colorWithRed:12.0/255.0 green:174.0/255.0 blue:239.0/255.0 alpha:1]];
+    }
     [cell setSelectedBackgroundView:bgColorView];
-    
     return cell;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     NSString *identifier = [NSString stringWithFormat:@"%@", [self.menuItems objectAtIndex:indexPath.row]];
-    
-    UIViewController *newTopViewController = [self.storyboard instantiateViewControllerWithIdentifier:identifier];
+    UIViewController *newTopViewController;
+    if ([identifier isEqualToString:@""]){
+        newTopViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"Accueil"];
+    }else{
+         newTopViewController = [self.storyboard instantiateViewControllerWithIdentifier:identifier];
+    }
     
     [self.slidingViewController anchorTopViewOffScreenTo:ECRight animations:nil onComplete:^{
         CGRect frame = self.slidingViewController.topViewController.view.frame;

@@ -10,6 +10,7 @@
 #import "ManagedNew.h"
 
 @implementation ManagedNew
+NSArray *dicoNews;
 
 +(void)loadDataFromWebService{
     [self persistNew];
@@ -39,6 +40,25 @@
             Member *memberByNew = [ManagedMember returnMember:[dicoNew valueForKey:@"member_id"]];
             
             Member *existingEntity = [New findFirstByAttribute:@"idNew" withValue:v];
+           
+            dicoNews = [New findFirstByAttribute:@"idNew" withValue:v];
+            
+            if([dicoNews valueForKey:@"updated_at"] != updated_at){
+                NSManagedObjectContext *localContext = [NSManagedObjectContext contextForCurrentThread];
+                NSPredicate *predicate = [NSPredicate predicateWithFormat:@"idNew ==[c] %@", [dicoNews valueForKey:@"idNew"]];
+                New *updateNew = [New findFirstWithPredicate:predicate inContext:localContext];
+                if (updateNew) {
+                    updateNew.idNew = v;
+                    updateNew.content = content;
+                    updateNew.created_at = created_at;
+                    updateNew.title = title;
+                    updateNew.updated_at = updated_at;
+                    updateNew.imageThumb = tmpImageThumb;
+                    updateNew.imageThumbRect = tmpImageThumbRect;
+                    updateNew.member = memberByNew;
+                    [localContext saveToPersistentStoreAndWait];
+                }
+            }
             
             if (!existingEntity)
             {

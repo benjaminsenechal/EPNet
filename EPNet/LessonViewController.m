@@ -19,6 +19,7 @@
 @synthesize textViewTitle;
 @synthesize imageLesson;
 @synthesize textView;
+@synthesize backButton;
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
@@ -31,6 +32,12 @@
     
     self.navigationController.interactivePopGestureRecognizer.delegate = (id<UIGestureRecognizerDelegate>)self;
     
+    UIImage *redButtonImage = [UIImage imageNamed:@"back"];
+    backButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    backButton.frame = CGRectMake(20.0, 40.0, 15.0, 25.0);
+    [backButton setBackgroundImage:redButtonImage forState:UIControlStateNormal];
+    [backButton addTarget:self action:@selector(backAction:) forControlEvents:UIControlEventTouchUpInside];
+    
     imageAuthor = [[UIImageView alloc] initWithFrame:CGRectMake((self.view.frame.size.width/2)-40, -45, 70, 70)];
     [imageAuthor setImage:[UIImage imageWithData:currentDicoLesson.member.avatarThumb]];
     imageAuthor.layer.cornerRadius = 35;
@@ -39,7 +46,8 @@
     imageLesson = [[UIImageView alloc] initWithFrame:CGRectMake(0, 40, 320, 178)];
     [imageLesson  setImage:[UIImage imageWithData:currentDicoLesson.imageThumb]];
     imageLesson.contentMode = UIViewContentModeScaleAspectFill;
-    
+    [imageLesson addSubview:backButton];
+
   //  NSString *html = [SundownWrapper convertMarkdownString:currentDicoLesson.content];
    // NSData *HTMLData = [html dataUsingEncoding:NSUTF8StringEncoding];
     
@@ -48,8 +56,8 @@
     textView = [[DTAttributedTextView alloc] initWithFrame:CGRectMake(0.0, 80.0, self.view.frame.size.width, self.view.frame.size.height)];
     CGSize maxImageSize = CGSizeMake(self.view.bounds.size.width - 20.0, self.view.bounds.size.height);
     
-    NSDictionary *options = @{ DTDefaultFontFamily : @"Helvetica",
-                               DTDefaultFontSize : [NSNumber numberWithFloat:10.0],
+    NSDictionary *options = @{ DTDefaultFontFamily : @"Myriad Pro",
+                               DTDefaultFontSize : [NSNumber numberWithFloat:13.0],
                                DTDefaultLinkColor:[UIColor colorWithRed:0.0/255.0 green:174.0/255.0 blue:239.0/255.0 alpha:1],
                                DTMaxImageSize : [NSValue valueWithCGSize:maxImageSize],
                                };
@@ -67,7 +75,7 @@
     
     textViewTitle = [[UITextView alloc] initWithFrame:CGRectMake(0, 20, self.view.frame.size.width, 60)];
     textViewTitle.text = currentDicoLesson.title;
-    [textViewTitle setFont:[UIFont fontWithName:@"Helvetica" size:20]];
+    textViewTitle.font = FONT(20);
     [textViewTitle setTextColor:[UIColor colorWithRed:82.0/255.0 green:88.0/255.0 blue:99.0/255.0 alpha:1]];
     textViewTitle.editable = NO;
     textViewTitle.textAlignment = NSTextAlignmentCenter;

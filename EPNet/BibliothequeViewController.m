@@ -36,7 +36,7 @@ int d=0;
     [[UINavigationBar appearance] setTitleTextAttributes: @{
                                 UITextAttributeTextColor: [UIColor darkGrayColor],
                           UITextAttributeTextShadowColor: [UIColor whiteColor],
-                                     UITextAttributeFont: [UIFont fontWithName:@"HelveticaNeue-Light" size:20.0f]
+                                     UITextAttributeFont: FONT(20)
      }];
     
     if (![self.slidingViewController.underLeftViewController isKindOfClass:[MenuViewController class]]) {
@@ -73,6 +73,7 @@ int d=0;
         [ManagedLesson loadDataFromWebService];
         [ManagedThematic loadDataFromWebService];
         d=1;
+        [tableViewThematic reloadData];
     }else{
         NSLog(@"No reload");
         [loader stopAnimating];
@@ -94,7 +95,7 @@ int d=0;
     [[NSNotificationCenter defaultCenter]removeObserver:self name:@"finishLoadLessonFromWS" object:nil];
     dicoLessons = [Thematic findAllSortedBy:@"title" ascending:YES];
     [loader stopAnimating];
-    double delayInSeconds = 0.5;
+    double delayInSeconds = 1.0;
     dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, delayInSeconds * NSEC_PER_SEC);
     dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
         [tableViewThematic reloadData];
@@ -167,6 +168,7 @@ int d=0;
         NSArray *test  = [nn allObjects];
         tmpString = [[test valueForKey:@"title"]objectAtIndex:indexPath.row];
         [Cell.labelName setText:[NSString stringWithFormat:@"%@",tmpString]];
+        [Cell.labelName setFont:FONT(20)];
         [Cell.imageLessons setImage:[UIImage imageWithData:[[test valueForKey:@"imageThumbRect"]objectAtIndex:indexPath.row]]];
     }
     Cell.labelName.backgroundColor = [UIColor colorWithRed:251.0/255.0 green:251.0/255.0 blue:251.0/255.0 alpha:0.9];
@@ -181,7 +183,7 @@ int d=0;
     UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 320, 30)];
     
     UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(10, 0, 320, 30)];
-    [label setFont:[UIFont fontWithName:@"HelveticaNeue-Light" size:17.0f]];
+    label.font = FONT(17);
     label.backgroundColor = [UIColor colorWithRed:251.0/255.0 green:251.0/255.0 blue:251.0/255.0 alpha:1];
     label.text = sectionTitle;
     [view addSubview:label];

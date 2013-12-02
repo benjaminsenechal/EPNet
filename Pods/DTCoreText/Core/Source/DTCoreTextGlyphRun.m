@@ -14,6 +14,7 @@
 #import "DTCoreTextFunctions.h"
 #import "NSDictionary+DTCoreText.h"
 #import "DTWeakSupport.h"
+#import "DTLog.h"
 
 @interface DTCoreTextGlyphRun ()
 
@@ -80,10 +81,15 @@
 	}
 }
 
+#ifndef COVERAGE 
+// exclude method from coverage testing
+
 - (NSString *)description
 {
-	return [NSString stringWithFormat:@"<%@ glyphs=%d %@>", [self class], [self numberOfGlyphs], NSStringFromCGRect(_frame)];
+	return [NSString stringWithFormat:@"<%@ glyphs=%ld %@>", [self class], (long)[self numberOfGlyphs], NSStringFromCGRect(_frame)];
 }
+
+#endif
 
 #pragma mark - Drawing
 
@@ -219,16 +225,10 @@
 			{
 				CGFloat y;
 				
-				if (usedFont)
-				{
-					CGFloat underlinePosition = CTFontGetUnderlinePosition(usedFont);
-					
-					y = DTRoundWithContentScale(runStrokeBounds.origin.y + runStrokeBounds.size.height - _descent - underlinePosition - fontUnderlineThickness/2.0f, contentScale);
-				}
-				else
-				{
-					y = DTRoundWithContentScale((runStrokeBounds.origin.y + runStrokeBounds.size.height - self.descent + 1.0f), contentScale);
-				}
+				// use lowest underline position of all glyph runs in same line
+				CGFloat underlinePosition = [_line underlineOffset];
+				
+				y = DTRoundWithContentScale(_line.baselineOrigin.y + underlinePosition - fontUnderlineThickness/2.0f, contentScale);
 				
 				if ((int)(usedUnderlineThickness/smallestPixelWidth)%2) // odd line width
 				{
@@ -238,7 +238,6 @@
 				CGContextMoveToPoint(context, runStrokeBounds.origin.x, y);
 				CGContextAddLineToPoint(context, runStrokeBounds.origin.x + runStrokeBounds.size.width, y);
 			}
-			
 			
 			CGContextStrokePath(context);
 			
@@ -254,7 +253,7 @@
 
 	if (!font)
 	{
-		NSLog(@"CTFont missing on %@", self);
+		DTLogError(@"CTFont missing on %@", self);
 		return NULL;
 	}
 	
@@ -358,7 +357,7 @@
 	{
 		CFRange range = CTRunGetStringRange(_run);
 
-		_stringRange = NSMakeRange(range.location, range.length);
+		_stringRange = NSMakeRange(range.location + _line.stringLocationOffset, range.length);
 	}
 	
 	return _stringRange;

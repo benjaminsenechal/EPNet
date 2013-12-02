@@ -21,6 +21,8 @@
 @property(strong, nonatomic) IBOutlet UILabel *labelTelNumber;
 @property(strong, nonatomic) IBOutlet UILabel *labelSuivezNous;
 @property(strong, nonatomic) IBOutlet UILabel *labelTwitter;
+@property(strong, nonatomic) IBOutlet UILabel *labelGithub;
+
 - (IBAction)lienEPnet:(id)sender;
 - (IBAction)aPropos:(id)sender;
 @end

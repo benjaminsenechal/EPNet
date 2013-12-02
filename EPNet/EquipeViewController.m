@@ -29,7 +29,7 @@
     [[UINavigationBar appearance] setTitleTextAttributes: @{
                                 UITextAttributeTextColor: [UIColor darkGrayColor],
                           UITextAttributeTextShadowColor: [UIColor whiteColor],
-                                     UITextAttributeFont: [UIFont fontWithName:@"HelveticaNeue-Light" size:20.0f]
+                                     UITextAttributeFont: FONT(20)
      }];
     
     self.view.layer.shadowOpacity = 0.75f;
@@ -115,6 +115,8 @@
     [Cell.labelFirst setText:string];
     
     [Cell.labelRole setText:n.role];
+    [Cell.labelRole setFont:FONT(16)];
+    
     Cell.label.font = [UIFont systemFontOfSize:14];
     Cell.label.numberOfLines = 0;
     if ([[[dicoMember valueForKey:@"desc"]objectAtIndex:indexPath.row]isEqual:@"null"]){
@@ -122,7 +124,7 @@
     }else{
         Cell.label.text = [[dicoMember valueForKey:@"desc"]objectAtIndex:indexPath.row];
     }
-    [Cell.label setFont:[UIFont fontWithName:@"HelveticaNeue-Light" size:14.0f]];
+    [Cell.label setFont:FONT(14)];
     CGSize size = [n.desc
                    sizeWithFont:[UIFont systemFontOfSize:14]
                    constrainedToSize:CGSizeMake(300, CGFLOAT_MAX)];

@@ -9,6 +9,8 @@
 #import "ManagedMember.h"
 #import "Member.h"
 @implementation ManagedMember
+NSArray *dicoMember;
+
 +(void)loadDataFromWebService{
     [self persistMember];
 }
@@ -39,6 +41,7 @@
             NSString *linkedin;
             NSString *twitter;
             NSString *viadeo;
+            
             if([dicoNew valueForKey:@"facebook"] == [NSNull null] ||
                [dicoNew valueForKey:@"description"] == [NSNull null] ||
                [dicoNew valueForKey:@"email"] == [NSNull null] ||
@@ -63,12 +66,40 @@
                 viadeo = [dicoNew valueForKey:@"viadeo"];
             }
             
+            dicoMember = [Member findFirstByAttribute:@"idMember" withValue:v];
+            
+            if([dicoMember valueForKey:@"updated_at"] != updated_at){
+                NSManagedObjectContext *localContext = [NSManagedObjectContext contextForCurrentThread];
+                NSPredicate *predicate = [NSPredicate predicateWithFormat:@"idMember ==[c] %@", [dicoMember valueForKey:@"idMember"]];
+                Member *updateMember = [Member findFirstWithPredicate:predicate inContext:localContext];
+                if (updateMember) {
+                    updateMember.idMember = v;
+                    updateMember.avatarThumb = tmpAvatarThumb;
+                    updateMember.client = va;
+                    updateMember.updated_at = updated_at;
+                    updateMember.created_at = created_at;
+                    updateMember.firstname = firstname;
+                    updateMember.lastname = lastname;
+                    updateMember.role = role;
+                    updateMember.login = login;
+                    updateMember.facebook = facebook;
+                    updateMember.desc = desc;
+                    updateMember.email = email;
+                    updateMember.github = github;
+                    updateMember.linkedin = linkedin;
+                    updateMember.twitter = twitter;
+                    updateMember.viadeo = viadeo;
+                    [localContext saveToPersistentStoreAndWait];
+                }
+            }
+            
+            
             Member *existingEntity = [Member findFirstByAttribute:@"idMember" withValue:v];
             NSLog(@"TEST %@",existingEntity.lastname);
             if (!existingEntity)
             {
                 NSLog(@"Nouvelle ENTITY");
-
+                
                 NSManagedObjectContext *localContext = [NSManagedObjectContext contextForCurrentThread];
                 Member *newMember = [Member createInContext:localContext];
                 newMember.idMember = v;
@@ -89,6 +120,7 @@
                 newMember.viadeo = viadeo;
                 [localContext saveToPersistentStoreAndWait];
             }
+
         }
 
     } failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {

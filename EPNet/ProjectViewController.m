@@ -29,7 +29,7 @@ int e=0;
     [[UINavigationBar appearance] setTitleTextAttributes: @{
                                 UITextAttributeTextColor: [UIColor darkGrayColor],
                           UITextAttributeTextShadowColor: [UIColor whiteColor],
-                                     UITextAttributeFont: [UIFont fontWithName:@"HelveticaNeue-Light" size:20.0f]
+                                     UITextAttributeFont: FONT(20)
      }];
     
     self.view.layer.shadowOpacity = 0.75f;
@@ -70,6 +70,7 @@ int e=0;
         [ManagedProject loadDataFromWebService];
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(finishedLoad) name:@"notificationLoadProjectFinished" object:nil];
         e=1;
+        [tableViewProjets reloadData];
     }else{
         [loader stopAnimating];
         [self finishedLoad];
@@ -80,7 +81,7 @@ int e=0;
 -(void)finishedLoad{
     dicoProjets = [Project findAllSortedBy:@"created_at" ascending:NO];
     [[NSNotificationCenter defaultCenter]removeObserver:self name:@"notificationLoadProjectFinished" object:nil];
-    double delayInSeconds = 0.1;
+    double delayInSeconds = 1.0;
     dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, delayInSeconds * NSEC_PER_SEC);
     dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
         [tableViewProjets reloadData];
@@ -123,11 +124,11 @@ int e=0;
     [Cell.imageProjet setImage:[UIImage imageWithData:n.imageThumbRect]];
     
     [Cell.labelTitle setText:n.title];
-    
+    [Cell.labelTitle setFont:FONT(17)];
     Cell.labelDesc.font = [UIFont systemFontOfSize:14];
     Cell.labelDesc.text = n.desc;
     Cell.labelDesc.numberOfLines = 0;
-    [Cell.labelDesc setFont:[UIFont fontWithName:@"HelveticaNeue-Light" size:14.0f]];
+    [Cell.labelDesc setFont:FONT(14)];
     CGSize size = [n.desc
                    sizeWithFont:[UIFont systemFontOfSize:14]
                    constrainedToSize:CGSizeMake(320, CGFLOAT_MAX)];

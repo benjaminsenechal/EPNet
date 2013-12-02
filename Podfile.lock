@@ -1,13 +1,13 @@
 PODS:
   - AFNetworking (1.3.0)
-  - DTCoreText (1.5.3):
-    - DTFoundation/Core (~> 1.4.3)
-    - DTFoundation/DTHMLParser (~> 1.4.3)
-    - DTFoundation/UIKit (~> 1.4.3)
-  - DTFoundation/Core (1.4.4)
-  - DTFoundation/DTHMLParser (1.4.4):
+  - DTCoreText (1.6.9):
+    - DTFoundation/Core (~> 1.6.0)
+    - DTFoundation/DTHTMLParser (~> 1.6.0)
+    - DTFoundation/UIKit (~> 1.6.0)
+  - DTFoundation/Core (1.6.0)
+  - DTFoundation/DTHTMLParser (1.6.0):
     - DTFoundation/Core
-  - DTFoundation/UIKit (1.4.4):
+  - DTFoundation/UIKit (1.6.0):
     - DTFoundation/Core
   - ECSlidingViewController (0.10.0)
   - MagicalRecord (2.2)
@@ -17,7 +17,7 @@ PODS:
 
 DEPENDENCIES:
   - AFNetworking (~> 1.3.0)
-  - DTCoreText (~> 1.5.2)
+  - DTCoreText (~> 1.6.9)
   - ECSlidingViewController (~> 0.10.0)
   - MagicalRecord (~> 2.0)
   - MDCParallaxView (~> 0.1.4)
@@ -26,8 +26,8 @@ DEPENDENCIES:
 
 SPEC CHECKSUMS:
   AFNetworking: e528f20d06b1b818c3571266fb5efa20031a8ace
-  DTCoreText: 5fd652092630ef9254c538d870c115ee548bfe18
-  DTFoundation: c2fd15b2163d8245773911e990ac665b888c4d76
+  DTCoreText: e48c1526945272133b8c935c40da3f3e79836f1b
+  DTFoundation: 5bfec187ed495cea33c47dc64e8ee623e8beb353
   ECSlidingViewController: fc9a9a6564d4a64c0d8c7cf5583d2b9a469ecd04
   MagicalRecord: b1fc46c99a9749fe7fe7e6f43a89b62ef5201933
   MDCParallaxView: a1aea11598439a6c20864e7bec23aa595464475b

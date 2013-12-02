@@ -48,16 +48,17 @@
     imageNew.contentMode = UIViewContentModeScaleAspectFill;
     [imageNew addSubview:btnBack];
     
-    textViewTitle = [[UITextView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 80)];
+    textViewTitle = [[UITextView alloc] initWithFrame:CGRectMake(0, 10, self.view.frame.size.width, 80)];
     textViewTitle.text = currentDicoNew.title;
-    [textViewTitle setFont:[UIFont fontWithName:@"HelveticaNeue-Light" size:24]];
+    textViewTitle.textAlignment = NSTextAlignmentCenter;
+    [textViewTitle setFont:FONT(24)];
     [textViewTitle setTextColor:[UIColor colorWithRed:192.0/255.0 green:192.0/255.0 blue:192.0/255.0 alpha:1]];
     textViewTitle.editable = NO;
     CGSize maxImageSize = CGSizeMake(self.view.bounds.size.width - 20.0, self.view.bounds.size.height);
     NSString *html = [SundownWrapper convertMarkdownString:currentDicoNew.content];
     NSData *HTMLData = [html dataUsingEncoding:NSUTF8StringEncoding];
-    NSDictionary *options = @{ DTDefaultFontFamily : @"Helvetica",
-                               DTDefaultFontSize : [NSNumber numberWithFloat:10.0],
+    NSDictionary *options = @{ DTDefaultFontFamily : @"Myriad Pro",
+                               DTDefaultFontSize : [NSNumber numberWithFloat:13.0],
                                DTDefaultLinkColor:[UIColor colorWithRed:0.0/255.0 green:174.0/255.0 blue:239.0/255.0 alpha:1],
                                DTMaxImageSize : [NSValue valueWithCGSize:maxImageSize],
                                };

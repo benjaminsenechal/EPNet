@@ -9,6 +9,7 @@
 #import <Foundation/Foundation.h>
 #import <CoreData/CoreData.h>
 #import "Member.h"
+#import "New.h"
 #import "ManagedNew.h"
 #import "AppDelegate.h"
 #import "AFNetworking.h"

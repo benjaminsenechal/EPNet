@@ -9,6 +9,7 @@
 #import "ManagedThematic.h"
 
 @implementation ManagedThematic
+NSArray *dicoThematic;
 
 +(void)loadDataFromWebService{
     [self persistThematic];
@@ -37,7 +38,7 @@
             }
 
             Thematic *existingEntity = [Thematic findFirstByAttribute:@"idThematic" withValue:v];
-
+            
             if (!existingEntity)
             {
                 NSManagedObjectContext *localContext = [NSManagedObjectContext contextForCurrentThread];

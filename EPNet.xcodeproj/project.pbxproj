@@ -10,7 +10,6 @@
 		7B6CD2C58CB5451EB0C9AD10 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = EEB62175A2474C4D8D1C52B5 /* libPods.a */; };
 		911469E7181C01620063DF0C /* Member.m in Sources */ = {isa = PBXBuildFile; fileRef = 911469E6181C01620063DF0C /* Member.m */; };
 		911469EA181C01A90063DF0C /* New.m in Sources */ = {isa = PBXBuildFile; fileRef = 911469E9181C01A90063DF0C /* New.m */; };
-		91505BEF1835271300B7CADA /* LoaderViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 91505BEE1835271300B7CADA /* LoaderViewController.m */; };
 		91606A4817F9C33A00728C69 /* back.png in Resources */ = {isa = PBXBuildFile; fileRef = 91606A4717F9C33A00728C69 /* back.png */; };
 		9161B9CD1772EE24009B12C9 /* MenuViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9161B9CC1772EE24009B12C9 /* MenuViewController.m */; };
 		9161B9D01772EF55009B12C9 /* AProposViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9161B9CF1772EF55009B12C9 /* AProposViewController.m */; };
@@ -50,7 +49,9 @@
 		91D09320176CDA670095D10D /* ManagedMember.m in Sources */ = {isa = PBXBuildFile; fileRef = 91D0931F176CDA670095D10D /* ManagedMember.m */; };
 		91D754481773697300A3AA1D /* EquipeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 91D754471773697300A3AA1D /* EquipeViewController.m */; };
 		91D7544B17736ECA00A3AA1D /* CustomEquipeCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 91D7544A17736ECA00A3AA1D /* CustomEquipeCell.m */; };
+		91E3B65D184C960700DF4F16 /* MyriadPro-Regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = 91E3B65C184C946B00DF4F16 /* MyriadPro-Regular.otf */; };
 		91E8E6AA176EEFC700F961A4 /* ManagedNew.m in Sources */ = {isa = PBXBuildFile; fileRef = 91E8E6A9176EEFC700F961A4 /* ManagedNew.m */; };
+		91FC392C184CBCC5003B4884 /* logoA.png in Resources */ = {isa = PBXBuildFile; fileRef = 91FC392B184CBCC5003B4884 /* logoA.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -58,8 +59,6 @@
 		911469E6181C01620063DF0C /* Member.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Member.m; sourceTree = "<group>"; };
 		911469E8181C01A90063DF0C /* New.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = New.h; sourceTree = "<group>"; };
 		911469E9181C01A90063DF0C /* New.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = New.m; sourceTree = "<group>"; };
-		91505BED1835271300B7CADA /* LoaderViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoaderViewController.h; sourceTree = "<group>"; };
-		91505BEE1835271300B7CADA /* LoaderViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoaderViewController.m; sourceTree = "<group>"; };
 		91606A4717F9C33A00728C69 /* back.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = back.png; sourceTree = "<group>"; };
 		9161B9CB1772EE24009B12C9 /* MenuViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MenuViewController.h; sourceTree = "<group>"; };
 		9161B9CC1772EE24009B12C9 /* MenuViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MenuViewController.m; sourceTree = "<group>"; };
@@ -124,8 +123,10 @@
 		91D754471773697300A3AA1D /* EquipeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EquipeViewController.m; sourceTree = "<group>"; };
 		91D7544917736ECA00A3AA1D /* CustomEquipeCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomEquipeCell.h; sourceTree = "<group>"; };
 		91D7544A17736ECA00A3AA1D /* CustomEquipeCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomEquipeCell.m; sourceTree = "<group>"; };
+		91E3B65C184C946B00DF4F16 /* MyriadPro-Regular.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "MyriadPro-Regular.otf"; sourceTree = "<group>"; };
 		91E8E6A8176EEFC700F961A4 /* ManagedNew.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ManagedNew.h; sourceTree = "<group>"; };
 		91E8E6A9176EEFC700F961A4 /* ManagedNew.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ManagedNew.m; sourceTree = "<group>"; };
+		91FC392B184CBCC5003B4884 /* logoA.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = logoA.png; sourceTree = "<group>"; };
 		C361108D1C274BF69D6F5DD2 /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = SOURCE_ROOT; };
 		EEB62175A2474C4D8D1C52B5 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -192,6 +193,8 @@
 		91D092E1176C68AE0095D10D /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				91FC392B184CBCC5003B4884 /* logoA.png */,
+				91E3B65B184C945A00DF4F16 /* Fonts */,
 				91606A4717F9C33A00728C69 /* back.png */,
 				9161B9DF177316D1009B12C9 /* test.png */,
 				9161B9D11772F0BE009B12C9 /* cover.png */,
@@ -207,6 +210,14 @@
 				91D092F0176C68AE0095D10D /* Default-568h@2x.png */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		91E3B65B184C945A00DF4F16 /* Fonts */ = {
+			isa = PBXGroup;
+			children = (
+				91E3B65C184C946B00DF4F16 /* MyriadPro-Regular.otf */,
+			);
+			name = Fonts;
 			sourceTree = "<group>";
 		};
 		91E8E6AB176EF16D00F961A4 /* Model */ = {
@@ -258,8 +269,6 @@
 				91D754471773697300A3AA1D /* EquipeViewController.m */,
 				91CD356A1774759C00DA4B5C /* ProjectViewController.h */,
 				91CD356B1774759D00DA4B5C /* ProjectViewController.m */,
-				91505BED1835271300B7CADA /* LoaderViewController.h */,
-				91505BEE1835271300B7CADA /* LoaderViewController.m */,
 			);
 			name = Controller;
 			sourceTree = "<group>";
@@ -312,6 +321,11 @@
 			attributes = {
 				LastUpgradeCheck = 0460;
 				ORGANIZATIONNAME = "Benjamin SENECHAL";
+				TargetAttributes = {
+					91D092D4176C68AE0095D10D = {
+						DevelopmentTeam = G97G32U59S;
+					};
+				};
 			};
 			buildConfigurationList = 91D092D0176C68AE0095D10D /* Build configuration list for PBXProject "EPNet" */;
 			compatibilityVersion = "Xcode 3.2";
@@ -335,9 +349,11 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				91E3B65D184C960700DF4F16 /* MyriadPro-Regular.otf in Resources */,
 				91D092E5176C68AE0095D10D /* InfoPlist.strings in Resources */,
 				91D092ED176C68AE0095D10D /* Default.png in Resources */,
 				91D092EF176C68AE0095D10D /* Default@2x.png in Resources */,
+				91FC392C184CBCC5003B4884 /* logoA.png in Resources */,
 				91D092F1176C68AE0095D10D /* Default-568h@2x.png in Resources */,
 				91D092F4176C68AE0095D10D /* MainStoryboard.storyboard in Resources */,
 				9161B9D51772F0BE009B12C9 /* cover.png in Resources */,
@@ -398,7 +414,6 @@
 				919DFB90177216FF00C77B15 /* Project.m in Sources */,
 				911469E7181C01620063DF0C /* Member.m in Sources */,
 				9198B79E1772E7F100F0AE8B /* Thematic.m in Sources */,
-				91505BEF1835271300B7CADA /* LoaderViewController.m in Sources */,
 				9198B7A41772EC7D00F0AE8B /* InitialSlidingViewController.m in Sources */,
 				9198B7A71772ED0300F0AE8B /* AccueilViewController.m in Sources */,
 				9161B9CD1772EE24009B12C9 /* MenuViewController.m in Sources */,
@@ -500,10 +515,13 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = C361108D1C274BF69D6F5DD2 /* Pods.xcconfig */;
 			buildSettings = {
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "EPNet/EPNet-Prefix.pch";
 				INFOPLIST_FILE = "EPNet/EPNet-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -512,10 +530,13 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = C361108D1C274BF69D6F5DD2 /* Pods.xcconfig */;
 			buildSettings = {
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "EPNet/EPNet-Prefix.pch";
 				INFOPLIST_FILE = "EPNet/EPNet-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;

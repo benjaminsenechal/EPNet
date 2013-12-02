@@ -9,6 +9,7 @@
 #import "ManagedProject.h"
 
 @implementation ManagedProject
+NSArray *dicoProject;
 
 +(void)loadDataFromWebService{
     [self persistProject];
@@ -42,6 +43,24 @@
             }
             
             Project *existingEntity = [Project findFirstByAttribute:@"idProject" withValue:v];
+            
+            dicoProject = [Project findFirstByAttribute:@"idProject" withValue:v];
+            
+            if([dicoProject valueForKey:@"updated_at"] != updated_at){
+                NSManagedObjectContext *localContext = [NSManagedObjectContext contextForCurrentThread];
+                NSPredicate *predicate = [NSPredicate predicateWithFormat:@"idProject ==[c] %@", [dicoProject valueForKey:@"idProject"]];
+                Project *updateProject = [Project findFirstWithPredicate:predicate inContext:localContext];
+                if (updateProject) {
+                    updateProject.idProject = v;
+                    updateProject.desc = desc;
+                    updateProject.created_at = created_at;
+                    updateProject.title = title;
+                    updateProject.updated_at = updated_at;
+                    updateProject.imageThumbRect = tmpImageThumbRect;
+                    updateProject.member = tagNamesArray;
+                    [localContext saveToPersistentStoreAndWait];
+                }
+            }
             
             if (!existingEntity)
             {

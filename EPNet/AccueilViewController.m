@@ -31,13 +31,13 @@ int f=0;
     UIRefreshControl *refreshControl = [[UIRefreshControl alloc] init];
     [refreshControl addTarget:self action:@selector(dropViewDidBeginRefreshing:) forControlEvents:UIControlEventValueChanged];
     [self.tableViewNews addSubview:refreshControl];
-    
+
     [[UINavigationBar appearance] setTitleTextAttributes: @{
-                                UITextAttributeTextColor: [UIColor darkGrayColor],
-                          UITextAttributeTextShadowColor: [UIColor whiteColor],
-                                     UITextAttributeFont: [UIFont fontWithName:@"HelveticaNeue-Light" size:20.0f]
-     }];
-    
+                                                            UITextAttributeTextColor: [UIColor darkGrayColor],
+                                                            UITextAttributeTextShadowColor: [UIColor whiteColor],
+                                                            UITextAttributeFont: FONT(20)
+                                                            }];
+
     self.view.layer.shadowOpacity = 0.75f;
     self.view.layer.shadowRadius = 10.0f;
     
@@ -143,6 +143,7 @@ int f=0;
     New *n = [dicoNews objectAtIndex:indexPath.row];
     NSString *tmpString = n.title;
     [tmpCell.titleNews setText:[NSString stringWithFormat:@"%@",tmpString]];
+    tmpCell.titleNews.font = [UIFont fontWithName:@"MyriadPro-Regular" size:20.0];
     tmpCell.titleNews.backgroundColor = [UIColor colorWithRed:251.0/255.0 green:251.0/255.0 blue:251.0/255.0 alpha:0.9];
 
     [tmpCell.newsImage setImage:[UIImage imageWithData:n.imageThumbRect]];
