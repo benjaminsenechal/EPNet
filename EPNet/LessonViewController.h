@@ -32,5 +32,6 @@
 @property (strong, nonatomic) IBOutlet UIButton *backButton;
 - (IBAction)backAction:(id)sender;
 @property (strong, nonatomic) UIWindow *window;
+@property(strong,nonatomic) IBOutlet UILabel *dateLabel;
 
 @end

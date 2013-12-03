@@ -15,6 +15,7 @@ PODS:
   - MDCParallaxView (0.1.4)
   - ODRefreshControl (1.1.0)
   - sundown (0.1.0)
+  - YLMoment (0.2.0)
 
 DEPENDENCIES:
   - AFNetworking (~> 1.3.0)
@@ -25,6 +26,7 @@ DEPENDENCIES:
   - MDCParallaxView (~> 0.1.4)
   - ODRefreshControl (~> 1.1.0)
   - sundown (~> 0.1.0)
+  - YLMoment (~> 0.2.0)
 
 SPEC CHECKSUMS:
   AFNetworking: e528f20d06b1b818c3571266fb5efa20031a8ace
@@ -36,5 +38,6 @@ SPEC CHECKSUMS:
   MDCParallaxView: a1aea11598439a6c20864e7bec23aa595464475b
   ODRefreshControl: 886e323a7c25114b9e5c397a9eefbebc034224a9
   sundown: f0b86bd08ee36f84e9e6a6332d3cbd0309889dfa
+  YLMoment: 609cf751d07305c6e807dc2c161a4b30987467fd
 
 COCOAPODS: 0.28.0

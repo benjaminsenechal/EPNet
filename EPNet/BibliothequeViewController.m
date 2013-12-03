@@ -69,7 +69,7 @@ int d=0;
     self.navigationController.navigationBar.shadowImage = [[UIImage alloc]init];
     
     if (d == 0){
-        [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(finishedLoad) name:@"finishLoadLessonFromWS" object:nil];
+        [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(finishedLoad) name:@"finishLoadThematicFromWS" object:nil];
         [ManagedLesson loadDataFromWebService];
         [ManagedThematic loadDataFromWebService];
         d=1;
@@ -82,7 +82,8 @@ int d=0;
 
 - (void)dropViewDidBeginRefreshing:(UIRefreshControl *)refreshControl
 {
-    [self finishedLoad];
+    [ManagedLesson loadDataFromWebService];
+    [ManagedThematic loadDataFromWebService];
     double delayInSeconds = 0.5;
     dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, delayInSeconds * NSEC_PER_SEC);
     dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
@@ -92,10 +93,10 @@ int d=0;
 
 -(void)finishedLoad
 {
-    [[NSNotificationCenter defaultCenter]removeObserver:self name:@"finishLoadLessonFromWS" object:nil];
+    [[NSNotificationCenter defaultCenter]removeObserver:self name:@"finishLoadThematicFromWS" object:nil];
     dicoLessons = [Thematic findAllSortedBy:@"title" ascending:YES];
     [loader stopAnimating];
-    double delayInSeconds = 1.0;
+    double delayInSeconds = 2.0;
     dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, delayInSeconds * NSEC_PER_SEC);
     dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
         [tableViewThematic reloadData];

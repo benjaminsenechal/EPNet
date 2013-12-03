@@ -20,12 +20,22 @@
 @synthesize contentView;
 @synthesize imageAuthor;
 @synthesize btnBack;
+@synthesize dateLabel;
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
  
     self.navigationController.interactivePopGestureRecognizer.delegate = (id<UIGestureRecognizerDelegate>)self;
+
+    NSString *myString = currentDicoNew.created_at;
+    NSArray *myWords = [myString componentsSeparatedByString:@"T"];
+    NSString *date = [myWords objectAtIndex:0];
+    NSArray *myDate = [date componentsSeparatedByString:@"-"];
+    NSString *a = [myDate objectAtIndex:0];
+    NSString *m = [myDate objectAtIndex:1];
+    NSString *j = [myDate objectAtIndex:2];
+    NSString *str = [NSString stringWithFormat: @"%@/%@/%@", j, m,a];
     
     UIImage *redButtonImage = [UIImage imageNamed:@"back"];
     btnBack = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -34,26 +44,31 @@
     [btnBack addTarget:self action:@selector(backAction:) forControlEvents:UIControlEventTouchUpInside];
     
     contentView = [[UIView alloc] initWithFrame:CGRectMake(0, 20, self.view.frame.size.width, self.view.frame.size.height)];
-    textView = [[DTAttributedTextView alloc] initWithFrame:CGRectMake(0.0, 80.0, self.view.frame.size.width, self.view.frame.size.height)];
+    textView = [[DTAttributedTextView alloc] initWithFrame:CGRectMake(0.0, 120.0, self.view.frame.size.width, self.view.frame.size.height)];
     [titleNew setTitle:currentDicoNew.title];
     
-    imageAuthor = [[UIImageView alloc] initWithFrame:CGRectMake((self.view.frame.size.width/2)-40, -55, 70, 70)];
-
+    imageAuthor = [[UIImageView alloc] initWithFrame:CGRectMake(160-35, -30, 70, 70)];
     [imageAuthor setImage:[UIImage imageWithData:currentDicoNew.member.avatarThumb]];
     imageAuthor.layer.cornerRadius = 35;
     imageAuthor.layer.masksToBounds = YES;
-
     imageNew = [[UIImageView alloc] initWithFrame:CGRectMake(0, 40, 320, 178)];
     [imageNew  setImage:[UIImage imageWithData:currentDicoNew.imageThumb]];
     imageNew.contentMode = UIViewContentModeScaleAspectFill;
     [imageNew addSubview:btnBack];
     
-    textViewTitle = [[UITextView alloc] initWithFrame:CGRectMake(0, 10, self.view.frame.size.width, 80)];
+    textViewTitle = [[UITextView alloc] initWithFrame:CGRectMake(0, 50, self.view.frame.size.width, 120.0)];
     textViewTitle.text = currentDicoNew.title;
     textViewTitle.textAlignment = NSTextAlignmentCenter;
-    [textViewTitle setFont:FONT(24)];
-    [textViewTitle setTextColor:[UIColor colorWithRed:192.0/255.0 green:192.0/255.0 blue:192.0/255.0 alpha:1]];
+    [textViewTitle setFont:FONT(20)];
+    [textViewTitle setTextColor:[UIColor colorWithRed:82.0/255.0 green:88.0/255.0 blue:99.0/255.0 alpha:1]];
     textViewTitle.editable = NO;
+    
+    dateLabel =  [[UILabel alloc] initWithFrame:CGRectMake(0, 25, self.view.frame.size.width, 50)];
+    dateLabel.text = str;
+    [dateLabel setFont:FONT(14)];
+    dateLabel.textAlignment = NSTextAlignmentCenter;
+    [dateLabel setTextColor:[UIColor colorWithRed:200.0/255.0 green:200.0/255.0 blue:200.0/255.0 alpha:1.00]];
+
     CGSize maxImageSize = CGSizeMake(self.view.bounds.size.width - 20.0, self.view.bounds.size.height);
     NSString *html = [SundownWrapper convertMarkdownString:currentDicoNew.content];
     NSData *HTMLData = [html dataUsingEncoding:NSUTF8StringEncoding];
@@ -74,8 +89,9 @@
     [textView setScrollEnabled:YES];
     [contentView addSubview:textViewTitle];
     [contentView addSubview:textView];
+    [contentView addSubview:dateLabel];
     [contentView addSubview:imageAuthor];
-    
+
     MDCParallaxView *parallaxView = [[MDCParallaxView alloc] initWithBackgroundView:imageNew
                                                                      foregroundView:contentView];
     parallaxView.frame = CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height);
@@ -86,7 +102,7 @@
     parallaxView.scrollViewDelegate = self;
     
     [self.view addSubview:parallaxView];
-    double delayInSeconds1 = 0.1;
+    double delayInSeconds1 = 0.5;
     dispatch_time_t popTime1 = dispatch_time(DISPATCH_TIME_NOW, delayInSeconds1 * NSEC_PER_SEC);
     dispatch_after(popTime1, dispatch_get_main_queue(), ^(void){
         [self getHeight];

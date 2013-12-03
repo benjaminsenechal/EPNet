@@ -95,7 +95,7 @@ NSArray *dicoMember;
             
             
             Member *existingEntity = [Member findFirstByAttribute:@"idMember" withValue:v];
-            NSLog(@"TEST %@",existingEntity.lastname);
+            NSLog(@"%@",existingEntity.lastname);
             if (!existingEntity)
             {
                 NSLog(@"Nouvelle ENTITY");

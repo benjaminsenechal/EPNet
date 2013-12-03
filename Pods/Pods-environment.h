@@ -66,6 +66,12 @@
 #define COCOAPODS_VERSION_MINOR_ODRefreshControl 1
 #define COCOAPODS_VERSION_PATCH_ODRefreshControl 0
 
+// YLMoment
+#define COCOAPODS_POD_AVAILABLE_YLMoment
+#define COCOAPODS_VERSION_MAJOR_YLMoment 0
+#define COCOAPODS_VERSION_MINOR_YLMoment 2
+#define COCOAPODS_VERSION_PATCH_YLMoment 0
+
 // sundown
 #define COCOAPODS_POD_AVAILABLE_sundown
 #define COCOAPODS_VERSION_MAJOR_sundown 0

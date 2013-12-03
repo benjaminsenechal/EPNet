@@ -39,7 +39,7 @@ NSArray *dicoNews;
             
             Member *memberByNew = [ManagedMember returnMember:[dicoNew valueForKey:@"member_id"]];
             
-            Member *existingEntity = [New findFirstByAttribute:@"idNew" withValue:v];
+            New *existingEntity = [New findFirstByAttribute:@"idNew" withValue:v];
            
             dicoNews = [New findFirstByAttribute:@"idNew" withValue:v];
             
@@ -59,6 +59,8 @@ NSArray *dicoNews;
                     [localContext saveToPersistentStoreAndWait];
                 }
             }
+            
+            NSLog(@"%@", existingEntity.title);
             
             if (!existingEntity)
             {

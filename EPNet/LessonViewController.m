@@ -20,6 +20,7 @@
 @synthesize imageLesson;
 @synthesize textView;
 @synthesize backButton;
+@synthesize dateLabel;
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
@@ -32,13 +33,29 @@
     
     self.navigationController.interactivePopGestureRecognizer.delegate = (id<UIGestureRecognizerDelegate>)self;
     
+    NSString *myString = currentDicoLesson.created_at;
+    NSArray *myWords = [myString componentsSeparatedByString:@"T"];
+    NSString *date = [myWords objectAtIndex:0];
+    NSArray *myDate = [date componentsSeparatedByString:@"-"];
+    NSString *a = [myDate objectAtIndex:0];
+    NSString *m = [myDate objectAtIndex:1];
+    NSString *j = [myDate objectAtIndex:2];
+    NSString *str = [NSString stringWithFormat: @"%@/%@/%@", j, m,a];
+  
+    dateLabel =  [[UILabel alloc] initWithFrame:CGRectMake(0, 30, self.view.frame.size.width, 50)];
+    dateLabel.text = str;
+    [dateLabel setFont:FONT(14)];
+    dateLabel.textAlignment = NSTextAlignmentCenter;
+    [dateLabel setTextColor:[UIColor colorWithRed:200.0/255.0 green:200.0/255.0 blue:200.0/255.0 alpha:1.00]];
+
+    
     UIImage *redButtonImage = [UIImage imageNamed:@"back"];
     backButton = [UIButton buttonWithType:UIButtonTypeCustom];
     backButton.frame = CGRectMake(20.0, 40.0, 15.0, 25.0);
     [backButton setBackgroundImage:redButtonImage forState:UIControlStateNormal];
     [backButton addTarget:self action:@selector(backAction:) forControlEvents:UIControlEventTouchUpInside];
     
-    imageAuthor = [[UIImageView alloc] initWithFrame:CGRectMake((self.view.frame.size.width/2)-40, -45, 70, 70)];
+    imageAuthor = [[UIImageView alloc] initWithFrame:CGRectMake((self.view.frame.size.width/2)-35, -25, 70, 70)];
     [imageAuthor setImage:[UIImage imageWithData:currentDicoLesson.member.avatarThumb]];
     imageAuthor.layer.cornerRadius = 35;
     imageAuthor.layer.masksToBounds = YES;
@@ -53,7 +70,7 @@
     
     contentView = [[UIView alloc] initWithFrame:CGRectMake(0, 20, self.view.frame.size.width, self.view.frame.size.height)];
     
-    textView = [[DTAttributedTextView alloc] initWithFrame:CGRectMake(0.0, 80.0, self.view.frame.size.width, self.view.frame.size.height)];
+    textView = [[DTAttributedTextView alloc] initWithFrame:CGRectMake(0.0, 100.0, self.view.frame.size.width, self.view.frame.size.height)];
     CGSize maxImageSize = CGSizeMake(self.view.bounds.size.width - 20.0, self.view.bounds.size.height);
     
     NSDictionary *options = @{ DTDefaultFontFamily : @"Myriad Pro",
@@ -73,7 +90,7 @@
     [textView.attributedTextContentView setNeedsDisplay];
     [textView setScrollEnabled:NO];
     
-    textViewTitle = [[UITextView alloc] initWithFrame:CGRectMake(0, 20, self.view.frame.size.width, 60)];
+    textViewTitle = [[UITextView alloc] initWithFrame:CGRectMake(0, 55, self.view.frame.size.width, 40)];
     textViewTitle.text = currentDicoLesson.title;
     textViewTitle.font = FONT(20);
     [textViewTitle setTextColor:[UIColor colorWithRed:82.0/255.0 green:88.0/255.0 blue:99.0/255.0 alpha:1]];
@@ -82,6 +99,7 @@
  
     [contentView addSubview:textView];
     [contentView addSubview:textViewTitle];
+    [contentView addSubview:dateLabel];
     [contentView addSubview:imageAuthor];
     
     MDCParallaxView *parallaxView = [[MDCParallaxView alloc] initWithBackgroundView:imageLesson
@@ -95,7 +113,7 @@
     
     [self.view addSubview:parallaxView];
     
-    double delayInSeconds1 = 0.1;
+    double delayInSeconds1 = 1.0;
     dispatch_time_t popTime1 = dispatch_time(DISPATCH_TIME_NOW, delayInSeconds1 * NSEC_PER_SEC);
     dispatch_after(popTime1, dispatch_get_main_queue(), ^(void){
         [self getHeight];

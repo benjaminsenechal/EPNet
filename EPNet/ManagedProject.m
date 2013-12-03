@@ -47,6 +47,8 @@ NSArray *dicoProject;
             
             dicoProject = [Project findFirstByAttribute:@"idProject" withValue:v];
             
+            NSLog(@"%@", existingEntity.title);
+            
             if([dicoProject valueForKey:@"updated_at"] != updated_at){
                 NSManagedObjectContext *localContext = [NSManagedObjectContext contextForCurrentThread];
                 NSPredicate *predicate = [NSPredicate predicateWithFormat:@"idProject ==[c] %@", [dicoProject valueForKey:@"idProject"]];

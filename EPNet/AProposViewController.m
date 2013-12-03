@@ -66,23 +66,6 @@
     [labelSite setUserInteractionEnabled:YES];
     [labelSite addGestureRecognizer:tap];
 
-    // Title contact
-    /*labelContact = [[UILabel alloc] initWithFrame:CGRectMake(0, 550, 280, 30)];
-    labelContact.textAlignment = NSTextAlignmentCenter;
-    labelContact.text = @"Entrons en contact.";
-    labelContact.font = FONT(24);
-    [labelContact setFont:[UIFont systemFontOfSize:24]];
-    [labelContact setTextColor:[UIColor colorWithRed:192.0/255.0 green:192.0/255.0 blue:192.0/255.0 alpha:1]];
-    labelContact.backgroundColor = [UIColor clearColor];
-    
-    
-    textAdress = [[UITextView alloc] initWithFrame:CGRectMake(0, 580, 280, 70)];
-    textAdress.text = @"EPNet\n23 rue du Dépôt\n62000, Arras";
-    textAdress.font = FONT(14);
-    [textAdress setTextColor:[UIColor colorWithRed:192.0/255.0 green:192.0/255.0 blue:192.0/255.0 alpha:1]];
-    textAdress.backgroundColor = [UIColor clearColor];
-    [textAdress setUserInteractionEnabled:NO];
-    */
     // Number
     labelTelNumber = [[UILabel alloc] initWithFrame:CGRectMake(0, 540, 280, 30)];
     labelTelNumber.text = @"06 34 25 45 34";
@@ -98,43 +81,58 @@
     imageMap = [[UIImageView alloc] initWithFrame:CGRectMake(0, 570, 280, 149)];
     [imageMap setImage:[UIImage imageNamed:[NSString stringWithFormat:@"gmap.png"]]];
     
-    /*
-    labelSuivezNous = [[UILabel alloc] initWithFrame:CGRectMake(0, 740, 280, 30)];
-    labelSuivezNous.text = @"Suivez Nous.";
-    labelSuivezNous.textAlignment = NSTextAlignmentCenter;
-    labelSuivezNous.font = FONT(24);
-    [labelSuivezNous setTextColor:[UIColor colorWithRed:192.0/255.0 green:192.0/255.0 blue:192.0/255.0 alpha:1]];
-    labelSuivezNous.backgroundColor = [UIColor clearColor];*/
+    UIImage *twitterImg = [UIImage imageNamed:@"twitter.png"];
+    UIButton *twitterButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    twitterButton.frame = CGRectMake(30.0, 730.0, 64.0, 64.0);
+    [twitterButton setBackgroundImage:twitterImg forState:UIControlStateNormal];
+    [scroll addSubview:twitterButton];
+    [twitterButton addTarget:self action:@selector(twitterAction:)
+         forControlEvents:UIControlEventTouchUpInside];
     
-    // Twitter
-    labelTwitter = [[UILabel alloc] initWithFrame:CGRectMake(0, 915, 280, 30)];
-    labelTwitter.text = @"Twitter";
-    labelTwitter.font = FONT(14);
-    [labelTwitter setTextColor:[UIColor colorWithRed:0.0/255.0 green:174.0/255.0 blue:239.0/255.0 alpha:1]];
-    labelTwitter.backgroundColor = [UIColor clearColor];
+    UIImage *fbImg = [UIImage imageNamed:@"facebook.png"];
+    UIButton *fbButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    fbButton.frame = CGRectMake(110.0, 730.0, 64.0, 64.0);
+    [fbButton setBackgroundImage:fbImg forState:UIControlStateNormal];
+    [scroll addSubview:fbButton];
+    [fbButton addTarget:self action:@selector(facebookAction:)
+            forControlEvents:UIControlEventTouchUpInside];
+    
+    UIImage *gitImg = [UIImage imageNamed:@"git.png"];
+    UIButton *gitButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    gitButton.frame = CGRectMake(190.0, 730.0, 64.0, 64.0);
+    [gitButton setBackgroundImage:gitImg forState:UIControlStateNormal];
+    [scroll addSubview:gitButton];
+    [gitButton addTarget:self action:@selector(gitAction:)
+            forControlEvents:UIControlEventTouchUpInside];
     
     // Add elements to uiscrollview
     [scroll setScrollEnabled:YES];
-    [scroll setContentSize:CGSizeMake(200, 1000)];
+    [scroll setContentSize:CGSizeMake(200, 830)];
     [scroll addSubview:logo];
     [scroll addSubview:textDescription];
     [scroll addSubview:labelSite];
-    [scroll addSubview:labelContact];
-    [scroll addSubview:textAdress];
     [scroll addSubview:labelTelNumber];
     [scroll addSubview:imageMap];
-    [scroll addSubview:labelSuivezNous];
-    [scroll addSubview:labelTwitter];
-    
 }
 -(IBAction)lienEPnet:(id)sender {
-    [[UIApplication sharedApplication] openURL:[NSURL URLWithString: @"http://www.epnet.fr"]];
+    [[UIApplication sharedApplication] openURL:[NSURL URLWithString: @"http://epnet.fr"]];
 }
+
 -(IBAction)call:(id)sender {
     [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"tel://0634254534"]];
 }
 
+-(IBAction)twitterAction:(id)sender {
+    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"https://twitter.com/EPNetArras"]];
+}
 
+-(IBAction)facebookAction:(id)sender {
+    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"https://facebook.com/EPNetArras"]];
+}
+
+-(IBAction)gitAction:(id)sender {
+    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"https://github.com/EPNet"]];
+}
 
 - (void)didReceiveMemoryWarning
 {

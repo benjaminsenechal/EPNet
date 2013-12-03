@@ -28,7 +28,7 @@ int f=0;
     
     [super viewWillAppear:animated];
     
-    self.screenName = @"Acceuil Screen";
+    self.screenName = @"Accueil Screen";
     
     UIRefreshControl *refreshControl = [[UIRefreshControl alloc] init];
     [refreshControl addTarget:self action:@selector(dropViewDidBeginRefreshing:) forControlEvents:UIControlEventValueChanged];
@@ -88,7 +88,7 @@ int f=0;
 
 - (void)dropViewDidBeginRefreshing:(UIRefreshControl *)refreshControl
 {
-    [self finishedLoad];
+    [ManagedNew loadDataFromWebService];
     double delayInSeconds = 0.5;
     dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, delayInSeconds * NSEC_PER_SEC);
     dispatch_after(popTime, dispatch_get_main_queue(), ^(void){

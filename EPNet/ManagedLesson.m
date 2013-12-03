@@ -28,7 +28,6 @@ NSArray *dicoLesson;
                 
                 NSMutableArray *dico = [dicoThematic objectAtIndex:y];
                 NSNumber *v = [dico valueForKey:@"idLesson"];
-                //NSString *html = [SundownWrapper convertMarkdownString:[dico valueForKey:@"content"]];
                 NSString *html =[dico valueForKey:@"content_html"];
                 NSData *HTMLData = [html dataUsingEncoding:NSUTF8StringEncoding];
                 
@@ -50,6 +49,8 @@ NSArray *dicoLesson;
                 Lesson *existingEntity = [Lesson findFirstByAttribute:@"idLesson" withValue:v];
                 
                 dicoLesson = [Lesson findFirstByAttribute:@"idLesson" withValue:v];
+                
+                NSLog(@"%@", existingEntity.title);
                 
                 if([dicoLesson valueForKey:@"updated_at"] != updated_at){
                     NSManagedObjectContext *localContext = [NSManagedObjectContext contextForCurrentThread];
@@ -108,7 +109,6 @@ NSArray *dicoLesson;
     
     NSNumber *v = [dicoThematic valueForKey:@"id"];
     newLesson.idLesson = v;
-    //NSString *html = [SundownWrapper convertMarkdownString:[dicoThematic valueForKey:@"content"]];
     NSString *html =[dicoThematic valueForKey:@"content_html"];
     NSData *HTMLData = [html dataUsingEncoding:NSUTF8StringEncoding];
     newLesson.content = HTMLData;
@@ -131,7 +131,6 @@ NSArray *dicoLesson;
     Member *memberByNew = [ManagedMember returnMember:[dicoThematic valueForKey:@"member_id"]];
     newLesson.member = memberByNew;
 
-  //  [localContext saveToPersistentStoreAndWait];
 
     return newLesson;
 }
