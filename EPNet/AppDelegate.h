@@ -19,5 +19,7 @@
 
 - (void)saveContext;
 - (NSURL *)applicationDocumentsDirectory;
-
+- (BOOL)addSkipBackupAttributeToItemAtURL:(NSURL*)url;
+- (NSURL *)storeURL;
+- (void)cacheDirectory;
 @end
