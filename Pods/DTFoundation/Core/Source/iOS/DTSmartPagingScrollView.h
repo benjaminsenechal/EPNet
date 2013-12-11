@@ -3,7 +3,7 @@
 //  DTSmartPhotoView
 //
 //  Created by Stefan Gugarel on 5/11/12.
-//  Copyright (c) 2012 Stefan Gugarel. All rights reserved.
+//  Copyright (c) 2012 Cocoanetics. All rights reserved.
 //
 
 #import "DTWeakSupport.h"
@@ -46,7 +46,7 @@
 /**
  A scroll view that automatically manages a set of pages
  */
-@interface DTSmartPagingScrollView : UIScrollView
+@interface DTSmartPagingScrollView : UIScrollView <UIScrollViewDelegate>
 
 /**
  The page data source for the receiver
@@ -74,5 +74,11 @@
  @param animated Whether the move should be animated
  */
 - (void)scrollToPage:(NSInteger)page animated:(BOOL)animated;
+
+/**
+ Get a view for a specified index
+ @param index The index of the view to retrieve
+ */
+- (UIView *)viewForIndex:(NSUInteger)index;
 
 @end

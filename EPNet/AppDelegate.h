@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "CoreData+MagicalRecord.h"
 
 @interface AppDelegate : UIResponder <UIApplicationDelegate>
 
@@ -18,5 +19,7 @@
 
 - (void)saveContext;
 - (NSURL *)applicationDocumentsDirectory;
-
+- (BOOL)addSkipBackupAttributeToItemAtURL:(NSURL*)url;
+- (NSURL *)storeURL;
+- (void)cacheDirectory;
 @end

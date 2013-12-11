@@ -9,12 +9,14 @@
 #import <Foundation/Foundation.h>
 #import <CoreData/CoreData.h>
 #import "Member.h"
+#import "New.h"
+#import "ManagedNew.h"
 #import "AppDelegate.h"
 #import "AFNetworking.h"
 
 @interface ManagedMember : NSObject
 +(void)loadDataFromWebService;
-+(Member *)returnMemberModelFromDictionary:(NSDictionary *)dicoNew withContext:(NSManagedObjectContext *)managedObjectContext;
-+(Member *)returnMemberModelWithId:(NSString *)myid withContext:(NSManagedObjectContext *)managedObjectContext;
++(Member *)returnMember:(NSString *)idMember;
+@property(strong, nonatomic)NSArray *dico;
 
 @end

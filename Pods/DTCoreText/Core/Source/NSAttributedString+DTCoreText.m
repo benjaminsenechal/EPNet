@@ -90,7 +90,7 @@
 		 
 		 DTCSSListStyle *currentEffectiveList = [textLists lastObject];
 		 
-		 NSNumber *key = [NSNumber numberWithInteger:[currentEffectiveList hash]]; // hash defaults to address
+		 NSNumber *key = [NSNumber numberWithInteger:(NSInteger)currentEffectiveList]; // list address is identifier
 		 NSNumber *currentCounterNum = [countersPerList objectForKey:key];
 		 
 		 NSInteger currentCounter=0;
@@ -110,7 +110,7 @@
 		 // calculate the actual range
 		 NSRange actualRange = enclosingRange;  // includes a potential \n
 		 actualRange.location += totalRange.location;
-
+		 
 		 if (NSLocationInRange(location, actualRange))
 		 {
 			 *stop = YES;
@@ -118,77 +118,86 @@
      }
      ];
 	
-	NSNumber *key = [NSNumber numberWithInteger:[list hash]]; // hash defaults to address
+	NSNumber *key = [NSNumber numberWithInteger:(NSInteger)list]; // list address is identifier
 	NSNumber *currentCounterNum = [countersPerList objectForKey:key];
 	
 	return [currentCounterNum integerValue];
 }
 
-
 - (NSRange)_rangeOfObject:(id)object inArrayBehindAttribute:(NSString *)attribute atIndex:(NSUInteger)location
 {
-	NSUInteger searchIndex = location;
-	
-	NSArray *arrayAtIndex;
-	NSUInteger minFoundIndex = NSUIntegerMax;
-	NSUInteger maxFoundIndex = 0;
-	
-	BOOL foundList = NO;
-	
-	do 
+	@synchronized(self)
 	{
-		NSRange effectiveRange;
-		arrayAtIndex = [self attribute:attribute atIndex:searchIndex effectiveRange:&effectiveRange];
+		NSUInteger stringLength = [self length];
+		NSUInteger searchIndex = location;
 		
-		if([arrayAtIndex containsObject:object])
+		NSArray *arrayAtIndex;
+		
+		NSRange totalRange = NSMakeRange(NSNotFound, 0);
+		
+		BOOL foundList = NO;
+		
+		do
 		{
-			foundList = YES;
+			NSRange effectiveRange;
+			arrayAtIndex = [self attribute:attribute atIndex:searchIndex effectiveRange:&effectiveRange];
+			
+			if (!arrayAtIndex || [arrayAtIndex indexOfObjectIdenticalTo:object] == NSNotFound)
+			{
+				break;
+			}
 			
 			searchIndex = effectiveRange.location;
+			foundList = YES;
 			
-			minFoundIndex = MIN(minFoundIndex, searchIndex);
-			maxFoundIndex = MAX(maxFoundIndex, NSMaxRange(effectiveRange));
+			// enhance found range
+			if (totalRange.location == NSNotFound)
+			{
+				totalRange = effectiveRange;
+			}
+			else
+			{
+				totalRange = NSUnionRange(totalRange, effectiveRange);
+			}
+			
+			if (searchIndex == 0)
+			{
+				// reached beginning of string
+				break;
+			}
+			
+			searchIndex--;
 		}
+		while (foundList);
 		
-		if (!searchIndex || !foundList)
-		{
-			// reached beginning of string
-			break;
-		}
-		
-		searchIndex--;
-	} 
-	while (foundList && searchIndex>0);
-	
-	// if we didn't find the list at all, return 
-	if (!foundList)
-	{
-		return NSMakeRange(0, NSNotFound);
-	}
-	
-	// now search forward
-	
-	searchIndex = maxFoundIndex;
-	
-	while (searchIndex < [self length])
-	{
-		NSRange effectiveRange;
-		arrayAtIndex = [self attribute:attribute atIndex:searchIndex effectiveRange:&effectiveRange];
-		
-		foundList = [arrayAtIndex containsObject:object];
-		
+		// if we didn't find the list at all, return
 		if (!foundList)
 		{
-			break;
+			return NSMakeRange(NSNotFound, 0);
 		}
 		
-		searchIndex = NSMaxRange(effectiveRange);
+		// now search forward
 		
-		minFoundIndex = MIN(minFoundIndex, effectiveRange.location);
-		maxFoundIndex = MAX(maxFoundIndex, NSMaxRange(effectiveRange));
+		searchIndex = NSMaxRange(totalRange);
+		
+		while (searchIndex < stringLength)
+		{
+			NSRange effectiveRange;
+			arrayAtIndex = [self attribute:attribute atIndex:searchIndex effectiveRange:&effectiveRange];
+			
+			if (!arrayAtIndex || [arrayAtIndex indexOfObjectIdenticalTo:object] == NSNotFound)
+			{
+				break;
+			}
+			
+			searchIndex = NSMaxRange(effectiveRange);
+			
+			// enhance found range
+			totalRange = NSUnionRange(totalRange, effectiveRange);
+		}
+		
+		return totalRange;
 	}
-	
-	return NSMakeRange(minFoundIndex, maxFoundIndex-minFoundIndex);
 }
 
 - (NSRange)rangeOfTextList:(DTCSSListStyle *)list atIndex:(NSUInteger)location
@@ -196,6 +205,12 @@
 	NSParameterAssert(list);
 	
 	NSRange listRange = [self _rangeOfObject:list inArrayBehindAttribute:DTTextListsAttribute atIndex:location];
+	
+	if (listRange.location == NSNotFound)
+	{
+		// list was not found
+		return listRange;
+	}
 	
 	// extend list range to full paragraphs to be safe
 	listRange = [self.string rangeOfParagraphsContainingRange:listRange parBegIndex:NULL parEndIndex:NULL];
@@ -206,13 +221,13 @@
 - (NSRange)rangeOfTextBlock:(DTTextBlock *)textBlock atIndex:(NSUInteger)location
 {
 	NSParameterAssert(textBlock);
-
+	
 	return [self _rangeOfObject:textBlock inArrayBehindAttribute:DTTextBlocksAttribute atIndex:location];
 }
 
 - (NSRange)rangeOfAnchorNamed:(NSString *)anchorName
 {
-	__block NSRange foundRange = NSMakeRange(0, NSNotFound);
+	__block NSRange foundRange = NSMakeRange(NSNotFound, 0);
 	
 	[self enumerateAttribute:DTAnchorAttribute inRange:NSMakeRange(0, [self length]) options:0 usingBlock:^(NSString *value, NSRange range, BOOL *stop) {
 		if ([value isEqualToString:anchorName])
@@ -223,6 +238,57 @@
 	}];
 	
 	return foundRange;
+}
+
+- (NSRange)rangeOfLinkAtIndex:(NSUInteger)location URL:(NSURL **)URL
+{
+	NSRange rangeSoFar;
+	
+	NSURL *foundURL = [self attribute:DTLinkAttribute atIndex:location effectiveRange:&rangeSoFar];
+	
+	if (!foundURL)
+	{
+		return NSMakeRange(NSNotFound, 0);
+	}
+	
+	// search towards beginning
+	while (rangeSoFar.location>0)
+	{
+		NSRange extendedRange;
+		NSURL *extendedURL = [self attribute:DTLinkAttribute atIndex:rangeSoFar.location-1 effectiveRange:&extendedRange];
+		
+		// abort search if key not found or value not identical
+		if (!extendedURL || ![extendedURL isEqualToURL:foundURL])
+		{
+			break;
+		}
+		
+		rangeSoFar = NSUnionRange(rangeSoFar, extendedRange);
+	}
+	
+	NSUInteger length = [self length];
+	
+	// search towards end
+	while (NSMaxRange(rangeSoFar)<length)
+	{
+		NSRange extendedRange;
+		NSURL *extendedURL = [self attribute:DTLinkAttribute atIndex:NSMaxRange(rangeSoFar) effectiveRange:&extendedRange];
+		
+		// abort search if key not found or value not identical
+		if (!extendedURL || ![extendedURL isEqualToURL:foundURL])
+		{
+			break;
+		}
+		
+		rangeSoFar = NSUnionRange(rangeSoFar, extendedRange);
+	}
+	
+	if (URL)
+	{
+		*URL = foundURL;
+	}
+	
+	return rangeSoFar;
 }
 
 - (NSRange)rangeOfFieldAtIndex:(NSUInteger)location
@@ -243,6 +309,9 @@
 }
 
 #pragma mark HTML Encoding
+
+#ifndef COVERAGE
+// exclude method from coverage testing, those are just convenience methods
 
 - (NSString *)htmlString
 {
@@ -268,6 +337,8 @@
 	
 	return [tmpString stringByReplacingOccurrencesOfString:UNICODE_OBJECT_PLACEHOLDER withString:@""];
 }
+
+#endif
 
 #pragma mark Generating Special Attributed Strings
 + (NSAttributedString *)prefixForListItemWithCounter:(NSUInteger)listCounter listStyle:(DTCSSListStyle *)listStyle listIndent:(CGFloat)listIndent attributes:(NSDictionary *)attributes
@@ -295,7 +366,7 @@
 		}
 		
 		// second tab is for the beginning of first line after bullet
-		[paragraphStyle addTabStopAtPosition:paragraphStyle.headIndent alignment:kCTLeftTextAlignment];	
+		[paragraphStyle addTabStopAtPosition:paragraphStyle.headIndent alignment:kCTLeftTextAlignment];
 	}
 	
 	if (font)
@@ -417,7 +488,7 @@
 #endif
 			
 			// add attachment
-			[newAttributes setObject:attachment forKey:NSAttachmentAttributeName];				
+			[newAttributes setObject:attachment forKey:NSAttachmentAttributeName];
 			
 			if (listStyle.position == DTCSSListStylePositionInside)
 			{

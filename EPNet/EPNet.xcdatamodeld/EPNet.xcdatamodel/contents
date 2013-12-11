@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model name="" userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="2061" systemVersion="12E55" minimumToolsVersion="Automatic" macOSVersion="Automatic" iOSVersion="Automatic">
+<model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="3400" systemVersion="13A603" minimumToolsVersion="Automatic" macOSVersion="Automatic" iOSVersion="Automatic">
     <entity name="Lesson" representedClassName="Lesson" syncable="YES">
-        <attribute name="content" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="content" optional="YES" attributeType="Binary" syncable="YES"/>
         <attribute name="created_at" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="idLesson" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
         <attribute name="image" optional="YES" attributeType="Binary" syncable="YES"/>
@@ -30,6 +30,7 @@
         <attribute name="twitter" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="updated_at" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="viadeo" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="news" optional="YES" toMany="YES" deletionRule="Cascade" ordered="YES" destinationEntity="New" inverseName="member" inverseEntity="New" syncable="YES"/>
     </entity>
     <entity name="New" representedClassName="New" syncable="YES">
         <attribute name="content" optional="YES" attributeType="String" syncable="YES"/>
@@ -40,7 +41,7 @@
         <attribute name="imageThumbRect" optional="YES" attributeType="Binary" syncable="YES"/>
         <attribute name="title" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="updated_at" optional="YES" attributeType="String" syncable="YES"/>
-        <relationship name="member" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="Member" syncable="YES"/>
+        <relationship name="member" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="Member" inverseName="news" inverseEntity="Member" syncable="YES"/>
     </entity>
     <entity name="Project" representedClassName="Project" syncable="YES">
         <attribute name="created_at" optional="YES" attributeType="String" syncable="YES"/>
@@ -60,13 +61,13 @@
         <attribute name="idThematic" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
         <attribute name="title" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="updated_at" optional="YES" attributeType="String" syncable="YES"/>
-        <relationship name="lesson" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="Lesson" syncable="YES"/>
+        <relationship name="lesson" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Lesson" syncable="YES"/>
     </entity>
     <elements>
         <element name="Lesson" positionX="-7227" positionY="-5895" width="128" height="193"/>
-        <element name="Member" positionX="-7443" positionY="-5682" width="128" height="298"/>
+        <element name="Member" positionX="-7443" positionY="-5682" width="128" height="313"/>
         <element name="New" positionX="-7632" positionY="-5749" width="128" height="178"/>
-        <element name="Thematic" positionX="-7470" positionY="-5913" width="128" height="118"/>
         <element name="Project" positionX="-7211" positionY="-5589" width="128" height="208"/>
+        <element name="Thematic" positionX="-7497" positionY="-5895" width="128" height="118"/>
     </elements>
 </model>

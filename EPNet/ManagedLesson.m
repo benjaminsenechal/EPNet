@@ -9,127 +9,130 @@
 #import "ManagedLesson.h"
 
 @implementation ManagedLesson
+NSArray *dicoLesson;
 +(void)loadDataFromWebService{
-    AppDelegate *appDelegate = (AppDelegate *)[[UIApplication sharedApplication]delegate];
-    NSManagedObjectContext *managedObjectContext = [appDelegate managedObjectContext];
-    NSArray *lessons;
-   //[self deleteAllLesson:managedObjectContext andArray:lessons];
-   //[self addLesson:managedObjectContext andArray:lessons];
-    NSLog(@"ManagedLesson");
+    [self persistLesson];
 }
 
-+(void)deleteAllLesson:(NSManagedObjectContext *)managedObjectContext andArray:(NSArray *)lesson
-{
-    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
-    NSEntityDescription *entity = [NSEntityDescription
-                                   entityForName:@"Lesson" inManagedObjectContext:managedObjectContext];
-    [fetchRequest setEntity:entity];
-    
-    NSError *error;
-    lesson = [managedObjectContext executeFetchRequest:fetchRequest error:&error];
-    
-    for (NSManagedObject * m in lesson) {
-        [managedObjectContext deleteObject:m];
-    }
-    
-    if (![managedObjectContext save:&error]) {
-        NSLog(@"Error: %@", [error localizedDescription]);
-    }
-}
-
-+(void)addLesson:(NSManagedObjectContext *)managedObjectContext andArray:(NSArray *)new
-{
++(void)persistLesson{
     NSURL *url = [NSURL URLWithString:@"http://epnet.fr/thematics.json"];
     NSURLRequest *request = [NSURLRequest requestWithURL:url];
     AFJSONRequestOperation *operation = [AFJSONRequestOperation JSONRequestOperationWithRequest:request success:^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
-        NSMutableArray *responseThematics;
+        NSMutableArray *responseThematics = [[NSMutableArray alloc]init];
         responseThematics = JSON;
         for (int i = 0; i < [responseThematics count]; i++) {
-           NSMutableArray *dicoThematic = [[responseThematics valueForKey:@"lessons"]objectAtIndex:i];
+            
+            NSMutableArray *dicoThematic = [[responseThematics valueForKey:@"lessons"]objectAtIndex:i];
 
-            for (int y = 0; y < [dicoThematic count] ; y++) {
-                Lesson *newLesson = [NSEntityDescription insertNewObjectForEntityForName:@"Lesson" inManagedObjectContext:managedObjectContext];
+            for (int y = 0; y < [dicoThematic count]; y++) {
+                
                 NSMutableArray *dico = [dicoThematic objectAtIndex:y];
                 NSNumber *v = [dico valueForKey:@"idLesson"];
-                newLesson.idLesson = v;
-                newLesson.content = [dico valueForKey:@"content"];
-                newLesson.title = [dico valueForKey:@"title" ];
-                newLesson.updated_at = [dico valueForKey:@"updated_at"];
-                newLesson.created_at = [dico valueForKey:@"created_at"];
+                NSString *html =[dico valueForKey:@"content_html"];
+                NSData *HTMLData = [html dataUsingEncoding:NSUTF8StringEncoding];
                 
-                UIImage *image = [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@",[[dico valueForKey:@"image"]valueForKey:@"url"]]]]];
-                NSData *tmpImage  = UIImageJPEGRepresentation(image , 1.0);
-                newLesson.image = tmpImage;
+                NSString *title = [dico valueForKey:@"title" ];
+
+                NSString *updated_at = [dico valueForKey:@"updated_at"];
+                NSString *created_at = [dico valueForKey:@"created_at"];
                 
-                UIImage *imageThumb = [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@",[[[dico valueForKey:@"image"]valueForKey:@"thumb"] valueForKey:@"url"]]]]];
+                UIImage *imageThumb = [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://epnet.fr/%@",[[[dico valueForKey:@"image"]valueForKey:@"thumb"] valueForKey:@"url"]]]]];
                 NSData *tmpImageThumb  = UIImageJPEGRepresentation(imageThumb , 1.0);
-                newLesson.imageThumb = tmpImageThumb;
                 
-                UIImage *imageThumbRect = [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@",[[[dico valueForKey:@"image"]valueForKey:@"thumb_rect"] valueForKey:@"url"]]]]];
+                UIImage *imageThumbRect = [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://epnet.fr/%@",[[[dico valueForKey:@"image"]valueForKey:@"thumb_rect"] valueForKey:@"url"]]]]];
                 NSData *tmpImageThumbRect = UIImageJPEGRepresentation(imageThumbRect , 1.0);
-                newLesson.imageThumbRect = tmpImageThumbRect;
-               
-                Member *memberByNew = [ManagedMember returnMemberModelWithId:[dico valueForKey:@"member_id"] withContext:managedObjectContext];
-                newLesson.member = memberByNew;
-
-                Thematic *thematicByLesson = [ManagedThematic returnThematicModelWithId:[dico valueForKey:@"thematic_id"] withContext:managedObjectContext];
-                newLesson.thematic = thematicByLesson;
-
-            }
-        }
-
-        NSError *error;
-        
-        if (![managedObjectContext save:&error]) {
-            NSLog(@"Whoops, couldn't save: %@", [error localizedDescription]);
-        }
                 
-        [[NSNotificationCenter defaultCenter]postNotification:[NSNotification notificationWithName:@"finishLoadFromWS" object:nil]];
+                Member *memberByNew = [ManagedMember returnMember:[dico valueForKey:@"member_id"]];
+                
+                Thematic *thematicByLesson = [ManagedThematic returnThematicModelWithId:[dico valueForKey:@"thematic_id"]];
+                
+                Lesson *existingEntity = [Lesson findFirstByAttribute:@"idLesson" withValue:v];
+                
+                dicoLesson = [Lesson findFirstByAttribute:@"idLesson" withValue:v];
+                
+                NSLog(@"%@", existingEntity.title);
+                
+                if([dicoLesson valueForKey:@"updated_at"] != updated_at){
+                    NSManagedObjectContext *localContext = [NSManagedObjectContext contextForCurrentThread];
+                    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"idLesson ==[c] %@", [dicoLesson valueForKey:@"idLesson"]];
+                    Lesson *updateLesson = [Lesson findFirstWithPredicate:predicate inContext:localContext];
+                    if (updateLesson) {
+                        updateLesson.idLesson = v;
+                        updateLesson.content = HTMLData;
+                        updateLesson.title = title;
+                        updateLesson.updated_at = updated_at;
+                        updateLesson.created_at = created_at;
+                        updateLesson.imageThumb = tmpImageThumb;
+                        updateLesson.imageThumbRect = tmpImageThumbRect;
+                        updateLesson.thematic = thematicByLesson;
+                        updateLesson.member = memberByNew;
+                        
+                        [localContext saveToPersistentStoreAndWait];
+                    }
+                }
+                
+                if (!existingEntity)
+                {
+                    NSManagedObjectContext *localContext = [NSManagedObjectContext contextForCurrentThread];
+                    Lesson *newLesson = [Lesson createInContext:localContext];
+                    newLesson.idLesson = v;
+                    newLesson.content = HTMLData;
+                    newLesson.title = title;
+                    newLesson.updated_at = updated_at;
+                    newLesson.created_at = created_at;
+                    newLesson.imageThumb = tmpImageThumb;
+                    newLesson.imageThumbRect = tmpImageThumbRect;
+                    newLesson.thematic = thematicByLesson;
+                    newLesson.member = memberByNew;
+
+                    [localContext saveToPersistentStoreAndWait];
+                }
+            }
+            
+        }
+
+        [[NSNotificationCenter defaultCenter]postNotification:[NSNotification notificationWithName:@"finishLoadLessonFromWS" object:nil]];
         
         
     } failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {
         NSLog(@"Failed Response : %@", JSON);
     }];
     [operation start];
-    
 }
 
-
-+(Lesson *)returnLessonModelFromDictionary:(NSMutableArray *)dicoThematic withContext:(NSManagedObjectContext *)managedObjectContext
++(Lesson *)returnLessonModelFromDictionary:(NSMutableArray *)dicoThematic
 {
-    Lesson *newLesson = [NSEntityDescription insertNewObjectForEntityForName:@"Lesson" inManagedObjectContext:managedObjectContext];
-  //  for (int i = 0; i < [dico count]; i++) {
+    NSManagedObjectContext *localContext = [NSManagedObjectContext contextForCurrentThread];
+    Lesson *newLesson = [Lesson createInContext:localContext];
 
-   //     NSMutableArray *dicoThematic = [dico objectAtIndex:i];
-        newLesson.title = [dicoThematic valueForKey:@"title"];
+    newLesson.title = [dicoThematic valueForKey:@"title"];
+    
+    NSNumber *v = [dicoThematic valueForKey:@"id"];
+    newLesson.idLesson = v;
+    NSString *html =[dicoThematic valueForKey:@"content_html"];
+    NSData *HTMLData = [html dataUsingEncoding:NSUTF8StringEncoding];
+    newLesson.content = HTMLData;
+    newLesson.title = [dicoThematic valueForKey:@"title"];
+    newLesson.updated_at = [dicoThematic valueForKey:@"updated_at"];
+    newLesson.created_at = [dicoThematic valueForKey:@"created_at"];
+    
+    UIImage *image = [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://epnet.fr/%@",[[dicoThematic valueForKey:@"image"]valueForKey:@"url"]]]]];
+    NSData *tmpImage  = UIImageJPEGRepresentation(image , 1.0);
+    newLesson.image = tmpImage;
+    
+    UIImage *imageThumb = [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://epnet.fr/%@",[[[dicoThematic valueForKey:@"image"]valueForKey:@"thumb"] valueForKey:@"url"]]]]];
+    NSData *tmpImageThumb  = UIImageJPEGRepresentation(imageThumb , 1.0);
+    newLesson.imageThumb = tmpImageThumb;
+    
+    UIImage *imageThumbRect = [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://epnet.fr/%@",[[[dicoThematic valueForKey:@"image"]valueForKey:@"thumb_rect"] valueForKey:@"url"]]]]];
+    NSData *tmpImageThumbRect = UIImageJPEGRepresentation(imageThumbRect , 1.0);
+    newLesson.imageThumbRect = tmpImageThumbRect;
+    
+    Member *memberByNew = [ManagedMember returnMember:[dicoThematic valueForKey:@"member_id"]];
+    newLesson.member = memberByNew;
 
-        NSNumber *v = [dicoThematic valueForKey:@"id"];
-        newLesson.idLesson = v;
-        newLesson.content = [dicoThematic valueForKey:@"content"];
-        newLesson.title = [dicoThematic valueForKey:@"title"];
-        newLesson.updated_at = [dicoThematic valueForKey:@"updated_at"];
-        newLesson.created_at = [dicoThematic valueForKey:@"created_at"];
-        
-         UIImage *image = [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@",[[dicoThematic valueForKey:@"image"]valueForKey:@"url"]]]]];
-        NSData *tmpImage  = UIImageJPEGRepresentation(image , 1.0);
-        newLesson.image = tmpImage;
-        
-        UIImage *imageThumb = [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@",[[[dicoThematic valueForKey:@"image"]valueForKey:@"thumb"] valueForKey:@"url"]]]]];
-        NSData *tmpImageThumb  = UIImageJPEGRepresentation(imageThumb , 1.0);
-        newLesson.imageThumb = tmpImageThumb;
-        
-        UIImage *imageThumbRect = [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@",[[[dicoThematic valueForKey:@"image"]valueForKey:@"thumb_rect"] valueForKey:@"url"]]]]];
-        NSData *tmpImageThumbRect = UIImageJPEGRepresentation(imageThumbRect , 1.0);
-        newLesson.imageThumbRect = tmpImageThumbRect;
 
-        Member *memberByNew = [ManagedMember returnMemberModelWithId:[dicoThematic valueForKey:@"member_id"] withContext:managedObjectContext];
-        newLesson.member = memberByNew;
-        
-       // NSLog(@"LEsson %@", newLesson.title);
-        
-    //newLesson.member =
-
-  //  }
     return newLesson;
 }
+
 @end

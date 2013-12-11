@@ -9,37 +9,13 @@
 #import "ManagedThematic.h"
 
 @implementation ManagedThematic
+NSArray *dicoThematic;
 
 +(void)loadDataFromWebService{
-    AppDelegate *appDelegate = (AppDelegate *)[[UIApplication sharedApplication]delegate];
-    NSManagedObjectContext *managedObjectContext = [appDelegate managedObjectContext];
-    NSArray *thematics;
-    [self deleteAllThematic:managedObjectContext andArray:thematics];
-    [self addThematic:managedObjectContext andArray:thematics];
-    NSLog(@"ManagedThematic");
+    [self persistThematic];
 }
 
-+(void)deleteAllThematic:(NSManagedObjectContext *)managedObjectContext andArray:(NSArray *)thematic
-{
-    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
-    NSEntityDescription *entity = [NSEntityDescription
-                                   entityForName:@"Thematic" inManagedObjectContext:managedObjectContext];
-    [fetchRequest setEntity:entity];
-    
-    NSError *error;
-    thematic = [managedObjectContext executeFetchRequest:fetchRequest error:&error];
-    
-    for (NSManagedObject * m in thematic) {
-        [managedObjectContext deleteObject:m];
-    }
-    
-    if (![managedObjectContext save:&error]) {
-        NSLog(@"Error: %@", [error localizedDescription]);
-    }
-}
-
-+(void)addThematic:(NSManagedObjectContext *)managedObjectContext andArray:(NSArray *)new
-{
++(void)persistThematic{
     NSURL *url = [NSURL URLWithString:@"http://epnet.fr/thematics.json"];
     NSURLRequest *request = [NSURLRequest requestWithURL:url];
     AFJSONRequestOperation *operation = [AFJSONRequestOperation JSONRequestOperationWithRequest:request success:^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
@@ -47,30 +23,37 @@
         responseThematics = JSON;
         for (int i = 0; i < [responseThematics count]; i++) {
             NSDictionary *dicoThematic = [responseThematics objectAtIndex:i];
-            Thematic *newThematic = [NSEntityDescription
-                           insertNewObjectForEntityForName:@"Thematic"
-                           inManagedObjectContext:managedObjectContext];
+            
             NSNumber *v = [dicoThematic objectForKey:@"id"];
-            newThematic.idThematic = v;
-            newThematic.title = [dicoThematic objectForKey:@"title"];
-            newThematic.updated_at = [dicoThematic objectForKey:@"updated_at"];
-            newThematic.created_at = [dicoThematic objectForKey:@"created_at"];
-
-            for (int y=0; y < [[dicoThematic objectForKey:@"lessons"]count ]; y++ ){
-              Lesson *l = [ManagedLesson returnLessonModelFromDictionary:[[dicoThematic objectForKey:@"lessons"] objectAtIndex:y ]withContext:managedObjectContext];
-              newThematic.lesson = l;
+            NSString *title = [dicoThematic objectForKey:@"title"];
+            NSString *updated_at = [dicoThematic objectForKey:@"updated_at"];
+            NSString *created_at = [dicoThematic objectForKey:@"created_at"];
+            
+            NSSet *m = [dicoThematic objectForKey:@"lessons"];
+            NSMutableSet *lessonsArray = [[NSMutableSet alloc] initWithCapacity:m.count];
+            
+            for (int y=0; y < [[dicoThematic valueForKey:@"lessons"]count]; y++ ){
+                Lesson *lessonByThem = [ManagedLesson returnLessonModelFromDictionary:[[dicoThematic objectForKey:@"lessons"] objectAtIndex:y]];
+                [lessonsArray addObject:lessonByThem];
             }
+
+            Thematic *existingEntity = [Thematic findFirstByAttribute:@"idThematic" withValue:v];
+            
+            if (!existingEntity)
+            {
+                NSManagedObjectContext *localContext = [NSManagedObjectContext contextForCurrentThread];
+                Thematic *newThematic = [Thematic createInContext:localContext];
+                newThematic.idThematic = v;
+                newThematic.title = title;
+                newThematic.updated_at = updated_at;
+                newThematic.created_at = created_at;
+                newThematic.lesson = lessonsArray;
+                [localContext saveToPersistentStoreAndWait];
+            }
+            
         }
         
-        NSError *error;
-        
-        if (![managedObjectContext save:&error]) {
-            NSLog(@"Whoops, couldn't save: %@", [error localizedDescription]);
-        }
-        
-        //     [self displayPartenaire:managedObjectContext andArray:members];
-        
-        [[NSNotificationCenter defaultCenter]postNotification:[NSNotification notificationWithName:@"finishLoadFromWS" object:nil]];
+        [[NSNotificationCenter defaultCenter]postNotification:[NSNotification notificationWithName:@"finishLoadThematicFromWS" object:nil]];
         
         
     } failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {
@@ -78,43 +61,20 @@
     }];
     [operation start];
     
+
 }
-+(Thematic *)returnThematicModelWithId:(NSString *)myid withContext:(NSManagedObjectContext *)managedObjectContext
+
++(Thematic *)returnThematicModelWithId:(NSString *)myid
 {
-    NSArray *m;
-    Thematic *myThem;
-    
-    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
-    NSEntityDescription *entity = [NSEntityDescription
-                                   entityForName:@"Thematic" inManagedObjectContext:managedObjectContext];
-    [fetchRequest setEntity:entity];
-    
-    NSError *error;
-    
-    m = [managedObjectContext executeFetchRequest:fetchRequest error:&error];
-    for (int i = 0; i < [m count]; i++) {
-        myThem = [m objectAtIndex:i];
-        if([myThem.idThematic isEqual:myid]){
-            return myThem;
-        }
+    Thematic *personFounded;
+    NSManagedObjectContext *localContext = [NSManagedObjectContext contextForCurrentThread];
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"idThematic ==[c] %@", myid];
+    personFounded = [Thematic findFirstWithPredicate:predicate inContext:localContext];
+    if (personFounded) {
+        return personFounded;
     }
+    return personFounded;
     
-    return  myThem;
-    
-}
-+(Thematic *)returnThematicModelFromDictionary:(NSDictionary *)dico withContext:(NSManagedObjectContext *)managedObjectContext{
-    Thematic *newThematic = [NSEntityDescription
-                             insertNewObjectForEntityForName:@"Thematic"
-                             inManagedObjectContext:managedObjectContext];
-    NSNumber *v = [dico valueForKey:@"id"];
-    newThematic.idThematic = v;
-    newThematic.title = [dico valueForKey:@"title"];
-    newThematic.updated_at = [dico valueForKey:@"updated_at"];
-    newThematic.created_at = [dico valueForKey:@"created_at"];
-    Lesson *l = [ManagedLesson returnLessonModelFromDictionary:[dico valueForKey:@"lessons"] withContext:managedObjectContext];
-    newThematic.lesson = l;
-    
-    return newThematic;
 }
 
 @end

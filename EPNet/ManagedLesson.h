@@ -14,9 +14,9 @@
 #import "AFNetworking.h"
 #import "ManagedMember.h"
 #import "ManagedThematic.h"
+#import "SundownWrapper.h"
 
 @interface ManagedLesson : NSObject
 +(void)loadDataFromWebService;
-+(Lesson *)returnLessonModelFromDictionary:(NSMutableArray *)dico withContext:(NSManagedObjectContext *)managedObjectContext;
-
++(Lesson *)returnLessonModelFromDictionary:(NSMutableArray *)dico;
 @end

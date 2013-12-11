@@ -42,10 +42,11 @@ typedef void(^DTHTMLAttributedStringBuilderWillFlushCallback)(DTHTMLElement *);
  - DTDefaultStyleSheet: The default style sheet to use
  - DTUseiOS6Attributes: use iOS 6 attributes for building (UITextView compatible)
  - DTWillFlushBlockCallBack: a block to be executed whenever content is flushed to the output string
+ - DTIgnoreInlineStylesOption: All inline style information is being ignored and only style blocks used
  
  @param data The data in HTML format from which to create the attributed string.
  @param options Specifies how the document should be loaded. Contains values described in NSAttributedString(HTML).
- @param docAttributes Currently not in used.
+ @param docAttributes Currently not in use.
  @returns Returns an initialized object, or `nil` if the data can’t be decoded.
  */
 - (id)initWithHTML:(NSData *)data options:(NSDictionary *)options documentAttributes:(NSDictionary **)docAttributes;

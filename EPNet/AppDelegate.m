@@ -7,7 +7,13 @@
 //
 
 #import "AppDelegate.h"
+#import "GAI.h"
 #import "ManagedMember.h"
+#import "ManagedLesson.h"
+#import "ManagedNew.h"
+#import "ManagedProject.h"
+#import "GAITrackedViewController.h"
+
 @implementation AppDelegate
 
 @synthesize managedObjectContext = _managedObjectContext;
@@ -16,12 +22,51 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-    // Override point for customization after application launch.
-   // UINavigationController *navigationController = (UINavigationController *)self.window.rootViewController;
+    [self addSkipBackupAttributeToItemAtURL:[self storeURL]];
+    
+    [MagicalRecord setupCoreDataStackWithStoreNamed:@"EPNet.sqlite"];
+    [[UINavigationBar appearance] setTintColor:[UIColor colorWithRed:241.0/255.0 green:241.0/255.0 blue:241.0/255.0 alpha:1.00]];
+    
+    [GAI sharedInstance].trackUncaughtExceptions = YES;
+    [GAI sharedInstance].dispatchInterval = 2;
+    [[[GAI sharedInstance] logger] setLogLevel:kGAILogLevelVerbose];
+    [[GAI sharedInstance] trackerWithTrackingId:@"UA-46158321-1"];
 
     return YES;
 }
-							
+- (void)cacheDirectory {
+  //  NSString *tempPath = NSTemporaryDirectory();
+    NSArray* temp = [[NSFileManager defaultManager] contentsOfDirectoryAtPath:NSTemporaryDirectory() error:NULL];
+    for (NSString *file in temp) {
+        [[NSFileManager defaultManager] removeItemAtPath:[NSString stringWithFormat:@"%@%@", NSTemporaryDirectory(), file] error:NULL];
+        NSLog(@"file%@", file);
+    }
+}
+- (NSURL *)storeURL
+{
+    return [NSURL fileURLWithPath:[NSHomeDirectory() stringByAppendingPathComponent:@"Library"]];
+}
+
+- (BOOL)addSkipBackupAttributeToItemAtURL:(NSURL *)URL {
+    if (&NSURLIsExcludedFromBackupKey == nil) {
+        const char* filePath = [[URL path] fileSystemRepresentation];
+        
+        const char* attrName = "com.apple.MobileBackup";
+        u_int8_t attrValue = 1;
+        
+        int result = setxattr(filePath, attrName, &attrValue, sizeof(attrValue), 0, 0);
+        return result == 0;
+    } else {
+        return [URL setResourceValue:[NSNumber numberWithBool:YES] forKey:NSURLIsExcludedFromBackupKey error:nil];
+    }
+}
+
+- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
+    // Return YES for supported orientations
+    return ((interfaceOrientation == UIInterfaceOrientationLandscapeLeft) ||
+            (interfaceOrientation == UIInterfaceOrientationLandscapeRight));
+}
+
 - (void)applicationWillResignActive:(UIApplication *)application
 {
     // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
@@ -30,7 +75,8 @@
 
 - (void)applicationDidEnterBackground:(UIApplication *)application
 {
-    // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later. 
+    
+    // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later.
     // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
 }
 
@@ -41,12 +87,14 @@
 
 - (void)applicationDidBecomeActive:(UIApplication *)application
 {
+
     // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
 }
 
 - (void)applicationWillTerminate:(UIApplication *)application
 {
     // Saves changes in the application's managed object context before the application terminates.
+    [MagicalRecord cleanUp];
     [self saveContext];
 }
 
@@ -107,6 +155,7 @@
     NSError *error = nil;
     _persistentStoreCoordinator = [[NSPersistentStoreCoordinator alloc] initWithManagedObjectModel:[self managedObjectModel]];
     if (![_persistentStoreCoordinator addPersistentStoreWithType:NSSQLiteStoreType configuration:nil URL:storeURL options:nil error:&error]) {
+
         /*
          Replace this implementation with code to handle the error appropriately.
          
@@ -122,14 +171,14 @@
          
          If you encounter schema incompatibility errors during development, you can reduce their frequency by:
          * Simply deleting the existing store:
-         [[NSFileManager defaultManager] removeItemAtURL:storeURL error:nil]
-         
+        [[NSFileManager defaultManager] removeItemAtURL:storeURL error:nil];
+        
          * Performing automatic lightweight migration by passing the following dictionary as the options parameter:
-         @{NSMigratePersistentStoresAutomaticallyOption:@YES, NSInferMappingModelAutomaticallyOption:@YES}
-         
+        @{NSMigratePersistentStoresAutomaticallyOption:@YES, NSInferMappingModelAutomaticallyOption:@YES};
+        
          Lightweight migration will only work for a limited set of schema changes; consult "Core Data Model Versioning and Data Migration Programming Guide" for details.
-         
          */
+         
         NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
         abort();
     }    

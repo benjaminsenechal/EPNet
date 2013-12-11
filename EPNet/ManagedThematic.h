@@ -15,6 +15,5 @@
 
 @interface ManagedThematic : NSObject
 +(void)loadDataFromWebService;
-+(Thematic *)returnThematicModelFromDictionary:(NSDictionary *)dico withContext:(NSManagedObjectContext *)managedObjectContext;
-+(Thematic *)returnThematicModelWithId:(NSString *)myid withContext:(NSManagedObjectContext *)managedObjectContext;
++(Thematic *)returnThematicModelWithId:(NSString *)myid;
 @end
