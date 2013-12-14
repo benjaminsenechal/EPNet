@@ -94,7 +94,7 @@ int d=0;
 -(void)finishedLoad
 {
     [[NSNotificationCenter defaultCenter]removeObserver:self name:@"finishLoadThematicFromWS" object:nil];
-    dicoLessons = [Thematic findAllSortedBy:@"title" ascending:YES];
+    dicoLessons = [Thematic findAllSortedBy:@"updated_at" ascending:YES];
     [loader stopAnimating];
     double delayInSeconds = 2.0;
     dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, delayInSeconds * NSEC_PER_SEC);
@@ -107,7 +107,7 @@ int d=0;
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    dicoLessons = [Thematic findAllSortedBy:@"title" ascending:YES];
+    dicoLessons = [Thematic findAllSortedBy:@"updated_at" ascending:YES];
     for (int i = 0; i < [dicoLessons count]; i++) {
         n =  [dicoLessons objectAtIndex:i];
         NSSet *nn = n.lesson;
@@ -183,7 +183,7 @@ int d=0;
     }
     UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 320, 30)];
     
-    UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(10, 0, 320, 30)];
+    UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 320, 30)];
     label.font = FONT(17);
     label.backgroundColor = [UIColor colorWithRed:251.0/255.0 green:251.0/255.0 blue:251.0/255.0 alpha:1];
     label.text = sectionTitle;
