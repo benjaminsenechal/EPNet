@@ -14,6 +14,6 @@
 #import "ManagedLesson.h"
 
 @interface ManagedThematic : NSObject
-+(void)loadDataFromWebService;
++(void)persistThematic;
 +(Thematic *)returnThematicModelWithId:(NSString *)myid;
 @end

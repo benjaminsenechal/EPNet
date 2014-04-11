@@ -10,9 +10,6 @@
 
 @implementation ManagedLesson
 NSArray *dicoLesson;
-+(void)loadDataFromWebService{
-    [self persistLesson];
-}
 
 +(void)persistLesson{
     NSURL *url = [NSURL URLWithString:@"http://epnet.fr/thematics.json"];

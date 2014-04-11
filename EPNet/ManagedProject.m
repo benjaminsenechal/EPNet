@@ -11,10 +11,6 @@
 @implementation ManagedProject
 NSArray *dicoProject;
 
-+(void)loadDataFromWebService{
-    [self persistProject];
-}
-
 +(void)persistProject{
     NSURL *url = [NSURL URLWithString:@"http://epnet.fr/projects.json"];
     NSURLRequest *request = [NSURLRequest requestWithURL:url];

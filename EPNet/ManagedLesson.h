@@ -17,6 +17,6 @@
 #import "SundownWrapper.h"
 
 @interface ManagedLesson : NSObject
-+(void)loadDataFromWebService;
++(void)persistLesson;
 +(Lesson *)returnLessonModelFromDictionary:(NSMutableArray *)dico;
 @end

@@ -12,10 +12,6 @@
 @implementation ManagedNew
 NSArray *dicoNews;
 
-+(void)loadDataFromWebService{
-    [self persistNew];
-}
-
 + (void)persistNew{
     NSURL *url = [NSURL URLWithString:@"http://www.epnet.fr/news.json"];
     NSURLRequest *request = [NSURLRequest requestWithURL:url];

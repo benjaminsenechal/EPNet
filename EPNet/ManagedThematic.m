@@ -11,10 +11,6 @@
 @implementation ManagedThematic
 NSArray *dicoThematic;
 
-+(void)loadDataFromWebService{
-    [self persistThematic];
-}
-
 +(void)persistThematic{
     NSURL *url = [NSURL URLWithString:@"http://epnet.fr/thematics.json"];
     NSURLRequest *request = [NSURLRequest requestWithURL:url];

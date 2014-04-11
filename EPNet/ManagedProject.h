@@ -13,5 +13,5 @@
 #import "Project.h"
 #import "ManagedMember.h"
 @interface ManagedProject : NSObject
-+(void)loadDataFromWebService;
++(void)persistProject;
 @end

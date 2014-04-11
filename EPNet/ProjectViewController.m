@@ -67,7 +67,7 @@ int e=0;
 
     if (e == 0){
         dicoProjets = [Project findAllSortedBy:@"created_at" ascending:NO];
-        [ManagedProject loadDataFromWebService];
+        [ManagedProject persistProject];
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(finishedLoad) name:@"notificationLoadProjectFinished" object:nil];
         e=1;
         [tableViewProjets reloadData];
@@ -92,10 +92,10 @@ int e=0;
 
 - (void)dropViewDidBeginRefreshing:(UIRefreshControl *)refreshControl
 {
-    [ManagedProject loadDataFromWebService];
     double delayInSeconds = 0.5;
     dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, delayInSeconds * NSEC_PER_SEC);
     dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
+        [ManagedProject persistProject];
         [refreshControl endRefreshing];
     });
 }

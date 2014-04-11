@@ -62,8 +62,7 @@ NSArray *dicoMember;
                 viadeo = [dicoNew valueForKey:@"viadeo"];
             }
             
-            NSLog(@"%@",[Member findFirstByAttribute:@"idMember" withValue:v]);
-           // dicoMember = [Member findFirstByAttribute:@"idMember" withValue:v];
+            dicoMember = [Member findFirstByAttribute:@"idMember" withValue:v];
             
             if([dicoMember valueForKey:@"updated_at"] != updated_at){
                 NSManagedObjectContext *localContext = [NSManagedObjectContext contextForCurrentThread];
@@ -92,7 +91,7 @@ NSArray *dicoMember;
             
             
             Member *existingEntity = [Member findFirstByAttribute:@"idMember" withValue:v];
-            NSLog(@"%@",existingEntity.lastname);
+
             if (!existingEntity)
             {
                 NSManagedObjectContext *localContext = [NSManagedObjectContext contextForCurrentThread];

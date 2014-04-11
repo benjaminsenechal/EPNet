@@ -13,5 +13,5 @@
 #import "AFNetworking.h"
 #import "ManagedMember.h"
 @interface ManagedNew : NSObject
-+(void)loadDataFromWebService;
++(void)persistNew;
 @end

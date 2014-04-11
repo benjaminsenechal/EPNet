@@ -70,8 +70,8 @@ int d=0;
     
     if (d == 0){
         [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(finishedLoad) name:@"finishLoadThematicFromWS" object:nil];
-        [ManagedLesson loadDataFromWebService];
-        [ManagedThematic loadDataFromWebService];
+        [ManagedLesson persistLesson];
+        [ManagedThematic persistThematic];
         d=1;
         [tableViewThematic reloadData];
     }else{
@@ -82,11 +82,11 @@ int d=0;
 
 - (void)dropViewDidBeginRefreshing:(UIRefreshControl *)refreshControl
 {
-    [ManagedLesson loadDataFromWebService];
-    [ManagedThematic loadDataFromWebService];
     double delayInSeconds = 0.5;
     dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, delayInSeconds * NSEC_PER_SEC);
     dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
+        [ManagedLesson persistLesson];
+        [ManagedThematic persistThematic];
         [refreshControl endRefreshing];
     });
 }

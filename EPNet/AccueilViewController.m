@@ -25,7 +25,6 @@ int f=0;
 
 - (void)viewWillAppear:(BOOL)animated
 {
-    
     [super viewWillAppear:animated];
     
     self.screenName = @"Accueil Screen";
@@ -75,7 +74,7 @@ int f=0;
     
     if (f == 0) {
         [ManagedMember persistMember];
-        [ManagedNew loadDataFromWebService];
+        [ManagedNew persistNew];
 
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(finishedLoad) name:@"notificationLoadMembersNewsFinished" object:nil];
         f = 1;
@@ -86,12 +85,17 @@ int f=0;
 
 }
 
+- (void)viewDidLoad
+{
+    [super viewDidLoad];
+}
+
 - (void)dropViewDidBeginRefreshing:(UIRefreshControl *)refreshControl
 {
-    [ManagedNew loadDataFromWebService];
     double delayInSeconds = 0.5;
     dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, delayInSeconds * NSEC_PER_SEC);
     dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
+        [ManagedNew persistNew];
         [refreshControl endRefreshing];
     });
 }
@@ -101,11 +105,6 @@ int f=0;
     [[NSNotificationCenter defaultCenter]removeObserver:self name:@"notificationLoadMembersNewsFinished" object:nil];
     [tableViewNews reloadData];
     [loader stopAnimating];
-}
-
-- (void)viewDidLoad
-{
-    [super viewDidLoad];
 }
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
