@@ -74,7 +74,7 @@ int f=0;
     self.navigationController.navigationBar.shadowImage = [[UIImage alloc]init];
     
     if (f == 0) {
-        [ManagedMember loadDataFromWebService];
+        [ManagedMember persistMember];
         [ManagedNew loadDataFromWebService];
 
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(finishedLoad) name:@"notificationLoadMembersNewsFinished" object:nil];
@@ -97,12 +97,7 @@ int f=0;
 }
 
 -(void)finishedLoad{
-    New *n;
     dicoNews = [New findAllSortedBy:@"created_at" ascending:NO];
-    for (int i = 0; i < [dicoNews count]; i++) {
-        n =  [dicoNews objectAtIndex:i];
-        NSLog(@"Les News %@ - %@", n.title, n.member.lastname);
-    }
     [[NSNotificationCenter defaultCenter]removeObserver:self name:@"notificationLoadMembersNewsFinished" object:nil];
     [tableViewNews reloadData];
     [loader stopAnimating];

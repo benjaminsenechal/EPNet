@@ -11,10 +11,6 @@
 @implementation ManagedMember
 NSArray *dicoMember;
 
-+(void)loadDataFromWebService{
-    [self persistMember];
-}
-
 +(void)persistMember{
     NSURL *url = [NSURL URLWithString:@"http://www.epnet.fr/members.json"];
     NSURLRequest *request = [NSURLRequest requestWithURL:url];
@@ -66,7 +62,8 @@ NSArray *dicoMember;
                 viadeo = [dicoNew valueForKey:@"viadeo"];
             }
             
-            dicoMember = [Member findFirstByAttribute:@"idMember" withValue:v];
+            NSLog(@"%@",[Member findFirstByAttribute:@"idMember" withValue:v]);
+           // dicoMember = [Member findFirstByAttribute:@"idMember" withValue:v];
             
             if([dicoMember valueForKey:@"updated_at"] != updated_at){
                 NSManagedObjectContext *localContext = [NSManagedObjectContext contextForCurrentThread];
@@ -98,8 +95,6 @@ NSArray *dicoMember;
             NSLog(@"%@",existingEntity.lastname);
             if (!existingEntity)
             {
-                NSLog(@"Nouvelle ENTITY");
-                
                 NSManagedObjectContext *localContext = [NSManagedObjectContext contextForCurrentThread];
                 Member *newMember = [Member createInContext:localContext];
                 newMember.idMember = v;
@@ -120,7 +115,6 @@ NSArray *dicoMember;
                 newMember.viadeo = viadeo;
                 [localContext saveToPersistentStoreAndWait];
             }
-
         }
 
     } failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {

@@ -15,8 +15,7 @@
 #import "AFNetworking.h"
 
 @interface ManagedMember : NSObject
-+(void)loadDataFromWebService;
++(void)persistMember;
 +(Member *)returnMember:(NSString *)idMember;
 @property(strong, nonatomic)NSArray *dico;
-
 @end

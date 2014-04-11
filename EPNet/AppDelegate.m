@@ -22,43 +22,17 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-    [self addSkipBackupAttributeToItemAtURL:[self storeURL]];
-    
-    [MagicalRecord setupCoreDataStackWithStoreNamed:@"EPNet.sqlite"];
-    [[UINavigationBar appearance] setTintColor:[UIColor colorWithRed:241.0/255.0 green:241.0/255.0 blue:241.0/255.0 alpha:1.00]];
+    [MagicalRecord setupCoreDataStack];
     
     [GAI sharedInstance].trackUncaughtExceptions = YES;
     [GAI sharedInstance].dispatchInterval = 2;
     [[[GAI sharedInstance] logger] setLogLevel:kGAILogLevelVerbose];
     [[GAI sharedInstance] trackerWithTrackingId:@"UA-46158321-1"];
-
+    
+    [MagicalRecord setupCoreDataStackWithStoreNamed:@"EPNet.sqlite"];
+    [[UINavigationBar appearance] setTintColor:[UIColor colorWithRed:241.0/255.0 green:241.0/255.0 blue:241.0/255.0 alpha:1.00]];
+    
     return YES;
-}
-- (void)cacheDirectory {
-  //  NSString *tempPath = NSTemporaryDirectory();
-    NSArray* temp = [[NSFileManager defaultManager] contentsOfDirectoryAtPath:NSTemporaryDirectory() error:NULL];
-    for (NSString *file in temp) {
-        [[NSFileManager defaultManager] removeItemAtPath:[NSString stringWithFormat:@"%@%@", NSTemporaryDirectory(), file] error:NULL];
-        NSLog(@"file%@", file);
-    }
-}
-- (NSURL *)storeURL
-{
-    return [NSURL fileURLWithPath:[NSHomeDirectory() stringByAppendingPathComponent:@"Library"]];
-}
-
-- (BOOL)addSkipBackupAttributeToItemAtURL:(NSURL *)URL {
-    if (&NSURLIsExcludedFromBackupKey == nil) {
-        const char* filePath = [[URL path] fileSystemRepresentation];
-        
-        const char* attrName = "com.apple.MobileBackup";
-        u_int8_t attrValue = 1;
-        
-        int result = setxattr(filePath, attrName, &attrValue, sizeof(attrValue), 0, 0);
-        return result == 0;
-    } else {
-        return [URL setResourceValue:[NSNumber numberWithBool:YES] forKey:NSURLIsExcludedFromBackupKey error:nil];
-    }
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
@@ -171,14 +145,14 @@
          
          If you encounter schema incompatibility errors during development, you can reduce their frequency by:
          * Simply deleting the existing store:
-        [[NSFileManager defaultManager] removeItemAtURL:storeURL error:nil];
-        
-         * Performing automatic lightweight migration by passing the following dictionary as the options parameter:
-        @{NSMigratePersistentStoresAutomaticallyOption:@YES, NSInferMappingModelAutomaticallyOption:@YES};
-        
-         Lightweight migration will only work for a limited set of schema changes; consult "Core Data Model Versioning and Data Migration Programming Guide" for details.
-         */
+         [[NSFileManager defaultManager] removeItemAtURL:storeURL error:nil]
          
+         * Performing automatic lightweight migration by passing the following dictionary as the options parameter:
+         @{NSMigratePersistentStoresAutomaticallyOption:@YES, NSInferMappingModelAutomaticallyOption:@YES}
+         
+         Lightweight migration will only work for a limited set of schema changes; consult "Core Data Model Versioning and Data Migration Programming Guide" for details.
+         
+         */
         NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
         abort();
     }    

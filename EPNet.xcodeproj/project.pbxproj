@@ -10,9 +10,6 @@
 		7B6CD2C58CB5451EB0C9AD10 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = EEB62175A2474C4D8D1C52B5 /* libPods.a */; };
 		911469E7181C01620063DF0C /* Member.m in Sources */ = {isa = PBXBuildFile; fileRef = 911469E6181C01620063DF0C /* Member.m */; };
 		911469EA181C01A90063DF0C /* New.m in Sources */ = {isa = PBXBuildFile; fileRef = 911469E9181C01A90063DF0C /* New.m */; };
-		912AE80F184E64ED00277824 /* spotlight-58.png in Resources */ = {isa = PBXBuildFile; fileRef = 912AE80D184E64ED00277824 /* spotlight-58.png */; };
-		912AE810184E64ED00277824 /* icon-114.png in Resources */ = {isa = PBXBuildFile; fileRef = 912AE80E184E64ED00277824 /* icon-114.png */; };
-		912AE812184E651000277824 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 912AE811184E651000277824 /* Images.xcassets */; };
 		91606A4817F9C33A00728C69 /* back.png in Resources */ = {isa = PBXBuildFile; fileRef = 91606A4717F9C33A00728C69 /* back.png */; };
 		9161B9CD1772EE24009B12C9 /* MenuViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9161B9CC1772EE24009B12C9 /* MenuViewController.m */; };
 		9161B9D01772EF55009B12C9 /* AProposViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9161B9CF1772EF55009B12C9 /* AProposViewController.m */; };
@@ -32,11 +29,13 @@
 		9198B7A41772EC7D00F0AE8B /* InitialSlidingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9198B7A31772EC7D00F0AE8B /* InitialSlidingViewController.m */; };
 		9198B7A71772ED0300F0AE8B /* AccueilViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9198B7A61772ED0300F0AE8B /* AccueilViewController.m */; };
 		919DFB90177216FF00C77B15 /* Project.m in Sources */ = {isa = PBXBuildFile; fileRef = 919DFB8F177216FF00C77B15 /* Project.m */; };
+		91A047AF184E3AD40003C271 /* app_6_1@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 91A047A6184E3AD40003C271 /* app_6_1@2x.png */; };
 		91A047B0184E3AD40003C271 /* app.png in Resources */ = {isa = PBXBuildFile; fileRef = 91A047A7184E3AD40003C271 /* app.png */; };
 		91A047B1184E3AD40003C271 /* app@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 91A047A8184E3AD40003C271 /* app@2x.png */; };
 		91A047B2184E3AD40003C271 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 91A047A9184E3AD40003C271 /* Default-568h@2x.png */; };
 		91A047B3184E3AD40003C271 /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = 91A047AA184E3AD40003C271 /* Default.png */; };
 		91A047B4184E3AD40003C271 /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 91A047AB184E3AD40003C271 /* Default@2x.png */; };
+		91A047B5184E3AD40003C271 /* spotlight_6_1@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 91A047AC184E3AD40003C271 /* spotlight_6_1@2x.png */; };
 		91A047B6184E3AD40003C271 /* spotlight.png in Resources */ = {isa = PBXBuildFile; fileRef = 91A047AD184E3AD40003C271 /* spotlight.png */; };
 		91A047B7184E3AD40003C271 /* spotlight@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 91A047AE184E3AD40003C271 /* spotlight@2x.png */; };
 		91A047C1184E3E3C0003C271 /* facebook.png in Resources */ = {isa = PBXBuildFile; fileRef = 91A047BE184E3E3C0003C271 /* facebook.png */; };
@@ -71,9 +70,6 @@
 		911469E6181C01620063DF0C /* Member.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Member.m; sourceTree = "<group>"; };
 		911469E8181C01A90063DF0C /* New.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = New.h; sourceTree = "<group>"; };
 		911469E9181C01A90063DF0C /* New.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = New.m; sourceTree = "<group>"; };
-		912AE80D184E64ED00277824 /* spotlight-58.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "spotlight-58.png"; sourceTree = "<group>"; };
-		912AE80E184E64ED00277824 /* icon-114.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-114.png"; sourceTree = "<group>"; };
-		912AE811184E651000277824 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		91606A4717F9C33A00728C69 /* back.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = back.png; sourceTree = "<group>"; };
 		9161B9CB1772EE24009B12C9 /* MenuViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MenuViewController.h; sourceTree = "<group>"; };
 		9161B9CC1772EE24009B12C9 /* MenuViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MenuViewController.m; sourceTree = "<group>"; };
@@ -107,11 +103,13 @@
 		9198B7A61772ED0300F0AE8B /* AccueilViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AccueilViewController.m; sourceTree = "<group>"; };
 		919DFB8E177216FF00C77B15 /* Project.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Project.h; sourceTree = "<group>"; };
 		919DFB8F177216FF00C77B15 /* Project.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Project.m; sourceTree = "<group>"; };
+		91A047A6184E3AD40003C271 /* app_6_1@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "app_6_1@2x.png"; sourceTree = "<group>"; };
 		91A047A7184E3AD40003C271 /* app.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = app.png; sourceTree = "<group>"; };
 		91A047A8184E3AD40003C271 /* app@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "app@2x.png"; sourceTree = "<group>"; };
 		91A047A9184E3AD40003C271 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
 		91A047AA184E3AD40003C271 /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Default.png; sourceTree = "<group>"; };
 		91A047AB184E3AD40003C271 /* Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default@2x.png"; sourceTree = "<group>"; };
+		91A047AC184E3AD40003C271 /* spotlight_6_1@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "spotlight_6_1@2x.png"; sourceTree = "<group>"; };
 		91A047AD184E3AD40003C271 /* spotlight.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = spotlight.png; sourceTree = "<group>"; };
 		91A047AE184E3AD40003C271 /* spotlight@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "spotlight@2x.png"; sourceTree = "<group>"; };
 		91A047BE184E3E3C0003C271 /* facebook.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = facebook.png; sourceTree = "<group>"; };
@@ -215,7 +213,6 @@
 				91E8E6AB176EF16D00F961A4 /* Model */,
 				91E8E6AE176EF1A400F961A4 /* View */,
 				91E8E6AD176EF18B00F961A4 /* Controller */,
-				912AE811184E651000277824 /* Images.xcassets */,
 				91D092E1176C68AE0095D10D /* Supporting Files */,
 			);
 			path = EPNet;
@@ -224,16 +221,16 @@
 		91D092E1176C68AE0095D10D /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				912AE80D184E64ED00277824 /* spotlight-58.png */,
-				912AE80E184E64ED00277824 /* icon-114.png */,
 				91A047BE184E3E3C0003C271 /* facebook.png */,
 				91A047BF184E3E3C0003C271 /* twitter.png */,
 				91A047C0184E3E3C0003C271 /* git.png */,
+				91A047A6184E3AD40003C271 /* app_6_1@2x.png */,
 				91A047A7184E3AD40003C271 /* app.png */,
 				91A047A8184E3AD40003C271 /* app@2x.png */,
 				91A047A9184E3AD40003C271 /* Default-568h@2x.png */,
 				91A047AA184E3AD40003C271 /* Default.png */,
 				91A047AB184E3AD40003C271 /* Default@2x.png */,
+				91A047AC184E3AD40003C271 /* spotlight_6_1@2x.png */,
 				91A047AD184E3AD40003C271 /* spotlight.png */,
 				91A047AE184E3AD40003C271 /* spotlight@2x.png */,
 				91B669D9184D2D5D00843B0C /* gmap.png */,
@@ -389,8 +386,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				912AE80F184E64ED00277824 /* spotlight-58.png in Resources */,
-				912AE812184E651000277824 /* Images.xcassets in Resources */,
 				91A047C2184E3E3C0003C271 /* twitter.png in Resources */,
 				91A047B4184E3AD40003C271 /* Default@2x.png in Resources */,
 				91E3B65D184C960700DF4F16 /* MyriadPro-Regular.otf in Resources */,
@@ -400,13 +395,14 @@
 				91A047C3184E3E3C0003C271 /* git.png in Resources */,
 				91A047B3184E3AD40003C271 /* Default.png in Resources */,
 				91A047B0184E3AD40003C271 /* app.png in Resources */,
-				912AE810184E64ED00277824 /* icon-114.png in Resources */,
 				91A047B2184E3AD40003C271 /* Default-568h@2x.png in Resources */,
 				91FC392C184CBCC5003B4884 /* logoA.png in Resources */,
 				91D092F4176C68AE0095D10D /* MainStoryboard.storyboard in Resources */,
 				91A047B6184E3AD40003C271 /* spotlight.png in Resources */,
 				9161B9D51772F0BE009B12C9 /* cover.png in Resources */,
+				91A047B5184E3AD40003C271 /* spotlight_6_1@2x.png in Resources */,
 				9161B9D71772F0BE009B12C9 /* btnTop.png in Resources */,
+				91A047AF184E3AD40003C271 /* app_6_1@2x.png in Resources */,
 				9161B9D81772F0BE009B12C9 /* logo.png in Resources */,
 				9161B9E0177316D1009B12C9 /* test.png in Resources */,
 				91A047C1184E3E3C0003C271 /* facebook.png in Resources */,
@@ -565,13 +561,12 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = C361108D1C274BF69D6F5DD2 /* Pods.xcconfig */;
 			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "EPNet/EPNet-Prefix.pch";
 				INFOPLIST_FILE = "EPNet/EPNet-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				WRAPPER_EXTENSION = app;
@@ -582,13 +577,12 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = C361108D1C274BF69D6F5DD2 /* Pods.xcconfig */;
 			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "EPNet/EPNet-Prefix.pch";
 				INFOPLIST_FILE = "EPNet/EPNet-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				WRAPPER_EXTENSION = app;

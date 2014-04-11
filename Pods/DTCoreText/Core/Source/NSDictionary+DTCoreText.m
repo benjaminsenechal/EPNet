@@ -167,8 +167,7 @@
 		// test if this a valid color, workaround for iOS 7 bug
 		size_t componentCount = CGColorGetNumberOfComponents(cgColor);
 		
-		if (componentCount)
-
+		if (componentCount>0 && componentCount<=4)
 		{
 			return [DTColor colorWithCGColor:cgColor];
 		}
@@ -219,6 +218,41 @@
 	NSNumber *kerningNum = [self objectForKey:(id)kCTKernAttributeName];
 	
 	return [kerningNum floatValue];
+}
+
+- (DTColor *)backgroundStrokeColor
+{
+	CGColorRef cgColor = (__bridge CGColorRef)[self objectForKey:DTBackgroundStrokeColorAttribute];
+	
+	if (cgColor)
+	{
+		return [DTColor colorWithCGColor:cgColor];
+	}
+	return nil;
+}
+
+- (CGFloat)backgroundStrokeWidth
+{
+	NSNumber *num = [self objectForKey:DTBackgroundStrokeWidthAttribute];
+	
+	if (num)
+	{
+		return [num floatValue];
+	}
+
+	return 0.0f;
+}
+
+- (CGFloat)backgroundCornerRadius
+{
+	NSNumber *num = [self objectForKey:DTBackgroundCornerRadiusAttribute];
+	
+	if (num)
+	{
+		return [num floatValue];
+	}
+	
+	return 0.0f;
 }
 
 @end

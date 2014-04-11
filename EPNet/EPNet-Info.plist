@@ -9,9 +9,19 @@
 	<key>CFBundleExecutable</key>
 	<string>${EXECUTABLE_NAME}</string>
 	<key>CFBundleIcons</key>
-	<dict/>
-	<key>CFBundleIcons~ipad</key>
-	<dict/>
+	<dict>
+		<key>CFBundlePrimaryIcon</key>
+		<dict>
+			<key>CFBundleIconFiles</key>
+			<array>
+				<string>spotlight_6_1</string>
+				<string>spotlight</string>
+				<string>app_6_1</string>
+				<string>app_6.1</string>
+				<string>app</string>
+			</array>
+		</dict>
+	</dict>
 	<key>CFBundleIdentifier</key>
 	<string>com.benjaminsenechal.epnet</string>
 	<key>CFBundleInfoDictionaryVersion</key>
